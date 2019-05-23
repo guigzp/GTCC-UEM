@@ -22,9 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/css/**",
                     "/img/**",
                     "/webjars/**").permitAll()
-				.antMatchers("**/sigem/usuarios**").hasAnyRole("ROLE_USUARIOS")
-				.antMatchers("**/sigem/produtos**").hasAnyRole("ROLE_PRODUTOS")
-				.antMatchers("**/sigem/perfilUsuarios**").hasAnyRole("ROLE_PERFIL")
+				.antMatchers("**/gtcc/usuarios**").hasAnyRole("ROLE_USUARIOS")
+				.antMatchers("**/gtcc/produtos**").hasAnyRole("ROLE_PRODUTOS")
+				.antMatchers("**/gtcc/perfilUsuarios**").hasAnyRole("ROLE_PERFIL")
 				.anyRequest() //para qualquer requisição
 				.authenticated()//usuário precisa estar autenticado
 				
@@ -32,14 +32,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				
 			.and()
 			.formLogin()
-				.loginPage("/sigem/login")
+				.loginPage("/gtcc/login")
 				.passwordParameter("senha")
 				.usernameParameter("nomeUsuario")
-				.defaultSuccessUrl("/sigem/home")
+				.defaultSuccessUrl("/gtcc/home")
 				.permitAll() //permita todos acessar a página de login
 			.and()
 			.logout()
-				.logoutSuccessUrl("/sigem/login?logout=true")// caso o usuário dê logout
+				.logoutSuccessUrl("/gtcc/login?logout=true")// caso o usuário dê logout
 				.permitAll()
 			.and()
 			.rememberMe()

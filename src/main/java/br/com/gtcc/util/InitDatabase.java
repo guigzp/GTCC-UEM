@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import br.com.gtcc.security.Conexao;
 
 /**
- * Classe reposnsável por inserir os valores padrões no banco de dados sigem
+ * Classe reposnsável por inserir os valores padrões no banco de dados gtcc
  * @author Alan
  *
  */

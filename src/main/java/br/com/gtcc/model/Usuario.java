@@ -32,64 +32,73 @@ public class Usuario {
 	@Column(nullable = false)
 	@NotBlank(message = "Nome é uma informação obrigatória")
 	private String nome;
+
 	@Column(nullable = false)
 	@NotBlank(message = "Nome do usuário é uma informação obrigatória")
 	private String nomeUsuario;
-	@Embedded
-	private Endereco endereco;
+
 	@Column(nullable = false)
 	@Email(message = "Entre com um email válido")
 	@NotBlank(message = "Email é uma informação obrigatória")
 	private String email;
+
 	@Column(nullable = false)
 	@NotBlank(message = "Senha é uma informação obrigatória")
 	private String senha;
+
 	@Column(nullable = false)
-	@NotBlank(message = "CPF é uma informação obrigatória")
-	@CPF
-	private String cpf;
-	@Column(nullable = false)
-	@NotBlank(message = "Cargo é uma informação obrigatória")
-	private String cargo;
-	@Column(nullable = false)
-	
-	@Convert(converter = AdapterLocalDate.class)
-	@DateTimeFormat(pattern="dd/MM/yyyy")
-	@NotNull(message = "Data Nascimento é uma informação obrigatória")
-	@Past(message="Data de nascimento inválida. Somente datas anteriores ao dia atual são permitidas.")
-	private LocalDate dataNascimento;
-	
+	@NotBlank(message = "Tipo de usuário é uma informação obrigatória")
+	private Boolean tipo;
+
+	@Column
+	private String telefone;
+
 	@Column(nullable = false, columnDefinition = "int(1) default 1")
 	private int ativo;
-	@OneToOne
-	@NotNull(message = "Perfil de usuário é uma informação obrigatória")
-	private PerfilUsuario perfilUsuario;
-	
+
+	//decidiremos no futuro
+
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "usuario_permissao",
             joinColumns =  @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
             inverseJoinColumns =  @JoinColumn(name = "permissao_id", referencedColumnName = "id"))
     private Set<Permissao> permissoes;
-	
-	
+
+    public Set<Permissao> getPermissoes() {
+        return permissoes;
+    }
+
+    public void setPermissoes(Set<Permissao> permissoes) {
+        this.permissoes = permissoes;
+    }
+
+
 	@Transient
 	private String confirmarEmail;
 	@Transient
 	private String confirmarSenha;
-	
-	public Usuario(){
-		
-	}
-	
-	public Usuario(String nome, String nomeUsuario, String email, String senha, Set<Permissao> permissoes) {
+
+	public Usuario(String nome, String nomeUsuario, String email, String senha, String telefone, Boolean tipo) {
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.nomeUsuario = nomeUsuario;
-		this.permissoes = permissoes;
+		this.telefone = telefone;
+		this.tipo = tipo;
 	}
-	
-	
+
+	public Boolean getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Boolean tipo) {
+		this.tipo = tipo;
+	}
+
+	public int getAtivo() {
+		return ativo;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -114,7 +123,15 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
 	public String getNomeUsuario() {
 		return nomeUsuario;
 	}
@@ -138,38 +155,6 @@ public class Usuario {
 	public void setConfirmarSenha(String confirmarSenha) {
 		this.confirmarSenha = confirmarSenha;
 	}
-	
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public PerfilUsuario getPerfilUsuario() {
-		return perfilUsuario;
-	}
-
-	public void setPerfilUsuario(PerfilUsuario perfilUsuario) {
-		this.perfilUsuario = perfilUsuario;
-	}
 
 	public int isAtivo() {
 		return ativo;
@@ -177,23 +162,6 @@ public class Usuario {
 
 	public void setAtivo(int ativo) {
 		this.ativo = ativo;
-	}
-	
-
-	public Set<Permissao> getPermissoes() {
-        return permissoes;
-    }
-
-    public void setPermissoes(Set<Permissao> permissoes) {
-        this.permissoes = permissoes;
-    }
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
 	}
 
 	@Override

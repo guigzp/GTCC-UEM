@@ -62,7 +62,7 @@
 						</div>
 					</div>
 					<hr/>
-					<form  th:object="${usuarioFilter}" th:action="@{/sigem/usuarios}" method="POST"
+					<form  th:object="${usuarioFilter}" th:action="@{/gtcc/usuarios}" method="POST"
 							class="form-default form-horizontal" >
 							<div class="form-group row justify-content-center ">
 								<label for="nome" class="col-sm-2 col-form-label   text-right">Nome</label>
@@ -133,7 +133,7 @@
 										class="btn btn-lg btn-success">Procurar</button>
 								</div>
 								<div class="col-sm-2 text-right">
-									<a class="btn btn-lg btn-success"  th:href="@{/sigem/usuarios/cadastrar}" 
+									<a class="btn btn-lg btn-success"  th:href="@{/gtcc/usuarios/cadastrar}"
 									>Adicionar</a>
 									
 								</div>
@@ -160,8 +160,8 @@
 						<td th:text="${usuario.dataNascimento}"></td>
 						<td>
 							<div class="btn-group pull-right">
-								<a class="btn btn-sm btn-warning" th:href="@{/sigem/usuarios/detalhes/{id}(id=${usuario.id})}" >Detalhes</a>
-                                <a th:if="${usuario.isAtivo() eq 1}" sec:authorize="hasRole('ROLE_USUARIOS_EDITAR')" class="btn btn-sm btn-primary" th:href="@{/sigem/usuarios/editar/{id}(id=${usuario.id})}" >Editar</a>
+								<a class="btn btn-sm btn-warning" th:href="@{/gtcc/usuarios/detalhes/{id}(id=${usuario.id})}" >Detalhes</a>
+                                <a th:if="${usuario.isAtivo() eq 1}" sec:authorize="hasRole('ROLE_USUARIOS_EDITAR')" class="btn btn-sm btn-primary" th:href="@{/gtcc/usuarios/editar/{id}(id=${usuario.id})}" >Editar</a>
                                 
                                 <button id="excluir" sec:authorize="hasRole('ROLE_USUARIOS_EXCLUIR')"
                                  th:if="${usuario.isAtivo() eq 1}"
@@ -216,7 +216,7 @@
 								    		 usuarioId = $(this).val();
 								    	});
 								    	$('#confirmacaoModal').on('show.bs.modal', function (e) {
-								            $(this).find('#excluirModal').attr('href', '/sigem/usuarios/remover/'+usuarioId);
+								            $(this).find('#excluirModal').attr('href', '/gtcc/usuarios/remover/'+usuarioId);
 								        });
 									};
 								/*]]>*/

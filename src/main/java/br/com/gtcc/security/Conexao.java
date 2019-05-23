@@ -18,7 +18,7 @@ public class Conexao {
 	
 private static Connection connection;
     
-    private static String dsn = "jdbc:mysql://localhost:3306/sigem?useSSL=false&zeroDateTimeBehavior=convertToNull";
+    private static String dsn = "jdbc:mysql://localhost:3306/gtcc?useSSL=false&zeroDateTimeBehavior=convertToNull";
     private static String username = "wbhum";
     private static String password = "wbhum";
     

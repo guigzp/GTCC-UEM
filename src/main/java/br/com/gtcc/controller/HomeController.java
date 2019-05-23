@@ -11,7 +11,7 @@ import br.com.gtcc.model.Usuario;
 import br.com.gtcc.security.GpUserDetails;
 
 @Controller
-@RequestMapping("/sigem/home")
+@RequestMapping("/gtcc/home")
 public class HomeController {
 
 	

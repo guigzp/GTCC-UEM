@@ -17,7 +17,7 @@
  	<link rel="stylesheet" type="text/css" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" >
  	
  	
-	<title>SIGEM</title>
+	<title>gtcc</title>
 
 </head>
 
@@ -34,24 +34,24 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link" th:href="@{/sigem/home}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" th:href="@{/gtcc/home}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li sec:authorize="hasAnyRole('ROLE_PRODUTOS_CONSULTAR', 'ROLE_PRODUTOS_CADASTRAR')" class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" th:href="@{/sigem/produtos}" id="navbarProdutos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" th:href="@{/gtcc/produtos}" id="navbarProdutos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Produtos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarProdutos">
-          <a sec:authorize="hasRole('ROLE_PRODUTOS_CONSULTAR')" class="dropdown-item" th:href="@{/sigem/produtos}">Consultar</a>
-          <a sec:authorize="hasRole('ROLE_PRODUTOS_CADASTRAR')" class="dropdown-item" th:href="@{/sigem/produtos/cadastrar}">Cadastrar</a>
+          <a sec:authorize="hasRole('ROLE_PRODUTOS_CONSULTAR')" class="dropdown-item" th:href="@{/gtcc/produtos}">Consultar</a>
+          <a sec:authorize="hasRole('ROLE_PRODUTOS_CADASTRAR')" class="dropdown-item" th:href="@{/gtcc/produtos/cadastrar}">Cadastrar</a>
         </div>
       </li>
       <li sec:authorize="hasRole('ROLE_ESTOQUE')" class="nav-item ">
-        <a class="nav-link" th:href="@{/sigem/estoque}" id="navbarRelatorio" role="button" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link" th:href="@{/gtcc/estoque}" id="navbarRelatorio" role="button" aria-haspopup="true" aria-expanded="false">
           Estoque
         </a>
       </li>
       <li sec:authorize="hasAnyRole('ROLE_RELATORIOS_ENTRADAPRODUTO', 'ROLE_RELATORIOS_HISTORICOPRECO', 'ROLE_RELATORIOS_ESTOQUEDISPONIVEL')" class="nav-item ">
-        <a class="nav-link" th:href="@{/sigem/relatorios}" id="navbarRelatorio" role="button" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link" th:href="@{/gtcc/relatorios}" id="navbarRelatorio" role="button" aria-haspopup="true" aria-expanded="false">
           Relatório
         </a>
       </li>
@@ -61,15 +61,15 @@
           Administração
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarAdmin">
-          <a sec:authorize="hasRole('ROLE_USUARIOS_CONSULTAR')" class="dropdown-item" th:href="@{/sigem/usuarios}">Consultar usuário</a>
-          <a sec:authorize="hasRole('ROLE_USUARIOS_CADASTRAR')" class="dropdown-item" th:href="@{/sigem/usuarios/cadastrar}">Cadastrar usuário</a>
-          <a sec:authorize="hasRole('ROLE_PERFIL_CONSULTAR')" class="dropdown-item" th:href="@{/sigem/perfilUsuarios}">Consultar perfil</a>
-          <a sec:authorize="hasRole('ROLE_PERFIL_CADASTRAR')" class="dropdown-item" th:href="@{/sigem/perfilUsuarios/cadastrar}">Cadastrar perfil</a>
-          <a  class="dropdown-item" th:href="@{/sigem/estoque}">Estoque e Gôndola</a>
+          <a sec:authorize="hasRole('ROLE_USUARIOS_CONSULTAR')" class="dropdown-item" th:href="@{/gtcc/usuarios}">Consultar usuário</a>
+          <a sec:authorize="hasRole('ROLE_USUARIOS_CADASTRAR')" class="dropdown-item" th:href="@{/gtcc/usuarios/cadastrar}">Cadastrar usuário</a>
+          <a sec:authorize="hasRole('ROLE_PERFIL_CONSULTAR')" class="dropdown-item" th:href="@{/gtcc/perfilUsuarios}">Consultar perfil</a>
+          <a sec:authorize="hasRole('ROLE_PERFIL_CADASTRAR')" class="dropdown-item" th:href="@{/gtcc/perfilUsuarios/cadastrar}">Cadastrar perfil</a>
+          <a  class="dropdown-item" th:href="@{/gtcc/estoque}">Estoque e Gôndola</a>
         </div>
       </li>
       <li>
-      	<form th:action="@{/sigem/login/logout}" method="post" class="navbar-form navbar-right">
+      	<form th:action="@{/gtcc/login/logout}" method="post" class="navbar-form navbar-right">
 		        		<button type="submit" class="btn btn-default">
 		        			<span class="glyphicon glyphicon-log-out"></span>
 		        			Sair

@@ -27,7 +27,7 @@ import br.com.gtcc.service.PerfilUsuarioService;
  */
 
 @Controller
-@RequestMapping("/sigem/perfilUsuarios")
+@RequestMapping("/gtcc/perfilUsuarios")
 public class PerfilUsuarioController {
 
 	@Autowired
@@ -61,7 +61,7 @@ public class PerfilUsuarioController {
         }
          
         perfilUsuarioService.adicionar(perfilUsuario);
-        return new ModelAndView("redirect:/sigem/perfilUsuarios").addObject("sucesso", true);
+        return new ModelAndView("redirect:/gtcc/login").addObject("sucesso", true);
     }
      
     @GetMapping("/editar/{id}")
@@ -85,7 +85,7 @@ public class PerfilUsuarioController {
         }
          
         perfilUsuarioService.atualizar(perfilUsuario);
-        return new ModelAndView("redirect:/sigem/perfilUsuarios").addObject("atualizado", true);
+        return new ModelAndView("redirect:/gtcc/perfilUsuarios").addObject("atualizado", true);
     }
      /**
       * Método utilizado para excluir um perfil de usuário
@@ -100,7 +100,7 @@ public class PerfilUsuarioController {
     		perfilUsuario.setAtivo(0);
     		perfilUsuarioService.atualizar(perfilUsuario);
     	}
-    	return new ModelAndView("redirect:/sigem/perfilUsuarios").addObject("removido", true);
+    	return new ModelAndView("redirect:/gtcc/perfilUsuarios").addObject("removido", true);
     }
  
     @PostMapping 

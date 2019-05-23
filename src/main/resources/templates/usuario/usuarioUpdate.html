@@ -16,7 +16,7 @@
 					</div>
 					<hr/>
 					<!-- MESSAGES -->
-					<form th:object="${usuario}" th:action="@{/sigem/usuarios/editar/{id}(id=${usuario.id})}" method="POST"
+					<form th:object="${usuario}" th:action="@{/gtcc/usuarios/editar/{id}(id=${usuario.id})}" method="POST"
 						class="form-default form-horizontal" >
 						<div class="form-group row justify-content-center ">
 							<label for="id" class="col-sm-2 col-form-label   text-right">ID</label>
@@ -197,7 +197,7 @@
 								<button type="submit" class="btn btn-lg btn-success">Atualizar</button>
 							</div>
 							<div class=" col-sm-2">
-								<a id="alert" class="btn btn-lg btn-primary" th:href="@{/sigem/usuarios}" >
+								<a id="alert" class="btn btn-lg btn-primary" th:href="@{/gtcc/usuarios}" >
 									Cancelar </a>
 							</div>
 						</div>
