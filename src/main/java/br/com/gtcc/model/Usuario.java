@@ -47,7 +47,7 @@ public class Usuario {
 	private String senha;
 
 	@Column(nullable = false)
-	@NotBlank(message = "Tipo de usuário é uma informação obrigatória")
+	@NotNull(message = "Tipo de usuário é uma informação obrigatória")
 	private Boolean tipo;
 
 	@Column
@@ -74,9 +74,11 @@ public class Usuario {
 
 
 	@Transient
-	private String confirmarEmail;
-	@Transient
 	private String confirmarSenha;
+	
+	public Usuario() {
+		
+	}
 
 	public Usuario(String nome, String nomeUsuario, String email, String senha, String telefone, Boolean tipo) {
 		this.nome = nome;
@@ -140,13 +142,6 @@ public class Usuario {
 		this.nomeUsuario = nomeUsuario;
 	}
 
-	public String getConfirmarEmail() {
-		return confirmarEmail;
-	}
-
-	public void setConfirmarEmail(String confirmarEmail) {
-		this.confirmarEmail = confirmarEmail;
-	}
 
 	public String getConfirmarSenha() {
 		return confirmarSenha;
