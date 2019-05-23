@@ -25,6 +25,8 @@ import br.com.gtcc.repository.filter.UsuarioFilter;
 import br.com.gtcc.service.PerfilUsuarioService;
 import br.com.gtcc.service.PermissaoService;
 import br.com.gtcc.service.UsuarioService;
+import br.com.gtcc.repository.UsuarioRepository;
+
 
 
 /**
@@ -66,13 +68,17 @@ public class UsuarioController {
 
     @PostMapping("/cadastrar")
     public ModelAndView save(@Valid Usuario usuario, BindingResult result) {
-
         if (!(usuario.getSenha() == null && usuario.getConfirmarSenha() == null ||
                 usuario.getSenha() != null && usuario.getSenha().equals(usuario.getConfirmarSenha()))) {
             result.addError(new FieldError("usuario", "confirmarSenha", "As senhas digitadas não correspondem"));
         }
-        System.out.println(usuario);
-
+        if (this.usuarioService.buscarPorEmail(usuario.getEmail()) != null) {
+        	result.addError(new FieldError("usuario", "email", "Email já cadastrado"));
+        }
+        
+        if(this.usuarioService.buscarPorUsername(usuario.getNomeUsuario()) != null) {
+        	result.addError(new FieldError("usuario", "nomeUsuario", "Nome de Usuário já cadastrado"));
+        }
 
         if (result.hasErrors()) {
             return add(usuario);
@@ -109,10 +115,6 @@ public class UsuarioController {
         if (!(usuario.getSenha() == null && usuario.getConfirmarSenha() == null ||
                 usuario.getSenha() != null && usuario.getSenha().equals(usuario.getConfirmarSenha()))) {
             result.addError(new FieldError("usuario", "confirmarSenha", "As senhas digitadas não correspondem"));
-        }
-        if (!(usuario.getEmail() == null && usuario.getConfirmarEmail() == null ||
-                usuario.getEmail() != null && usuario.getEmail().equals(usuario.getConfirmarEmail()))) {
-            result.addError(new FieldError("usuario", "confirmarEmail", "Os emails digitados não correspondem"));
         }
 
 

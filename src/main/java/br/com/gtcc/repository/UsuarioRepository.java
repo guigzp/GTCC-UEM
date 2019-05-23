@@ -30,6 +30,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>, Usuario
 	 */
 	public List<Usuario> findByEmail(String email);
 	
+	public List<Usuario> findByNomeUsuario(String nome_usuario);
 	
 	public List<Usuario> findByAtivo(int ativo);
 	
