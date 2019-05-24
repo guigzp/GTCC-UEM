@@ -66,6 +66,15 @@ public class UsuarioController {
         return mv;
     }
 
+    @PostMapping("/validaEmail/{email}")
+    public void validaEmail(@PathVariable ("email") String email, BindingResult result){
+        System.out.println(email);
+        System.out.println("webaasa");
+        if (usuarioService.buscarPorEmail(email) != null) {
+            result.addError(new FieldError("usuario", "email", "Email já cadastrado"));
+        }
+    }
+
     @PostMapping("/cadastrar")
     public ModelAndView save(@Valid Usuario usuario, BindingResult result) {
         if (!(usuario.getSenha() == null && usuario.getConfirmarSenha() == null ||
