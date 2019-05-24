@@ -1,243 +1,165 @@
 <!DOCTYPE html>
 <html lang="pt"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout}" >
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
 </head>
 <body>
-	<section layout:fragment="content">
-		<div id="wrap" class="container">
-			<div id="main">
-				<div class="jumbotron">
-					<div class="row justify-content-center">
-						<h3>Cadastrar Usuario</h3>
-						<div th:if="${#lists.isEmpty(perfisUsuario)}" class="alert alert-danger" role="alert">
-						  O cadastramento do usuário só é permitido com um Perfil de usuário existente. Por favor, 
-						  cadastre um Perfil de usuário para continuar.
-						</div>
-					</div>
-					<hr/>
-					<!-- MESSAGES -->
-					<form th:object="${usuario}" th:action="@{/sigem/usuarios/cadastrar}" method="POST"
-						class="form-default form-horizontal" >
-						<div class="form-group row justify-content-center " >
-							<label for="nome" class="col-sm-2 col-form-label   text-right">ID</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="id"
-									id="id" class="form-control"
-									th:field="*{id}" 
-									readOnly="readonly"
-									/>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="nome" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Nome</label>
-							<div class="controls col-sm-4">
-								<input type="text" name="nome"
-									id="nome" class="form-control"
-									th:field="*{nome}" autofocus="autofocus"
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="nomeUsuario" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Nome de Usuário</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="nomeUsuario"
-									id="nomeUsuario" class="form-control"
-									th:field="*{nomeUsuario}" 
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('nomeUsuario')}" th:errors="*{nomeUsuario}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="cpf" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>CPF</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="cpf"
-									id="cpf" class="form-control cpf"
-									th:field="*{cpf}" 
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="rua" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Rua</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="rua"
-									id="rua" class="form-control "
-									th:field="*{endereco.rua}" 
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('endereco.rua')}" th:errors="*{endereco.rua}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="numero" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Número</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="numero"
-									id="numero" class="form-control "
-									th:field="*{endereco.numero}" 
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('endereco.numero')}" th:errors="*{endereco.numero}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="complemento" class="col-sm-2 col-form-label   text-right">Complemento</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="complemento"
-									id="complemento" class="form-control "
-									th:field="*{endereco.complemento}" 
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('endereco.complemento')}" th:errors="*{endereco.complemento}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="bairro" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Bairro</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="bairro"
-									id="bairro" class="form-control "
-									th:field="*{endereco.bairro}" 
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('endereco.bairro')}" th:errors="*{endereco.bairro}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="cidade" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Cidade</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="cidade"
-									id="cidade" class="form-control "
-									th:field="*{endereco.cidade}" 
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('endereco.cidade')}" th:errors="*{endereco.cidade}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="cep" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>CEP</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="cep"
-									id="cep" class="form-control "
-									th:field="*{endereco.CEP}" 
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('endereco.CEP')}" th:errors="*{endereco.CEP}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="cargo" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Cargo</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="cargo"
-									id="cargo" class="form-control"
-									th:field="*{cargo}"
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center " >
-							<label for="dataNascimento" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Data de Nascimento</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="dataNascimento"
-									id="dataNascimento" class="form-control date"
-									th:field="*{dataNascimento}" 
-									placeholder="14/10/1996"
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center ">
-							<label for="email" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>E-mail</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="email"
-									th:field="*{email}"
-									id="email" class="form-control "
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center ">
-							<label for="confirmarEmail" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Confirmar E-mail</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="text" name="confirmarEmail"
-									th:field="*{confirmarEmail}"
-									id="confirmarEmail" class="form-control "
-									/>
-								<div style="color: red;" th:if="${#fields.hasErrors('confirmarEmail')}" th:errors="*{confirmarEmail}" ></div>
-							</div>
-							
-						</div>
-						<div class="form-group row justify-content-center ">
-							<label for="senha" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Senha</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="password" name="senha"
-									th:field="*{senha}"
-									id="senha" class="form-control "
-									/>
-									<div style="color: red;" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" ></div>
-									<span id="result"></span>
-							</div>
-							
-						</div>
-		                <div class="form-group row justify-content-center ">
-							<label for="confirmarSenha" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Confirmar senha</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<input type="password" name="confirmarSenha"
-									id="confirmarSenha" class="form-control"
-									th:field="*{confirmarSenha}" 
-									/>
-								<div style="color: red;" th:if="${#fields.hasErrors('confirmarSenha')}" th:errors="*{confirmarSenha}" ></div>
-							</div>
-						</div> 
-						<div class="form-group row justify-content-center ">
-							<label for="perfilUsuario" class="col-sm-2 col-form-label   text-right"><span style="color: red;">*</span>Perfil de usuário</label>
-							<div class="controls col-sm-4 col-sm-4">
-								<select name="perfilUsuario" class="form-control " data-type="select2"
-									required="required" oninvalid="this.setCustomValidity('Por favor, cadastre um perfil antes')">
-									<option th:each="perfil : ${perfisUsuario}"
-						                th:value="${perfil.id}"
-						                th:text="${perfil.nome}" />									
-								</select>
-								<div style="color: red;" th:if="${#fields.hasErrors('perfilUsuario')}" th:errors="*{perfilUsuario}" ></div>
-							</div>
-						</div>                        
-						<hr />
-						<div class="form-group row justify-content-center ">
-							<div class="col-sm-2 text-right">
-								<button id="btn_salvar" type="button" class="btn btn-lg btn-success" data-toggle="modal" data-target="#confirmacaoModal">
-									Salvar
-								</button>
-							</div>
-							<div class=" col-sm-2">
-								<a id="alert" class="btn btn-lg btn-primary" th:href="@{/sigem/usuarios}" >
-									Cancelar </a>
-							</div>
-						</div>
-						
-						<!--  MODAL -->
-						<div class="modal fade" id="confirmacaoModal" tabindex="-1" role="dialog" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="confirmacaoModalLabel">Cadastro de usuário</h5>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
-						        </button>
-						      </div>
-						      <div class="modal-body">
-						        Tem certeza disso?
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						        <button type="submit" class="btn btn-primary">Confirmar</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-						
-				</form>
-				</div>
-				</div>
-			<div id="push"></div>
-		</div>
-	</section>
-	
+<section layout:fragment="content">
+    <div id="wrap" class="container">
+        <div id="main">
+            <div class="jumbotron">
+                <div class="row justify-content-center">
+                    <h3>Cadastro de Usuario</h3>
+                </div>
+                <hr/>
+                <!-- MESSAGES -->
+                <form th:object="${usuario}" th:action="@{/gtcc/usuarios/cadastrar}" method="POST" autocomplete="off"
+                      class="form-default form-horizontal" name="form">
+
+
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-xl-5">
+                            <input type="text" name="nome" required
+                                   id="nome" class="form-control"
+                                   th:field="*{nome}" autofocus="autofocus" placeholder="Usuário *" aria-label="Usuário"
+                                   aria-describedby="basic-addon1">
+                            <div style="color: red;" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-xl-5">
+                            <input type="text" name="nomeUsuario" autocomplete="off"
+                                   id="nomeUsuario" class="form-control" required
+                                   th:field="*{nomeUsuario}" autofocus="autofocus" placeholder="Nome de Usuário *"
+                                   aria-label="Nome de Usuário" aria-describedby="basic-addon1">
+                            <div style="color: red;" th:if="${#fields.hasErrors('nomeUsuario')}"
+                                 th:errors="*{nomeUsuario}"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-xl-5">
+                            <input type="text" name="telefone"
+                                   id="telefone" class="form-control" pattern="\([0-9]{2}\)[\s][0-9]{4}-[0-9]{4,5}"
+                                   th:field="*{telefone}" autofocus="autofocus" placeholder="Telefone"
+                                   aria-label="Telefone" aria-describedby="basic-addon1">
+                            <div style="color: red;" th:if="${#fields.hasErrors('telefone')}"
+                                 th:errors="*{telefone}"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-xl-5">
+                            <input type="email" name="email" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                                   id="email" class="form-control" required
+                                   th:field="*{email}" autofocus="autofocus" placeholder="E-mail *" aria-label="E-mail"
+                                   aria-describedby="basic-addon1" onblur="validaEmail()">
+                            <script type="text/javascript">
+                                function validaEmail() {
+                                    var email = document.getElementById('email').value;
+                                    console.log(email);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/validaEmail/"+email
+                                        });
+                                    }
+                            </script>
+                            <div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        </div>
+                    </div>
+                    
+					
+
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-xl-5">
+                            <input type="password" name="senha" autocomplete="off"
+                                   id="senha" class="form-control" required
+                                   th:field="*{senha}" autofocus="autofocus" placeholder="Senha *" aria-label="Senha"
+                                   aria-describedby="basic-addon1">
+                            <div style="color: red;" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row justify-content-center">
+                        <div class="input-group col-xl-5">
+                            <input type="password" name="confirmarSenha" autocomplete="off"
+                                   id="confirmarSenha" class="form-control" required
+                                   th:field="*{confirmarSenha}" autofocus="autofocus" placeholder="Confirmar senha *"
+                                   aria-label="Confirmar senha" aria-describedby="basic-addon1">
+                            <div style="color: red;" th:if="${#fields.hasErrors('confirmarSenha')}"
+                                 th:errors="*{confirmarSenha}"></div>
+                        </div>
+                    </div>
+
+
+                    <label>Tipo de Usuário *</label>
+
+
+                    <div class="form-check justify-content-center">
+                        <input class="form-check-input" th:field="*{tipo}" type="radio" name="tipo" id="aluno" value="1" checked="true">
+                        <label class="form-check-label" for="aluno">
+                            Aluno
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" th:field="*{tipo}" type="radio" name="tipo" id="professor" value="0">
+                        <label class="form-check-label" for="professor">
+                            Professor
+                        </label>
+                    </div>
+
+                    <label>* Esses campos são obrigatórios</label>
+
+                    <hr/>
+                    <div class="form-group row justify-content-center ">
+                        <div class=" col-sm-2">
+                            <a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/login}">
+                                Voltar </a>
+                        </div>
+                        <div class="col-sm-2 text-right">
+                            <button id="btn_salvar" type="button" class="btn btn-lg btn-success" data-toggle="modal"
+                                    data-target="#confirmacaoModal" th:disabled="${#fields.hasAnyErrors()}">
+                                Confirmar
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!--  MODAL -->
+                    <div class="modal fade" id="confirmacaoModal" tabindex="-1" role="dialog"
+                         aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmacaoModalLabel">Cadastro de usuário</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Tem certeza disso?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-success">Confirmar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+</section>
+
 </body>
 </html>

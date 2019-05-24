@@ -11,12 +11,12 @@
 			<div id="main">
 				<div class="jumbotron">
 					<div class="row justify-content-center">
-					<h3>Cadastrar Perfil
+					<h3>Cadastro de
 						Usuário</h3></div>
 					<hr />
 					<!-- MESSAGES -->
 					<form th:object="${perfilUsuario}"
-						th:action="@{/sigem/perfilUsuarios/cadastrar}" method="POST"
+						th:action="@{/gtcc/perfilUsuarios/cadastrar}" method="POST"
 						class="form-default form-horizontal">
 						<div class="form-group row justify-content-center ">
 							<label for="id" class="col-sm-2 col-form-label   text-right">ID</label>
@@ -158,7 +158,7 @@
 							</div>
 							<div class=" col-sm-2">
 								<a id="alert" class="btn btn-lg btn-primary"
-									th:href="@{/sigem/perfilUsuarios}"> Cancelar </a>
+									th:href="@{/gtcc/perfilUsuarios}"> Cancelar </a>
 							</div>
 						</div>
 						

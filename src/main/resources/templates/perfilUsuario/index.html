@@ -85,7 +85,7 @@
 						<h3 >Procurar Perfil Usuário</h3>
 					</div>
 					<hr/>
-					<form  th:object="${perfilUsuarioFilter}" th:action="@{/sigem/perfilUsuarios}" method="POST"
+					<form  th:object="${perfilUsuarioFilter}" th:action="@{/gtcc/perfilUsuarios}" method="POST"
 							class="form-default form-horizontal" >
 							<div class="form-group row justify-content-center ">
 								<label for="nome" class="col-sm-2 col-form-label   text-right">Nome</label>
@@ -103,7 +103,7 @@
 										class="btn btn-lg btn-success">Procurar</button>
 								</div>
 								<div class="col-sm-2 text-right">
-									<a class="btn btn-lg btn-success"  th:href="@{/sigem/perfilUsuarios/cadastrar}" 
+									<a class="btn btn-lg btn-success"  th:href="@{/gtcc/perfilUsuarios/cadastrar}"
 									>Adicionar</a>
 									
 								</div>
@@ -127,8 +127,8 @@
 						<td th:text="${perfil.nome}"></td>
 						<td>
 							<div class="btn-group pull-right">
-                                <a sec:authorize="hasRole('ROLE_PERFIL_EDITAR')" class="btn btn-sm btn-primary" th:href="@{/sigem/perfilUsuarios/editar/{id}(id=${perfil.id})}" >Editar</a>
-                                <a sec:authorize="hasRole('ROLE_PERFIL_EXCLUIR')" class="delete btn btn-sm btn-danger" th:href="@{/sigem/perfilUsuarios/remover/{id}(id=${perfil.id})}">Excluir</a>
+                                <a sec:authorize="hasRole('ROLE_PERFIL_EDITAR')" class="btn btn-sm btn-primary" th:href="@{/gtcc/perfilUsuarios/editar/{id}(id=${perfil.id})}" >Editar</a>
+                                <a sec:authorize="hasRole('ROLE_PERFIL_EXCLUIR')" class="delete btn btn-sm btn-danger" th:href="@{/gtcc/perfilUsuarios/remover/{id}(id=${perfil.id})}">Excluir</a>
                            </div>
                         </td>
                     </tr> 

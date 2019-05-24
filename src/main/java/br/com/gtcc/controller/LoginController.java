@@ -14,7 +14,7 @@ import br.com.gtcc.model.Usuario;
  *
  */
 @Controller
-@RequestMapping("/sigem/login")
+@RequestMapping("/gtcc/login")
 public class LoginController {
 
 	@GetMapping
@@ -26,12 +26,12 @@ public class LoginController {
 	
 	@PostMapping
 	public ModelAndView validar(Usuario usuario) {
-		return new ModelAndView("redirect:/sigem/usuarios");
+		return new ModelAndView("redirect:/gtcc/usuarios");
 	}
 	
 	@PostMapping("/logout")
 	public ModelAndView logout() {
-		return new ModelAndView("redirect:/sigem/login");
+		return new ModelAndView("redirect:/gtcc/login");
 	}
 	
 	/**

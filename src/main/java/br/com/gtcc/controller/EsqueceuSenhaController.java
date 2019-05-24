@@ -55,13 +55,13 @@ public class EsqueceuSenhaController {
                                             HttpServletRequest request) {
 
         if (result.hasErrors()){
-            return new ModelAndView("redirect:/sigem/login").addObject("erro", true);
+            return new ModelAndView("redirect:/gtcc/login").addObject("erro", true);
         }
 
         Usuario usuario = usuarioService.buscarPorEmail(form.getEmail());
         if (usuario == null){
             result.rejectValue("email", null, "We could not find an account for that e-mail address.");
-            return new ModelAndView("redirect:/sigem/login").addObject("erro", true);
+            return new ModelAndView("redirect:/gtcc/login").addObject("erro", true);
         }
 
         TokenResetarSenha token = new TokenResetarSenha();
@@ -71,7 +71,7 @@ public class EsqueceuSenhaController {
         tokenRepository.save(token);
 
         Email mail = new Email();
-        mail.setRemetente("no-reply@msigemuem.com");
+        mail.setRemetente("no-reply@mgtccuem.com");
         mail.setDestinatario(usuario.getEmail());
         mail.setAssunto("Password reset request");
 
@@ -84,7 +84,7 @@ public class EsqueceuSenhaController {
         mail.setModelo(model);
         emailService.sendEmail(mail);
 
-        return new ModelAndView("redirect:/sigem/login").addObject("sucesso", true);
+        return new ModelAndView("redirect:/gtcc/login").addObject("sucesso", true);
 
     }
 }
