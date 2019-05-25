@@ -1,34 +1,28 @@
 package br.com.gtcc.model;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import br.com.gtcc.util.AdapterLocalDate;
 /**
  * 
  * @author Alan Lopes
- * Classe entidade 
+ * Usuario 
  * 
  * 
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idUsuario;
 	
 	@Column(nullable = false)
 	@NotBlank(message = "Nome é uma informação obrigatória")
@@ -58,23 +52,6 @@ public class Usuario {
 	@Column(nullable = false, columnDefinition = "int(1) default 1")
 	private int ativo;
 
-	//decidiremos no futuro
-
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinTable(name = "usuario_permissao",
-            joinColumns =  @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
-            inverseJoinColumns =  @JoinColumn(name = "permissao_id", referencedColumnName = "id"))
-    private Set<Permissao> permissoes;
-
-    public Set<Permissao> getPermissoes() {
-        return permissoes;
-    }
-
-    public void setPermissoes(Set<Permissao> permissoes) {
-        this.permissoes = permissoes;
-    }
-
-
 	@Transient
 	private String confirmarSenha;
 	
@@ -103,12 +80,14 @@ public class Usuario {
 		return ativo;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -165,9 +144,10 @@ public class Usuario {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((idUsuario == null) ? 0 : idUsuario.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -177,15 +157,13 @@ public class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (idUsuario == null) {
+			if (other.idUsuario != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!idUsuario.equals(other.idUsuario))
 			return false;
 		return true;
 	}
-	
-	
 	
 	
 }
