@@ -19,13 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.gtcc.model.Permissao;
 import br.com.gtcc.model.Usuario;
 import br.com.gtcc.repository.filter.UsuarioFilter;
-import br.com.gtcc.service.PerfilUsuarioService;
-import br.com.gtcc.service.PermissaoService;
 import br.com.gtcc.service.UsuarioService;
-import br.com.gtcc.repository.UsuarioRepository;
 
 
 
@@ -40,10 +36,6 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-    @Autowired
-    private PerfilUsuarioService perfilUsuarioService;
-    @Autowired
-    private PermissaoService permissaoService;
 
 
     @GetMapping
@@ -62,7 +54,6 @@ public class UsuarioController {
     public ModelAndView add(Usuario usuario) {
         ModelAndView mv = new ModelAndView("usuario/usuarioCreate");
         mv.addObject("usuario", usuario);
-        mv.addObject("perfisUsuario", perfilUsuarioService.listarTodosAtivos());
         return mv;
     }
 
@@ -105,7 +96,6 @@ public class UsuarioController {
 
         ModelAndView mv = new ModelAndView("usuario/usuarioUpdate");
         mv.addObject("usuario", usuarioService.buscarPorId(id));
-        mv.addObject("perfisUsuario", perfilUsuarioService.listarTodosAtivos());
 
         return mv;
     }
@@ -130,7 +120,6 @@ public class UsuarioController {
         if (result.hasErrors()) {
             ModelAndView mv = new ModelAndView("usuario/usuarioUpdate");
             mv.addObject("usuario", usuario);
-            mv.addObject("perfisUsuario", perfilUsuarioService.listarTodosAtivos());
             return mv;
         }
         usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
