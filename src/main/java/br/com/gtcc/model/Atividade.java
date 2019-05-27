@@ -14,8 +14,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.gtcc.util.AdapterLocalDate;
 
+
+/**
+ * 
+ * @author Grupo 03 - Ana Cláudia, Ana Paula, Rafael de Souza, Viviane Shiraishi
+ *
+ */
+
 @Entity
-public class Cronograma {
+public class Atividade {
 	
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +34,7 @@ public class Cronograma {
     
     @Column(nullable = false)
     @NotNull(message = "Descrição é uma informação obrigatória")
-    private String atividade;
+    private String descricao;
     
     @Column(nullable = true)
     private String tamanho;
@@ -43,14 +50,14 @@ public class Cronograma {
     @NotNull(message = "Data final de entrega é uma informação obrigatória")
     private LocalDate dataFinalEntrega;
 
-	public Cronograma(Long id, @NotNull(message = "Fase é uma informação obrigatória") int fase,
-			@NotNull(message = "Descrição é uma informação obrigatória") String atividade, String tamanho,
+	public Atividade(Long id, @NotNull(message = "Fase é uma informação obrigatória") int fase,
+			@NotNull(message = "Descrição é uma informação obrigatória") String descricao, String tamanho,
 			LocalDate dataInicioEntrega,
 			@NotNull(message = "Data final de entrega é uma informação obrigatória") LocalDate dataFinalEntrega) {
 		super();
 		this.id = id;
 		this.fase = fase;
-		this.atividade = atividade;
+		this.descricao = descricao;
 		this.tamanho = tamanho;
 		this.dataInicioEntrega = dataInicioEntrega;
 		this.dataFinalEntrega = dataFinalEntrega;
@@ -72,12 +79,12 @@ public class Cronograma {
 		this.fase = fase;
 	}
 
-	public String getAtividade() {
-		return atividade;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setAtividade(String atividade) {
-		this.atividade = atividade;
+	public void setDescricao(String atividade) {
+		this.descricao = atividade;
 	}
 
 	public String getTamanho() {
@@ -121,7 +128,7 @@ public class Cronograma {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cronograma other = (Cronograma) obj;
+		Atividade other = (Atividade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
