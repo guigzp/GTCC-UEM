@@ -32,8 +32,8 @@ public class FichaIdentificacao {
 	private String areaConcentracao;
 	
 	@Column(nullable = false)
-	@NotNull(message = "Ano é uma informação obrigadtória")
-	private int ano;
+	@NotNull(message = "Ano é uma informação obrigatória")
+	private Integer ano;
 	
 	//aluno_id(fk)
 	//orientador_id(fk)
@@ -42,7 +42,7 @@ public class FichaIdentificacao {
 	public FichaIdentificacao(
 			@NotBlank(message = "Titulo do trabalho é uma informação obrigatória") String tituloTrabalho,
 			@NotBlank(message = "Area de concentração é uma informação obrigatória") String areaConcentracao,
-			@NotNull(message = "Ano é uma informação obrigadtória") int ano) {
+			@NotNull(message = "Ano é uma informação obrigadtória") Integer ano) {
 		super();
 		this.tituloTrabalho = tituloTrabalho;
 		this.areaConcentracao = areaConcentracao;
@@ -77,7 +77,7 @@ public class FichaIdentificacao {
 		return ano;
 	}
 
-	public void setAno(int ano) {
+	public void setAno(Integer ano) {
 		this.ano = ano;
 	}
 
