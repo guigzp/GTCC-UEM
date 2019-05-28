@@ -10,7 +10,7 @@ import br.com.gtcc.repository.AtividadeRepository;
 
 /**
  * 
- * @author Grupo 03 - Ana Cláudia, Ana Paula, Rafael de Souza, Viviane Shiraishi
+ * @author Grupo 03 - Ana Claudia, Ana Paula, Rafael de Souza, Viviane Shiraishi
  *
  */
 
@@ -27,5 +27,8 @@ public class AtividadeService {
 	public List<Atividade> listarTodos() {
         return atividadeRepository.findAll();
     }
-
+	
+	public Atividade findOne(Long id) {
+		return atividadeRepository.findById(id).orElse(null);
+	}
 }
