@@ -27,7 +27,7 @@
 }
 
 .calendario h2 {
-    margin: 2em auto 1em;
+    margin: 2em auto 3em;
     text-align: center;
     text-transform: uppercase;
 }
@@ -51,7 +51,7 @@
     display: flex;
     justify-content: space-around;
     border: 1px solid #ccc;
-    background-color: #fff;
+    background-color: #bebebe !important;
     border-radius: 7.5px;
 }
 
@@ -74,54 +74,41 @@
 .conteudo {
     height: 50px;
 }    
-    </style>
+
+</style>
 
 <body>
     <section layout:fragment="content">
-     <div id="wrap" class="container">
-    <div class="calendario container">
-        <h2>Cronograma de Atividades</h2>
-        <div class="tabela row">
-            <div class="fase col-lg-1">
-                <h6>Fase</h6>
-                <div class="conteudo">
-                    <p>1</p>
-                </div>
-                <div class="conteudo">
-                    <p>1</p>
-                </div>
-            </div>
-            <div class="ativ col-lg-6">
-                <h6>Atividades</h6>
-                <div class="conteudo">
-                    <p>Entrega da Proposta de Projeto de TCC (1º bim)</p>
-                </div>
-                <div class="conteudo">
-                    <p>Entrega da Proposta de Projeto de TCC (1º bim)</p>
-                </div>
-            </div>
-            <div class="tam col-lg-3">
-                <h6>Tamanho (*)</h6>
-                <div class="conteudo">
-                    <p>12 páginas</p>
-                </div>
-                <div class="conteudo">
-                    <p>12 páginas</p>
-                </div>
-            </div>
-            <div class="entrega">
-                <h6>Data Entrega</h6>
-                <div class="conteudo">
-                    <p>29/03/2019</p>
-                </div>
-                <div class="conteudo">
-                    <p>29/03/2019</p>
-                </div>
-            </div>
+    <div id="wrap" class="container">
+    	<div class="calendario container">
+        	<h2 style='margin-bottom:1.5em;'>Cronograma de Atividades </h2>
+        	
+        	<table id="tabela_atividades" class="table table-hover table-striped table-bordered table-click">
+			
+				<thead>
+					<tr>
+						<th class="">Fase</th>
+						<th class="">Atividade</th>
+						<th class="">Tamanho</th>
+						<th class="">Data de Entrega</th>
+					</tr>
+				</thead>
+			
+				<tbody>
+				
+					<tr th:if="${not #lists.isEmpty(atividades)}" th:each="atividade : ${atividades}">
+						<td th:text="${atividade.fase}"></td>
+						<td th:text="${atividade.descricao}"></td>
+						<td th:text="${atividade.tamanho}"></td>
+						<td th:text="${atividade.dataFinalEntrega}"></td>
+					</tr>
+			
+				</tbody>
+				<tfoot>	</tfoot>
+			</table>
 
-        </div>
-    </div>
-    </div>
+            </div>
+       </div>
 </section>
 </body>
 

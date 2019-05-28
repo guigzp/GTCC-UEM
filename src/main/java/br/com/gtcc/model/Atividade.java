@@ -24,6 +24,10 @@ import br.com.gtcc.util.AdapterLocalDate;
 @Entity
 public class Atividade {
 	
+	public Atividade() {
+		
+	}
+	
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
