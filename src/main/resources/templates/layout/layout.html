@@ -33,18 +33,18 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li sec:authorize="hasAnyRole('ROLE_USUARIOS_CONSULTAR', 'ROLE_USUARIOS_CADASTRAR', 'ROLE_PERFIL_CONSULTAR', 'ROLE_PERFIL_CADASTRAR')"
+                    <li 
                         class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Declarações
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarAdmin">
-                            <a sec:authorize="hasRole('ROLE_USUARIOS_CONSULTAR')" class="dropdown-item" >Cadastrar</a>
-                            <a sec:authorize="hasRole('ROLE_USUARIOS_CADASTRAR')" class="dropdown-item">Consultar</a>
+                            <a  class="dropdown-item" >Cadastrar</a>
+                            <a  class="dropdown-item">Consultar</a>
                         </div>
                     </li>
 
-                    <li sec:authorize="hasAnyRole('ROLE_USUARIOS_CONSULTAR', 'ROLE_USUARIOS_CADASTRAR', 'ROLE_PERFIL_CONSULTAR', 'ROLE_PERFIL_CADASTRAR')"
+                    <li 
                         class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Cronograma
@@ -52,6 +52,15 @@
                         <div class="dropdown-menu" aria-labelledby="navbarAdmin">
                             <a class="dropdown-item" th:href="@{/gtcc/atividade/cronograma}">Consultar</a>
                         </div>
+                    </li>
+                    <li 
+                        class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Aluno
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                            <a class="dropdown-item" >Consultar</a>
+                        </div> 
                     </li>
                     <li>
                         <form th:action="@{/gtcc/login/logout}" method="post" class="navbar-form navbar-right">
