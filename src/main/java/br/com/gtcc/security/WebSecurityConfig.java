@@ -25,11 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("**/gtcc/usuarios**").hasAnyRole("ROLE_USUARIOS")
 				.antMatchers("**/gtcc/produtos**").hasAnyRole("ROLE_PRODUTOS")
 				.antMatchers("**/gtcc/perfilUsuarios**").hasAnyRole("ROLE_PERFIL")
-				.anyRequest() //para qualquer requisição
-				.authenticated()//usuário precisa estar autenticado
-				
+
 				//.antMatchers("**/perfisUsuario").hasAnyRole("ROLE_REL_CUSTOS")
-				
+
 			.and()
 			.formLogin()
 				.loginPage("/gtcc/login")

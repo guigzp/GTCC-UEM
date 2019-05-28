@@ -46,7 +46,6 @@ public class Usuario {
 	private Boolean tipo;
 
 	@Column
-	@Length(min = 14,max = 15, message = "Informe um telefone válido")
 	private String telefone;
 
 	@Column(nullable = false, columnDefinition = "int(1) default 1")

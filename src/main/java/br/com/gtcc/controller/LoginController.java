@@ -39,6 +39,7 @@ public class LoginController {
 	 * @param usuario - usuário que deseja recuperar sua senha
 	 * @return mv - retorna um ModelAndView, isto é, uma interface (tela)
 	 */
+
 	@GetMapping("/recuperarSenha")
 	public ModelAndView recuperarSenha(Usuario usuario) {
 		ModelAndView mv = new ModelAndView("login/recuperarSenha");

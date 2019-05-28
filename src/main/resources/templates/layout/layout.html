@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" >
 
 
-        <title>gtcc</title>
+        <title>Gtcc</title>
 
     </head>
 
@@ -41,6 +41,16 @@
                         <div class="dropdown-menu" aria-labelledby="navbarAdmin">
                             <a sec:authorize="hasRole('ROLE_USUARIOS_CONSULTAR')" class="dropdown-item" >Cadastrar</a>
                             <a sec:authorize="hasRole('ROLE_USUARIOS_CADASTRAR')" class="dropdown-item">Consultar</a>
+                        </div>
+                    </li>
+
+                    <li sec:authorize="hasAnyRole('ROLE_USUARIOS_CONSULTAR', 'ROLE_USUARIOS_CADASTRAR', 'ROLE_PERFIL_CONSULTAR', 'ROLE_PERFIL_CADASTRAR')"
+                        class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cronograma
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                            <a class="dropdown-item" th:href="@{/gtcc/atividade/cronograma}">Consultar</a>
                         </div>
                     </li>
                     <li>
