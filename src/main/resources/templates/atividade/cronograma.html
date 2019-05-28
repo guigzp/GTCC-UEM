@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GTCC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
+        rel="stylesheet">
+        
+	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+</head>
+
+<style>
+
+    body {
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 16px;
+    background-color: #E5E9F2;
+}
+
+.calendario h2 {
+    margin: 2em auto 1em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.calendario table {
+    width: 900px;
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 1em;
+    background-color: #fff;
+}
+
+.calendario table .temas {
+    /border: 1px solid #000 !important;/
+    text-transform: uppercase;
+    padding-bottom: 1em;
+}
+
+.tabela {
+    margin: 3em auto 1em;
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 7.5px;
+}
+
+.tabela h6 {
+    font-size: 1.15em;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding: 0 0 1em 0;
+    margin: 1em 0;
+    text-transform: uppercase;
+}
+
+.fase, .ativ, .tam, .entrega { width: 100%;}
+
+.tabela p {
+    text-align: center;
+    align-items: center;
+}
+
+.conteudo {
+    height: 50px;
+}    
+    </style>
+
+<body>
+    <section layout:fragment="content">
+     <div id="wrap" class="container">
+    <div class="calendario container">
+        <h2>Cronograma de Atividades</h2>
+        <div class="tabela row">
+            <div class="fase col-lg-1">
+                <h6>Fase</h6>
+                <div class="conteudo">
+                    <p>1</p>
+                </div>
+                <div class="conteudo">
+                    <p>1</p>
+                </div>
+            </div>
+            <div class="ativ col-lg-6">
+                <h6>Atividades</h6>
+                <div class="conteudo">
+                    <p>Entrega da Proposta de Projeto de TCC (1º bim)</p>
+                </div>
+                <div class="conteudo">
+                    <p>Entrega da Proposta de Projeto de TCC (1º bim)</p>
+                </div>
+            </div>
+            <div class="tam col-lg-3">
+                <h6>Tamanho (*)</h6>
+                <div class="conteudo">
+                    <p>12 páginas</p>
+                </div>
+                <div class="conteudo">
+                    <p>12 páginas</p>
+                </div>
+            </div>
+            <div class="entrega">
+                <h6>Data Entrega</h6>
+                <div class="conteudo">
+                    <p>29/03/2019</p>
+                </div>
+                <div class="conteudo">
+                    <p>29/03/2019</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</section>
+</body>
+
+</html>
