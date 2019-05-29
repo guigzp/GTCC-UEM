@@ -75,7 +75,7 @@ public class UsuarioController {
         if (this.usuarioService.buscarPorEmail(usuario.getEmail()) != null) {
         	result.addError(new FieldError("usuario", "email", "Email já cadastrado"));
         }
-        
+
         if(this.usuarioService.buscarPorUsername(usuario.getNomeUsuario()) != null) {
         	result.addError(new FieldError("usuario", "nomeUsuario", "Nome de Usuário já cadastrado"));
         }

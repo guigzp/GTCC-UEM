@@ -56,14 +56,14 @@ public class UsuarioService {
 	 * @return
 	 */
 	public Usuario buscarPorUsername(String userName) {
-		
+
 		List<Usuario> usuarios = 	usuarioRepository.findByNomeUsuario(userName);
 		if(!usuarios.isEmpty())
 			return usuarios.get(0);
 		else
 			return null;
 }
-	
+
 	/**
 	 * Buscar o usuário de acordo com o id digitado
 	 * @param id
