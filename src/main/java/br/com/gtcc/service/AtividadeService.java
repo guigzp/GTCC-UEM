@@ -21,14 +21,24 @@ public class AtividadeService {
 	private AtividadeRepository atividadeRepository;
 	
 	/**
-	 * Responsável por retornar todos as atividades do banco de dados
+	 * Responsável por retornar todos as atividades do banco de dados.
 	 * @return
 	 */
 	public List<Atividade> listarTodos() {
         return atividadeRepository.findAll();
     }
 	
-	public Atividade findOne(Long id) {
-		return atividadeRepository.findById(id).orElse(null);
-	}
+	/**
+	 * Função para buscar atividades de acordo com o ano.
+	 * @param ano
+	 * @return
+	 */
+	public List<Atividade> buscarPorAno(int ano) {
+		
+		List<Atividade> atividades = atividadeRepository.findByAno(ano);
+		if(!atividades.isEmpty())
+			return atividades;
+		else
+			return null;
+}
 }

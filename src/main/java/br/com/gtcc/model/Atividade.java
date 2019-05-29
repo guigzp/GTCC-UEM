@@ -53,11 +53,17 @@ public class Atividade {
     @Column(nullable = false)
     @NotNull(message = "Data final de entrega é uma informação obrigatória")
     private LocalDate dataFinalEntrega;
+    
+    @Column(nullable = true)
+    @NotNull(message = "Ano é uma informação obrigatória")
+    private int ano;
+
 
 	public Atividade(Long id, @NotNull(message = "Fase é uma informação obrigatória") int fase,
 			@NotNull(message = "Descrição é uma informação obrigatória") String descricao, String tamanho,
 			LocalDate dataInicioEntrega,
-			@NotNull(message = "Data final de entrega é uma informação obrigatória") LocalDate dataFinalEntrega) {
+			@NotNull(message = "Data final de entrega é uma informação obrigatória") LocalDate dataFinalEntrega,
+			@NotNull(message = "Ano é uma informação obrigatória") int ano) {
 		super();
 		this.id = id;
 		this.fase = fase;
@@ -65,6 +71,7 @@ public class Atividade {
 		this.tamanho = tamanho;
 		this.dataInicioEntrega = dataInicioEntrega;
 		this.dataFinalEntrega = dataFinalEntrega;
+		this.ano = ano;
 	}
 
 	public Long getId() {
@@ -115,7 +122,14 @@ public class Atividade {
 		this.dataFinalEntrega = dataFinalEntrega;
 	}
     
-    
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
