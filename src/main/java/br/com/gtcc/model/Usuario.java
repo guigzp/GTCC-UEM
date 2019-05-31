@@ -1,21 +1,9 @@
 package br.com.gtcc.model;
 
-
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Length;
-
-/**
- * 
- * @author Alan Lopes
- * Usuario 
- * 
- * 
- */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario {
@@ -41,10 +29,6 @@ public class Usuario {
 	@NotBlank(message = "Senha é uma informação obrigatória")
 	private String senha;
 
-	@Column(nullable = false)
-	@NotNull(message = "Tipo de usuário é uma informação obrigatória")
-	private Boolean tipo;
-
 	@Column
 	private String telefone;
 
@@ -58,21 +42,12 @@ public class Usuario {
 		
 	}
 
-	public Usuario(String nome, String nomeUsuario, String email, String senha, String telefone, Boolean tipo) {
+	public Usuario(String nome, String nomeUsuario, String email, String senha, String telefone) {
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.nomeUsuario = nomeUsuario;
 		this.telefone = telefone;
-		this.tipo = tipo;
-	}
-
-	public Boolean getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(Boolean tipo) {
-		this.tipo = tipo;
 	}
 
 	public int getAtivo() {

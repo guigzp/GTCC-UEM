@@ -73,18 +73,7 @@
                             <input type="text" name="email"
                                    id="email" class="form-control"
                                    th:field="*{email}" autofocus="autofocus" placeholder="E-mail *" aria-label="E-mail"
-                                   aria-describedby="basic-addon1" onblur="validaEmail()">
-                            <script type="text/javascript">
-                                function validaEmail() {
-                                    var email = document.getElementById('email').value;
-                                    console.log(email);
-                                        $.ajax({
-                                            type: "POST",
-                                            headers: {"X-CSRF-TOKEN": token},
-                                            url: "/validaEmail/"+email
-                                        });
-                                    }
-                            </script>
+                                   aria-describedby="basic-addon1">
                         </div>
                     </div>
 
@@ -123,36 +112,6 @@
                         <div class="input-group col-xl-5">
                             <div style="color: red;" th:if="${#fields.hasErrors('confirmarSenha')}"
                                  th:errors="*{confirmarSenha}"></div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
-                            <label>Tipo de Usuário </label>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row justify-content-center col-xl-10">
-                        <div class="form-check form-check-inline ">
-                            <input class="form-check-input" th:field="*{tipo}" type="radio" name="tipo" id="aluno" value="1">
-                            <label class="form-check-label" for="aluno">
-                                Aluno
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" th:field="*{tipo}" type="radio" name="tipo" id="professor" value="0">
-                            <label class="form-check-label" for="professor">
-                                Professor
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
-                            <div style="color: red;" th:if="${#fields.hasErrors('tipo')}"
-                                 th:errors="*{tipo}"></div>
                         </div>
                     </div>
 
