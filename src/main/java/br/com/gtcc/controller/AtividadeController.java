@@ -14,10 +14,14 @@ public class AtividadeController {
 	@Autowired
 	private AtividadeService atividadeService;
 	
+	/**
+	 * Função para buscar as atividades dado o ano no cronograma
+	 * @return
+	 */
 	@GetMapping("/cronograma")
-	public ModelAndView findAll(){
+	public ModelAndView findByAno(){
 		 ModelAndView mv = new ModelAndView("atividade/cronograma");
-	     mv.addObject("atividades", atividadeService.listarTodos());
+	     mv.addObject("atividades", atividadeService.buscarPorAno(2019));
 	     return mv;
 	}
 	
