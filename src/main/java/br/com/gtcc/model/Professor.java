@@ -19,7 +19,7 @@ public class Professor extends Usuario{
 	@Column(nullable = false )
 	private Boolean coordenador;
 	
-	
+	public Professor() {}
 
 	public Professor(Integer matricula, Boolean coordenador) {
 		super();
