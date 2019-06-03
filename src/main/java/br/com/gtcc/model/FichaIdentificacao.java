@@ -35,6 +35,8 @@ public class FichaIdentificacao {
 	@NotNull(message = "Ano é uma informação obrigatória")
 	private Integer ano;
 	
+	@Column(nullable = false)
+	private Aluno aluno;
 	//aluno_id(fk)
 	//orientador_id(fk)
 	

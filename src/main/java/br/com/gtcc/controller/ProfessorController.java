@@ -34,15 +34,6 @@ public class ProfessorController {
         	result.addError(new FieldError("professor", "email", "Email já cadastrado"));
         }
                 
-                if(professor.getOrientador() == null) {
-                	if(professor.getAvaliador() == null) {
-                		if(professor.getCoordenador() == null) {
-                			if(professor.getCoordenador_do_curso() == null) {
-                            	result.addError(new FieldError("coordenador_do_curso", "coordenador_do_curso", "Tipo é uma informação obrigatória"));
-                			}
-                		}
-                	}
-                } 
 
         if (result.hasErrors()) {
             return add(professor);

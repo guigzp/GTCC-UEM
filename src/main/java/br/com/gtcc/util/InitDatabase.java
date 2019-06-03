@@ -74,7 +74,6 @@ public class InitDatabase implements ApplicationListener<ContextRefreshedEvent> 
 			aluno.setAtivo(1);
 			aluno.setSenha(dados[0]);
 			aluno.setNomeUsuario("user"+dados[0]);
-			aluno.setTipo(true); //rever a lógica utilizada para o tipo
 			aluno.setTelefone("4002-8922");
 			
 			repository.save(aluno);
