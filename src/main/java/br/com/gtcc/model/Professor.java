@@ -1,5 +1,4 @@
 package br.com.gtcc.model;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -68,8 +67,4 @@ public class Professor extends Usuario{
 			return false;
 		return true;
 	}
-	
-	
-	
-
 }

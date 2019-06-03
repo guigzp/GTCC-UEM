@@ -9,12 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.gtcc.model.Usuario;
 import br.com.gtcc.repository.UsuarioRepository;
-import br.com.gtcc.repository.filter.UsuarioFilter;
-/**
- * 
- * @author Alan Lopes
- *
- */
+
 @Service
 public class UsuarioService {
 	
@@ -84,23 +79,6 @@ public class UsuarioService {
     
     public Usuario atualizar(@Valid Usuario usuario) {
         return usuarioRepository.saveAndFlush(usuario);
-    }
-    
-     
-    /**
-     * Responsável por remover um usuário
-     * @param id
-     */
-    public void remover(Long id) {
-    	Usuario usuario = buscarPorId(id);
-    	usuario.setAtivo(0);
-    	usuarioRepository.saveAndFlush(usuario);
-    }
-    
-    
-    public List<Usuario> filtrar(UsuarioFilter usuarioFilter){
-    	return usuarioRepository.filtrar(usuarioFilter);
-    }
-  
+    }     
 	
 }
