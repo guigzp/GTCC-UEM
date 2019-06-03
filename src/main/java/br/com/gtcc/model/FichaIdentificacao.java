@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -35,10 +36,17 @@ public class FichaIdentificacao {
 	@NotNull(message = "Ano é uma informação obrigatória")
 	private Integer ano;
 	
-	@Column(nullable = false)
+	@OneToOne
 	private Aluno aluno;
-	//aluno_id(fk)
-	//orientador_id(fk)
+
+	@OneToOne
+	private Professor orientador;
+	
+	@OneToOne
+	private Professor avaliador1;
+	
+	@OneToOne
+	private Professor avaliador2;
 	
 
 	public FichaIdentificacao(
@@ -73,6 +81,39 @@ public class FichaIdentificacao {
 
 	public void setAreaConcentracao(String areaConcentracao) {
 		this.areaConcentracao = areaConcentracao;
+	}
+	
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
+	public Professor getOrientador() {
+		return orientador;
+	}
+
+	public void setOrientador(Professor orientador) {
+		this.orientador = orientador;
+	}
+
+	public Professor getAvaliador1() {
+		return avaliador1;
+	}
+
+	public void setAvaliador1(Professor avaliador1) {
+		this.avaliador1 = avaliador1;
+	}
+
+	public Professor getAvaliador2() {
+		return avaliador2;
+	}
+
+	public void setAvaliador2(Professor avaliador2) {
+		this.avaliador2 = avaliador2;
 	}
 
 	public int getAno() {

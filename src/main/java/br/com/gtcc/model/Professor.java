@@ -10,7 +10,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
  *
  */
 @Entity
-@PrimaryKeyJoinColumn(name="idProfessor")
+@PrimaryKeyJoinColumn(name="idUsuario")
 public class Professor extends Usuario{
 	
 	@Column(nullable = false)
