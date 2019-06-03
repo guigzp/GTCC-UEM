@@ -22,30 +22,30 @@ public class CriterioAvaliacao {
 	
 	@Column(nullable = false)
 	@NotNull(message = "A quantidade de avaliações uma informação obrigadtória")
-	private int quantidadeAvaliacao;
+	private Integer quantidadeAvaliacao;
 	
 	@Column(nullable = false)
 	@NotNull(message = "A quantidade de notas é uma informação obrigadtória")
-	private int quantidadeNotas;
+	private String quantidadeNotas;
 	
 	@Column(nullable = false)
 	@NotNull(message = "Peso uma informação obrigadtória")
-	private double pesoPorNota;
+	private String pesoPorNota;
 	
 	@Column(nullable = true)
-	private double mediaFinal;
+	private Double mediaFinal;
 	
 	@Column(nullable = false)
 	@NotNull(message = "Ano uma informação obrigadtória")
-	private int ano;
+	private Integer ano;
 	
 	
 
 	public CriterioAvaliacao(
-			@NotNull(message = "A quantidade de avaliações uma informação obrigadtória") int quantidadeAvaliacao,
-			@NotNull(message = "A quantidade de notas é uma informação obrigadtória") int quantidadeNotas,
-			@NotNull(message = "Peso uma informação obrigadtória") double pesoPorNota, double mediaFinal,
-			@NotNull(message = "Ano uma informação obrigadtória") int ano) {
+			@NotNull(message = "A quantidade de avaliações uma informação obrigatória") Integer quantidadeAvaliacao,
+			@NotNull(message = "A quantidade de notas é uma informação obrigatória") String quantidadeNotas,
+			@NotNull(message = "Peso uma informação obrigatória") String pesoPorNota, Double mediaFinal,
+			@NotNull(message = "Ano uma informação obrigatória") Integer ano) {
 		super();
 		this.quantidadeAvaliacao = quantidadeAvaliacao;
 		this.quantidadeNotas = quantidadeNotas;
@@ -62,43 +62,43 @@ public class CriterioAvaliacao {
 		this.id = id;
 	}
 
-	public int getQuantidadeAvaliacao() {
+	public Integer getQuantidadeAvaliacao() {
 		return quantidadeAvaliacao;
 	}
 
-	public void setQuantidadeAvaliacao(int quantidadeAvaliacao) {
+	public void setQuantidadeAvaliacao(Integer quantidadeAvaliacao) {
 		this.quantidadeAvaliacao = quantidadeAvaliacao;
 	}
 
-	public int getQuantidadeNotas() {
+	public String getQuantidadeNotas() {
 		return quantidadeNotas;
 	}
 
-	public void setQuantidadeNotas(int quantidadeNotas) {
+	public void setQuantidadeNotas(String quantidadeNotas) {
 		this.quantidadeNotas = quantidadeNotas;
 	}
 
-	public double getPesoPorNota() {
+	public String getPesoPorNota() {
 		return pesoPorNota;
 	}
 
-	public void setPesoPorNota(double pesoPorNota) {
+	public void setPesoPorNota(String pesoPorNota) {
 		this.pesoPorNota = pesoPorNota;
 	}
 
-	public double getMediaFinal() {
+	public Double getMediaFinal() {
 		return mediaFinal;
 	}
 
-	public void setMediaFinal(double mediaFinal) {
+	public void setMediaFinal(Double mediaFinal) {
 		this.mediaFinal = mediaFinal;
 	}
 
-	public int getAno() {
+	public Integer getAno() {
 		return ano;
 	}
 
-	public void setAno(int ano) {
+	public void setAno(Integer ano) {
 		this.ano = ano;
 	}
 
