@@ -1,1 +1,8 @@
 .push { margin:0; padding:0; height:50px; }
+
+/* LOGIN */
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100vw;
+}
