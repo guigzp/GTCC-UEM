@@ -15,7 +15,7 @@ public class MapaNotasController {
     @GetMapping
     public ModelAndView findAll() {
         ModelAndView mv = new ModelAndView("mapanotas/index");
-
+        
         return mv;
     }
 
