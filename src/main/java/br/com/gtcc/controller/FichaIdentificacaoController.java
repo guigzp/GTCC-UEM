@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,10 +39,9 @@ public class FichaIdentificacaoController {
 	}
 
 	@PostMapping("/cadastrar")
-	public ModelAndView save(@Valid FichaIdentificacao ficha, BindingResult result) {
+	public ModelAndView save(@Valid @ModelAttribute("ficha") FichaIdentificacao ficha, BindingResult result) {
 
-		if (result.hasErrors()) {
-			System.out.println("Tem erro!");
+		if (result.hasErrors()) {			
 			return add(ficha);
 		}
 
