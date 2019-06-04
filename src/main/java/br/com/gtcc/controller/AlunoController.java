@@ -31,7 +31,7 @@ public class AlunoController {
 
     @GetMapping
     public ModelAndView findAll(@RequestParam("alunoFilter") Optional<UsuarioFilter> alunoFilter) {
-        ModelAndView mv = new ModelAndView("usuario/index");
+        ModelAndView mv = new ModelAndView("aluno/index");
 
         mv.addObject("alunoFilter", alunoFilter);
 
