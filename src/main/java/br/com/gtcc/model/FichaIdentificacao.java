@@ -37,15 +37,19 @@ public class FichaIdentificacao {
 	private Integer ano;
 	
 	@OneToOne
+	@NotNull(message = "Aluno é uma informação obrigatória")
 	private Aluno aluno;
 
 	@OneToOne
+	@NotNull(message = "Orientador é uma informação obrigatória")
 	private Professor orientador;
 	
 	@OneToOne
+	@NotNull(message = "1° Avaliador é uma informação obrigatória")
 	private Professor avaliador1;
 	
 	@OneToOne
+	@NotNull(message = "2° Avaliador é uma informação obrigatória")
 	private Professor avaliador2;
 	
 	public FichaIdentificacao() {}
