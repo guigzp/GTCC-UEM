@@ -17,11 +17,13 @@
         <link rel="stylesheet" type="text/css" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" >
 
 
-        <title>GTCC</title>
+        <title>Gtcc</title>
 
     </head>
 
     <body>
+    <div class="main-container">
+    <div class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
                 <!--   	<img th:src="@{/images/estoque-Verde.png}" -->
@@ -33,7 +35,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                        class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarAdmin" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Declarações
                         </a>
@@ -81,7 +83,22 @@
                             <a class="dropdown-item" >Consultar</a>
                         </div> 
                     </li>
-                    <li>
+                    <li 
+                        class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Ficha de Identificação
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                            <a class="dropdown-item" th:href="@{/gtcc/fichaidentificacao/cadastrar}" >Cadastrar</a>
+                        </div> 
+                    </li>
+                    <li 
+                        class="nav-item">
+                        <a class="nav-link" th:href="@{/gtcc/mapanotas}"  role="button" >
+                            Mapa de Notas
+                        </a>
+                    </li>
+                    <li class="sair-nav">
                         <form th:action="@{/gtcc/login/logout}" method="post" class="navbar-form navbar-right">
                             <button type="submit" class="btn btn-default">
                                 <span class="glyphicon glyphicon-log-out"></span>
@@ -93,18 +110,18 @@
                 </ul>
             </div>
         </nav>
-        <div>
-            <div class="push"></div>
-            <section layout:fragment="content">
-                Conteudo!
-            </section>
-            <div class="push"></div>
-            <footer class="page-footer font-small" style="background-color:#e9ecef!important;">
-                <!-- Copyright -->
-                <div class="footer-copyright text-center py-3">© 2018 Copyright:
-                    <a href="#"> Sistema de Gerenciamento de Trabalhos de Conclusão de Curso</a>
-                </div>
-            </footer>
+        </div>
+        <div class="push"></div>
+         <section  layout:fragment="content">
+             Conteudo!
+         </section>
+         <div class="push"></div>
+         <footer class="footer page-footer font-small" style="background-color:#e9ecef!important;">
+             <!-- Copyright -->
+             <div class="footer-copyright text-center py-3">© 2018 Copyright:
+                 <a href="#"> Sistema de Gerenciamento de Trabalhos de Conclusão de Curso</a>
+             </div>
+         </footer>
         </div>
 
 

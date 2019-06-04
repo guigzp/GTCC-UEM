@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -35,14 +36,28 @@ public class FichaIdentificacao {
 	@NotNull(message = "Ano é uma informação obrigatória")
 	private Integer ano;
 	
-	//aluno_id(fk)
-	//orientador_id(fk)
+	@OneToOne
+	@NotNull(message = "Aluno é uma informação obrigatória")
+	private Aluno aluno;
+
+	@OneToOne
+	@NotNull(message = "Orientador é uma informação obrigatória")
+	private Professor orientador;
 	
+	@OneToOne
+	@NotNull(message = "1° Avaliador é uma informação obrigatória")
+	private Professor avaliador1;
+	
+	@OneToOne
+	@NotNull(message = "2° Avaliador é uma informação obrigatória")
+	private Professor avaliador2;
+	
+	public FichaIdentificacao() {}
 
 	public FichaIdentificacao(
 			@NotBlank(message = "Titulo do trabalho é uma informação obrigatória") String tituloTrabalho,
 			@NotBlank(message = "Area de concentração é uma informação obrigatória") String areaConcentracao,
-			@NotNull(message = "Ano é uma informação obrigadtória") Integer ano) {
+			@NotNull(message = "Ano é uma informação obrigatória") Integer ano) {
 		super();
 		this.tituloTrabalho = tituloTrabalho;
 		this.areaConcentracao = areaConcentracao;
@@ -72,8 +87,41 @@ public class FichaIdentificacao {
 	public void setAreaConcentracao(String areaConcentracao) {
 		this.areaConcentracao = areaConcentracao;
 	}
+	
 
-	public int getAno() {
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
+	public Professor getOrientador() {
+		return orientador;
+	}
+
+	public void setOrientador(Professor orientador) {
+		this.orientador = orientador;
+	}
+
+	public Professor getAvaliador1() {
+		return avaliador1;
+	}
+
+	public void setAvaliador1(Professor avaliador1) {
+		this.avaliador1 = avaliador1;
+	}
+
+	public Professor getAvaliador2() {
+		return avaliador2;
+	}
+
+	public void setAvaliador2(Professor avaliador2) {
+		this.avaliador2 = avaliador2;
+	}
+
+	public Integer getAno() {
 		return ano;
 	}
 
