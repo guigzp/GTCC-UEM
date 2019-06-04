@@ -48,11 +48,12 @@ public class FichaIdentificacao {
 	@OneToOne
 	private Professor avaliador2;
 	
+	public FichaIdentificacao() {}
 
 	public FichaIdentificacao(
 			@NotBlank(message = "Titulo do trabalho é uma informação obrigatória") String tituloTrabalho,
 			@NotBlank(message = "Area de concentração é uma informação obrigatória") String areaConcentracao,
-			@NotNull(message = "Ano é uma informação obrigadtória") Integer ano) {
+			@NotNull(message = "Ano é uma informação obrigatória") Integer ano) {
 		super();
 		this.tituloTrabalho = tituloTrabalho;
 		this.areaConcentracao = areaConcentracao;
