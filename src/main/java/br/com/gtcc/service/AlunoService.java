@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gtcc.model.Aluno;
+import br.com.gtcc.model.Usuario;
 import br.com.gtcc.repository.AlunoRepository;
 
 @Service
@@ -21,9 +22,31 @@ public class AlunoService {
 		return alunoRepository.findAll();
 	}
 	
+	public List<Aluno> listarTodosAtivos()
+	{
+		return alunoRepository.findByAtivo(1);
+	}
+	
+	public Aluno buscarPorUsername(String userName)
+	{
+		List<Aluno> alunos = alunoRepository.findByNomeUsuario(userName);
+		if(!alunos.isEmpty())
+			return alunos.get(0);
+		else
+			return null;
+	}
+	
+	public Aluno buscarPorId(Long id) {
+	        return alunoRepository.findById(id).orElse(null);
+	}
+	
 	public Aluno adicionar(@Valid Aluno aluno) {
-        return alunoRepository.saveAndFlush(aluno);
-    }
+	    return alunoRepository.saveAndFlush(aluno);
+	}
+	
+	public Aluno atualizar(@Valid Aluno aluno) {
+	    return alunoRepository.saveAndFlush(aluno);
+	}
 	
 	public Aluno buscarPorEmail(String email) {
 		

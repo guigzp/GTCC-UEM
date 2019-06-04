@@ -34,6 +34,9 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 	
 	public List<Aluno> findByAtivo(int ativo);
 	
+	public List<Aluno> findByNomeUsuario(String nome_usuariicho);
+
+	
 	@Query("SELECT COUNT(aluno) FROM Aluno aluno")
     public Long countRows();
 	
