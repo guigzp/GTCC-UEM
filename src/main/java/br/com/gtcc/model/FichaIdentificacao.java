@@ -117,7 +117,7 @@ public class FichaIdentificacao {
 		this.avaliador2 = avaliador2;
 	}
 
-	public int getAno() {
+	public Integer getAno() {
 		return ano;
 	}
 
