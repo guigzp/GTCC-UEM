@@ -16,32 +16,93 @@ public class Professor extends Usuario{
 	@Column(nullable = false)
 	private Integer matricula;
 
-	@Column(nullable = false )
+	@Column
 	private Boolean coordenador;
+
+	@Column
+	private Boolean orientador;
+
+	@Column
+	private Boolean avaliador;
+
+	@Column
+	private Boolean coordenador_do_curso;
 	
 	public Professor() {}
 
-	public Professor(Integer matricula, Boolean coordenador) {
+	
+	
+	public Professor(Integer matricula, Boolean coordenador, Boolean orientador, Boolean avaliador,
+			Boolean coordenador_do_curso) {
 		super();
 		this.matricula = matricula;
 		this.coordenador = coordenador;
+		this.orientador = orientador;
+		this.avaliador = avaliador;
+		this.coordenador_do_curso = coordenador_do_curso;
 	}
+
+
 
 	public Integer getMatricula() {
 		return matricula;
 	}
 
+
+
 	public void setMatricula(Integer matricula) {
 		this.matricula = matricula;
 	}
+
+
 
 	public Boolean getCoordenador() {
 		return coordenador;
 	}
 
+
+
 	public void setCoordenador(Boolean coordenador) {
 		this.coordenador = coordenador;
 	}
+
+
+
+	public Boolean getOrientador() {
+		return orientador;
+	}
+
+
+
+	public void setOrientador(Boolean orientador) {
+		this.orientador = orientador;
+	}
+
+
+
+	public Boolean getAvaliador() {
+		return avaliador;
+	}
+
+
+
+	public void setAvaliador(Boolean avaliador) {
+		this.avaliador = avaliador;
+	}
+
+
+
+	public Boolean getCoordenador_do_curso() {
+		return coordenador_do_curso;
+	}
+
+
+
+	public void setCoordenador_do_curso(Boolean coordenador_do_curso) {
+		this.coordenador_do_curso = coordenador_do_curso;
+	}
+
+
 
 	@Override
 	public int hashCode() {
