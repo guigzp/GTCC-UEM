@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.gtcc.model.Aluno;
 import br.com.gtcc.model.FichaIdentificacao;
 import br.com.gtcc.model.Professor;
+import br.com.gtcc.service.AlunoService;
 import br.com.gtcc.service.FichaIdentificacaoService;
 import br.com.gtcc.service.ProfessorService;
 
@@ -26,15 +28,19 @@ public class FichaIdentificacaoController {
 	private FichaIdentificacaoService fichaService;
 	@Autowired
 	private ProfessorService professorService;
+	@Autowired
+	private AlunoService alunoService;
 
 	@GetMapping("/cadastrar")
 	public ModelAndView add(FichaIdentificacao ficha) {
 		
 		List<Professor> professores = this.professorService.buscarTodos();
+		List<Aluno> alunos = this.alunoService.buscarTodos();
 		
 		ModelAndView mv = new ModelAndView("fichaIdentificacao/fichaCreate");
 		mv.addObject("ficha", ficha);
 		mv.addObject("professores", professores);
+		mv.addObject("alunos", alunos);
 		return mv;
 	}
 
