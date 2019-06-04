@@ -41,6 +41,7 @@ public class FichaIdentificacaoController {
 	public ModelAndView save(@Valid FichaIdentificacao ficha, BindingResult result) {
 
 		if (result.hasErrors()) {
+			System.out.println("Tem erro!");
 			return add(ficha);
 		}
 
