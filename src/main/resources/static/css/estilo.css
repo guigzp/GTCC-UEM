@@ -22,8 +22,8 @@ html, body{
 	top:0px;
 	width: 100%;
 }
-.aluno-nav{
-	padding-right: 40px;
+.sair-nav{
+	padding-left: 40px;
 }
 .footer {
 	position: absolute;
