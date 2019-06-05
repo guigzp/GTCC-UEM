@@ -12,6 +12,21 @@
     <div id="wrap" class="container">
         <div id="main">
             <div class="jumbotron">
+            	
+            	<div th:if="${param.sucesso}">
+						<script th:inline="javascript">
+							/*<![CDATA[*/
+								var flag = [[${param.sucesso}]]; 
+							    window.onload = function() {
+							        if(flag){
+							  			alertify.success('Aluno Cadastrado com sucesso!');
+							        }
+								};
+							/*]]>*/
+						</script>
+					</div>
+            
+            
                 <div class="row justify-content-center">
                     <h3>Cadastro de Aluno</h3>
                 </div>
@@ -111,6 +126,21 @@
 								<div style="color: red"
 									th:if="${#fields.hasErrors('senha')}"
 									th:errors="*{senha}"></div>
+							</div>
+				     </div>
+				     <div class="row justify-content-center">
+		                 <div class="field-wrapper col-8">
+						  <input type="password" name="confirmarSenha"
+	                                   id="confirmarSenha" class="form-control"
+	                                   th:field="*{confirmarSenha}" autofocus="autofocus" >
+						  <div class="field-placeholder"><span>Confirmar Senha*</span></div>
+						</div>
+					</div>
+					<div class="form-group row justify-content-center">
+							<div class="input-group col-8">
+								<div style="color: red"
+									th:if="${#fields.hasErrors('confirmarSenha')}"
+									th:errors="*{confirmarSenha}"></div>
 							</div>
 				     </div>
                     <hr/>
