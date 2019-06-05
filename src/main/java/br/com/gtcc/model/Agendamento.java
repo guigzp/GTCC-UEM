@@ -18,7 +18,7 @@ import br.com.gtcc.util.AdapterLocalDate;
 
 /**
  * 
- * @author Grupo 03 - Ana Cláudia, Ana Paula, Rafael de Souza, Viviane Shiraishi
+ * @author Grupo 03 - Ana Claudia, Ana Paula, Rafael de Souza, Viviane Shiraishi
  *
  */
 
