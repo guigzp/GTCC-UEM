@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+<meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
+</head>
+<body>
+	<section layout:fragment="content" class="main-content">
+		<div id="wrap" class="container">
+			<div id="main">
+				<div class="jumbotron">
+					<div class="row justify-content-center">
+						<h3>Cadastro da Ficha de Identificação</h3>
+					</div>
+					<hr />
+					<form th:object="${ficha}"
+						th:action="@{/gtcc/fichaidentificacao/cadastrar}" method="POST"
+						class="form-default form-horizontal" name="form">
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<label>* Esses campos são obrigatórios</label>
+							</div>
+						</div>
+
+						<!-- 						<div class="form-group row justify-content-center"> -->
+						<!-- 							<div class="input-group col-xl-10"> -->
+						<!-- 								<div class="alert  alert-danger  alert-dismissible form-control" -->
+						<!-- 									role="alert" th:if="${#fields.hasAnyErrors()}"> -->
+						<!-- 									<button type="button" class="close" data-dismiss="alert" -->
+						<!-- 										aria-label="Close"> -->
+						<!-- 										<span aria-hidden="true">&times;</span> -->
+						<!-- 									</button> -->
+
+						<!-- 									<div th:each="erro: ${#fields.detailedErrors()}"> -->
+						<!-- 										<i class="fa fa-exclamation-circle"></i> <span -->
+						<!-- 											th:text="${erro.message}">Mensagem erro.</span> -->
+						<!-- 									</div> -->
+						<!-- 								</div> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<input type="text" name="tituloTrabalho" id="tituloTrabalho"
+									class="form-control" th:field="*{tituloTrabalho}"
+									autofocus="autofocus" placeholder="Título do Trabalho *"
+									aria-label="Título do Trabalho" aria-describedby="basic-addon1">
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<div style="color: red"
+									th:if="${#fields.hasErrors('tituloTrabalho')}"
+									th:errors="*{tituloTrabalho}"></div>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<input type="text" name="areaConcentracao" id="areaConcentracao"
+									class="form-control" th:field="*{areaConcentracao}"
+									placeholder="Area de concentração *"
+									aria-label="Area de concentração"
+									aria-describedby="basic-addon1">
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<div style="color: red"
+									th:if="${#fields.hasErrors('areaConcentracao')}"
+									th:errors="*{areaConcentracao}">Deu erro aqui</div>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+
+							<div class="input-group col-xl-2">
+								<input type="number" name="ano" id="ano" class="form-control"
+									th:field="*{ano}" placeholder="Ano *" aria-label="Ano"
+									aria-describedby="basic-addon1">
+							</div>
+
+							<div class="input-group col-xl-8"></div>
+
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<div style="color: red" th:if="${#fields.hasErrors('ano')}"
+									th:errors="*{ano}">Deu erro aqui</div>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<select th:field="*{aluno}" class="form-control">
+									<option value="">Selecione o Aluno</option>
+									<option th:each="aluno : ${alunos}"
+										th:value="${aluno.idUsuario}"
+										th:text="${aluno.nome}"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<div style="color: red;"
+									th:if="${#fields.hasErrors('aluno')}"
+									th:errors="*{aluno}"></div>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<select th:field="*{orientador}" class="form-control">
+									<option value="">Selecione o Orientador</option>
+									<option th:each="orientador : ${professores}"
+										th:value="${orientador.idUsuario}"
+										th:text="${orientador.nome}"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<div style="color: red;"
+									th:if="${#fields.hasErrors('orientador')}"
+									th:errors="*{orientador}"></div>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<select th:field="*{avaliador1}" class="form-control">
+									<option value="">Selecione o 1° Avaliador</option>
+									<option th:each="avaliador : ${professores}"
+										th:value="${avaliador.idUsuario}" th:text="${avaliador.nome}"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<div style="color: red;"
+									th:if="${#fields.hasErrors('avaliador1')}"
+									th:errors="*{avaliador1}"></div>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<select th:field="*{avaliador2}" class="form-control">
+									<option value="">Selecione o 2° Avaliador</option>
+									<option th:each="avaliador : ${professores}"
+										th:value="${avaliador.idUsuario}" th:text="${avaliador.nome}"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group row justify-content-center">
+							<div class="input-group col-xl-10">
+								<div style="color: red;"
+									th:if="${#fields.hasErrors('avaliador2')}"
+									th:errors="*{avaliador2}"></div>
+							</div>
+						</div>
+
+
+						<br>
+						<hr />
+						<div class="form-group row justify-content-center ">
+							<div class=" col-sm-2">
+								<a id="alert" class="btn btn-lg btn-danger"
+									th:href="@{/gtcc/home}"> Voltar </a>
+							</div>
+							<div class="col-sm-2 text-right">
+								<button id="btn_salvar" type="submit"
+									class="btn btn-lg btn-success">Confirmar</button>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+			<div id="push"></div>
+		</div>
+	</section>
+
+</body>
+</html>

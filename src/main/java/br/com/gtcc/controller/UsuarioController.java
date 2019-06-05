@@ -1,9 +1,6 @@
 package br.com.gtcc.controller;
 
-
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -23,13 +20,6 @@ import br.com.gtcc.model.Usuario;
 import br.com.gtcc.repository.filter.UsuarioFilter;
 import br.com.gtcc.service.UsuarioService;
 
-
-
-/**
- * Classe responsável pela interação com os requests vindos da web
- *
- * @author Alan Lopes
- */
 @Controller
 @RequestMapping("/gtcc/usuarios")
 public class UsuarioController {
@@ -55,15 +45,6 @@ public class UsuarioController {
         ModelAndView mv = new ModelAndView("usuario/usuarioCreate");
         mv.addObject("usuario", usuario);
         return mv;
-    }
-
-    @PostMapping("/validaEmail/{email}")
-    public void validaEmail(@PathVariable ("email") String email, BindingResult result){
-        System.out.println(email);
-        System.out.println("webaasa");
-        if (usuarioService.buscarPorEmail(email) != null) {
-            result.addError(new FieldError("usuario", "email", "Email já cadastrado"));
-        }
     }
 
     @PostMapping("/cadastrar")
@@ -127,27 +108,5 @@ public class UsuarioController {
         usuarioService.atualizar(usuario);
         return new ModelAndView("redirect:/gtcc/usuarios").addObject("atualizado", true);
     }
-
-    @GetMapping("/remover/{id}")
-    public ModelAndView delete(@PathVariable("id") Long id) {
-
-        Usuario usuario = usuarioService.buscarPorId(id);
-        if (usuario != null) {
-            usuario.setAtivo(0);
-            usuarioService.atualizar(usuario);
-        }
-        return new ModelAndView("redirect:/gtcc/usuarios").addObject("removido", true);
-    }
-
-
-    @PostMapping
-    public ModelAndView pesquisar(UsuarioFilter usuarioFilter) {
-        ModelAndView mv = new ModelAndView("usuario/index");
-        mv.addObject("usuariofilter", usuarioFilter);
-        mv.addObject("usuarios", usuarioService.filtrar(usuarioFilter));
-
-        return mv;
-    }
-
 
 }
