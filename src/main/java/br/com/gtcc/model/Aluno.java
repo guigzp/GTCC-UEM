@@ -3,6 +3,7 @@ package br.com.gtcc.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotNull;
 
 /**
  * 
@@ -14,6 +15,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class Aluno extends Usuario{
 	
 	@Column(nullable = false)
+	@NotNull(message = "RA é uma informação obrigatória")
 	private Integer ra;
 
 	public Integer getRa() {

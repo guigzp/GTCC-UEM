@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.gtcc.model.Aluno;
 import br.com.gtcc.repository.filter.UsuarioFilter;
 import br.com.gtcc.service.AlunoService;
-import br.com.gtcc.service.UsuarioService;
 
 @Controller
 @RequestMapping("/gtcc/alunos")
