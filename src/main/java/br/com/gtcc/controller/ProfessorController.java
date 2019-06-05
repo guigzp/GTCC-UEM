@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +18,11 @@ import br.com.gtcc.service.ProfessorService;
 @Controller
 @RequestMapping("/gtcc/professor")
 public class ProfessorController {
-	
-	@Autowired
+
+    @Autowired
     private ProfessorService professorService;
-	
-	@GetMapping("/cadastrar")
+
+    @GetMapping("/cadastrar")
     public ModelAndView add(Professor professor) {
         ModelAndView mv = new ModelAndView("professor/professorCreate");
         mv.addObject("professor", professor);
@@ -30,10 +31,19 @@ public class ProfessorController {
 
     @PostMapping("/cadastrar")
     public ModelAndView save(@Valid Professor professor, BindingResult result) {
-                if (this.professorService.buscarPorEmail(professor.getEmail()) != null) {
-        	result.addError(new FieldError("professor", "email", "Email já cadastrado"));
+        if (this.professorService.buscarPorEmail(professor.getEmail()) != null) {
+            result.addError(new FieldError("professor", "email", "Email já cadastrado"));
         }
-                
+
+        if(!professor.getOrientador()) {
+            if(!professor.getAvaliador()) {
+                if(!professor.getCoordenador()) {
+                    if(!professor.getCoordenador_do_curso()) {
+                        result.addError(new FieldError("coordenador_do_curso", "coordenador_do_curso", "Tipo é uma informação obrigatória"));
+                    }
+                }
+            }
+        }
 
         if (result.hasErrors()) {
             return add(professor);

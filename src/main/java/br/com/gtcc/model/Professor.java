@@ -1,20 +1,25 @@
 package br.com.gtcc.model;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 
-/**
- * 
- * @author Alan Lopes
- * Professor
- *
- */
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 @Entity
-@PrimaryKeyJoinColumn(name="idUsuario")
-public class Professor extends Usuario{
-	
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Professor {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idProfessor;
+
 	@Column(nullable = false)
-	private Integer matricula;
+	@NotBlank(message = "Nome é uma informação obrigatória")
+	private String nome;
+
+	@Column(nullable = false)
+	@Email(message = "Entre com um email válido")
+	@NotBlank(message = "Email é uma informação obrigatória")
+	private String email;
 
 	@Column
 	private Boolean coordenador;
@@ -27,15 +32,16 @@ public class Professor extends Usuario{
 
 	@Column
 	private Boolean coordenador_do_curso;
-	
-	public Professor() {}
 
-	
-	
-	public Professor(Integer matricula, Boolean coordenador, Boolean orientador, Boolean avaliador,
-			Boolean coordenador_do_curso) {
+	public Professor() {
+
+	}
+
+	public Professor(String nome, String email, Boolean coordenador, Boolean orientador,
+					 Boolean avaliador, Boolean coordenador_do_curso) {
 		super();
-		this.matricula = matricula;
+		this.nome = nome;
+		this.email = email;
 		this.coordenador = coordenador;
 		this.orientador = orientador;
 		this.avaliador = avaliador;
@@ -44,88 +50,60 @@ public class Professor extends Usuario{
 
 
 
-	public Integer getMatricula() {
-		return matricula;
+	public Long getIdProfessor() {
+		return idProfessor;
 	}
 
-
-
-	public void setMatricula(Integer matricula) {
-		this.matricula = matricula;
+	public void setIdProfessor(Long idProfessor) {
+		this.idProfessor = idProfessor;
 	}
 
+	public String getNome() {
+		return nome;
+	}
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public Boolean getCoordenador() {
 		return coordenador;
 	}
 
-
-
 	public void setCoordenador(Boolean coordenador) {
 		this.coordenador = coordenador;
 	}
-
-
 
 	public Boolean getOrientador() {
 		return orientador;
 	}
 
-
-
 	public void setOrientador(Boolean orientador) {
 		this.orientador = orientador;
 	}
-
-
 
 	public Boolean getAvaliador() {
 		return avaliador;
 	}
 
-
-
 	public void setAvaliador(Boolean avaliador) {
 		this.avaliador = avaliador;
 	}
-
-
 
 	public Boolean getCoordenador_do_curso() {
 		return coordenador_do_curso;
 	}
 
-
-
 	public void setCoordenador_do_curso(Boolean coordenador_do_curso) {
 		this.coordenador_do_curso = coordenador_do_curso;
 	}
 
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Professor other = (Professor) obj;
-		if (matricula == null) {
-			if (other.matricula != null)
-				return false;
-		} else if (!matricula.equals(other.matricula))
-			return false;
-		return true;
-	}
 }

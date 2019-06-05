@@ -131,14 +131,9 @@ public class InitDatabase implements ApplicationListener<ContextRefreshedEvent> 
 		{
 			matricula++;
 			Professor professor = new Professor();
-			professor.setMatricula(matricula);
 			professor.setCoordenador(false);
 			professor.setNome(nome);
 			professor.setEmail(matricula+"@uem.br");
-			professor.setAtivo(1);
-			professor.setSenha(String.valueOf(matricula));
-			professor.setNomeUsuario("user"+matricula);
-			professor.setTelefone("4002-8922");
 			//seta a Thelma como coordenadora
 			if(nome.contains("Thelma Elita Colanzi"))
 			{
