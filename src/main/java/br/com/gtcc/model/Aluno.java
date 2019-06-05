@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
 
 /**
  * 
- * @author Alan
- *Aluno
+ * @author Alan Lopes
+ * Aluno
  */
 @Entity
 @PrimaryKeyJoinColumn(name="idUsuario")
@@ -17,6 +17,16 @@ public class Aluno extends Usuario{
 	@Column(nullable = false)
 	@NotNull(message = "RA é uma informação obrigatória")
 	private Integer ra;
+	
+	private String curso;
+	
+	public Aluno() {}
+
+	public Aluno(@NotNull(message = "RA é uma informação obrigatória") Integer ra, String curso) {
+		super();
+		this.ra = ra;
+		this.curso = curso;
+	}
 
 	public Integer getRa() {
 		return ra;
@@ -24,6 +34,14 @@ public class Aluno extends Usuario{
 
 	public void setRa(Integer ra) {
 		this.ra = ra;
+	}
+	
+	public String getCurso() {
+		return curso;
+	}
+
+	public void setCurso(String curso) {
+		this.curso = curso;
 	}
 
 	@Override
