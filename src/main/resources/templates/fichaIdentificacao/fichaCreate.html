@@ -120,7 +120,7 @@
 								<select th:field="*{orientador}" class="form-control">
 									<option value="">Selecione o Orientador</option>
 									<option th:each="orientador : ${professores}"
-										th:value="${orientador.idUsuario}"
+										th:value="${orientador.idProfessor}"
 										th:text="${orientador.nome}"></option>
 								</select>
 							</div>
@@ -139,7 +139,7 @@
 								<select th:field="*{avaliador1}" class="form-control">
 									<option value="">Selecione o 1° Avaliador</option>
 									<option th:each="avaliador : ${professores}"
-										th:value="${avaliador.idUsuario}" th:text="${avaliador.nome}"></option>
+										th:value="${avaliador.idProfessor}" th:text="${avaliador.nome}"></option>
 								</select>
 							</div>
 						</div>
@@ -157,7 +157,7 @@
 								<select th:field="*{avaliador2}" class="form-control">
 									<option value="">Selecione o 2° Avaliador</option>
 									<option th:each="avaliador : ${professores}"
-										th:value="${avaliador.idUsuario}" th:text="${avaliador.nome}"></option>
+										th:value="${avaliador.idProfessor}" th:text="${avaliador.nome}"></option>
 								</select>
 							</div>
 						</div>

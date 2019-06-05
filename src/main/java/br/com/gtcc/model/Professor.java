@@ -48,8 +48,6 @@ public class Professor {
 		this.coordenador_do_curso = coordenador_do_curso;
 	}
 
-
-
 	public Long getIdProfessor() {
 		return idProfessor;
 	}
@@ -72,6 +70,7 @@ public class Professor {
 
 	public void setEmail(String email) {
 		this.email = email;
+
 	}
 
 	public Boolean getCoordenador() {

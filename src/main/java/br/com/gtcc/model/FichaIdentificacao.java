@@ -36,6 +36,7 @@ public class FichaIdentificacao {
 	@NotNull(message = "Ano é uma informação obrigatória")
 	private Integer ano;
 	
+
 	@OneToOne
 	@NotNull(message = "Aluno é uma informação obrigatória")
 	private Aluno aluno;

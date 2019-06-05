@@ -12,4 +12,4 @@ target/*
 !target/.gitkeep
 bin/*
 !bin/.gitkeep
-
+.idea/*
