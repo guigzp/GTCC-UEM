@@ -9,9 +9,10 @@ import br.com.gtcc.model.Professor;
 
 public interface ProfessorRepository extends JpaRepository<Professor, Long>{
 	
-	public List<Professor> findByEmail(String email);
-	
+	List<Professor> findByEmail(String email);
+
+
 	@Query("SELECT COUNT(professor) FROM Professor professor")
-    public Long countRows();
+    Long countRows();
 
 }

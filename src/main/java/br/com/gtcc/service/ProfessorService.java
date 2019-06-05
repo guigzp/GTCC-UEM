@@ -24,7 +24,7 @@ public class ProfessorService {
 	public Professor adicionar(@Valid Professor professor) {
         return professorRepository.saveAndFlush(professor);
     }
-	
+
 	public Professor buscarPorEmail(String email) {
 		
 		List<Professor> professores = 	professorRepository.findByEmail(email);
