@@ -1,5 +1,7 @@
 package br.com.gtcc.controller;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,7 @@ public class AtividadeController {
 	@GetMapping("/cronograma")
 	public ModelAndView findByAno(){
 		 ModelAndView mv = new ModelAndView("atividade/cronograma");
-	     mv.addObject("atividades", atividadeService.buscarPorAno(2019));
+	     mv.addObject("atividades", atividadeService.buscarPorAno(Calendar.getInstance().get(Calendar.YEAR)));
 	     return mv;
 	}
 	
