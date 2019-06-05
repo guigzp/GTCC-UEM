@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.gtcc.model.Atividade;
-import br.com.gtcc.repository.atividade.AtividadeRepositoryQuery;
 
 /**
  * 
@@ -15,7 +14,7 @@ import br.com.gtcc.repository.atividade.AtividadeRepositoryQuery;
  */
 
 @Repository
-public interface AtividadeRepository extends JpaRepository<Atividade, Long>, AtividadeRepositoryQuery{
+public interface AtividadeRepository extends JpaRepository<Atividade, Long> {
 
 	public List<Atividade> findByAno(int ano);
 }
