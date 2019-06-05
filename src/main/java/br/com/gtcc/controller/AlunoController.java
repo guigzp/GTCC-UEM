@@ -49,10 +49,10 @@ public class AlunoController {
 
     @PostMapping("/cadastrar")
     public ModelAndView save(@Valid Aluno aluno, BindingResult result) {
-        if (!(aluno.getSenha() == null && aluno.getConfirmarSenha() == null ||
+        /*if (!(aluno.getSenha() == null && aluno.getConfirmarSenha() == null ||
                 aluno.getSenha() != null && aluno.getSenha().equals(aluno.getConfirmarSenha()))) {
             result.addError(new FieldError("aluno", "confirmarSenha", "As senhas digitadas não correspondem"));
-        }
+        }*/
         if (this.alunoService.buscarPorEmail(aluno.getEmail()) != null) {
         	result.addError(new FieldError("aluno", "email", "Email já cadastrado"));
         }
@@ -69,7 +69,7 @@ public class AlunoController {
         aluno.setAtivo(1);
         alunoService.adicionar(aluno);
 
-        return new ModelAndView("redirect:/gtcc/login").addObject("sucesso", true);
+        return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", true);
     }
 
     @GetMapping("/editar/{id}")
