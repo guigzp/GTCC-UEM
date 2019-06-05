@@ -27,15 +27,6 @@ public class AlunoService {
 		return alunoRepository.findByAtivo(1);
 	}
 	
-	public Aluno buscarPorUsername(String userName)
-	{
-		List<Aluno> alunos = alunoRepository.findByNomeUsuario(userName);
-		if(!alunos.isEmpty())
-			return alunos.get(0);
-		else
-			return null;
-	}
-	
 	public Aluno buscarPorId(Long id) {
 	        return alunoRepository.findById(id).orElse(null);
 	}
@@ -48,12 +39,20 @@ public class AlunoService {
 	    return alunoRepository.saveAndFlush(aluno);
 	}
 	
-	public Aluno buscarPorEmail(String email) {
-		
-		List<Aluno> alunos = 	alunoRepository.findByEmail(email);
+	public Aluno buscarPorUsername(String userName)
+	{
+		List<Aluno> alunos = alunoRepository.findByNomeUsuario(userName);
 		if(!alunos.isEmpty())
 			return alunos.get(0);
 		else
 			return null;
+	}
+	
+	public Aluno buscarPorEmail(String email) {
+		
+		List<Aluno> alunos = alunoRepository.findByEmail(email);
+		if(!alunos.isEmpty())
+			return alunos.get(0);
+		return null;
 }
 }

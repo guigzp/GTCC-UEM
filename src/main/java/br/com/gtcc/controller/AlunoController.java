@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.gtcc.model.Aluno;
 import br.com.gtcc.repository.filter.UsuarioFilter;
 import br.com.gtcc.service.AlunoService;
-import br.com.gtcc.service.UsuarioService;
 
 @Controller
 @RequestMapping("/gtcc/alunos")
@@ -70,7 +69,7 @@ public class AlunoController {
         aluno.setAtivo(1);
         alunoService.adicionar(aluno);
 
-        return new ModelAndView("redirect:/gtcc/login").addObject("sucesso", true);
+        return new ModelAndView("redirect:/gtcc/alunos/cadastrar").addObject("sucesso", true);
     }
 
     @GetMapping("/editar/{id}")
