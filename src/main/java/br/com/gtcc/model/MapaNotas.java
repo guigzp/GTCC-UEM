@@ -28,7 +28,7 @@ public class MapaNotas {
 	@NotNull(message = "Ano uma informação obrigadtória")
 	private Integer ano;
 	
-	
+	public MapaNotas() {}
 
 	public MapaNotas(FichaIdentificacao fichaIdentificacao,
 			@NotNull(message = "Ano uma informação obrigadtória") Integer ano) {
