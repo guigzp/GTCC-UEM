@@ -32,6 +32,6 @@ public class CriterioAvaliacaoService {
 	
 	public CriterioAvaliacao adicionar(@Valid CriterioAvaliacao criterio)
 	{
-		return this.criterioAvaliacaoRepository.save(criterio);
+		return criterioAvaliacaoRepository.saveAndFlush(criterio);
 	}
 }
