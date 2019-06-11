@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Proposta" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3abbd2c5-53cd-45fa-bfd8-9cff8eb4bc4c">
 	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="101"/>
+	<property name="ireport.y" value="237"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading" fontSize="14"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
@@ -55,7 +55,7 @@
 				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[ "Formulario de Avaliação da Proposta de Projeto de TCC - " + $P{Ano}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Formulario de Avaliação da Proposta de Projeto de TCC - " + $P{Ano}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -121,14 +121,14 @@
 				<reportElement x="15" y="232" width="527" height="1" uuid="5d75baa3-48d9-4b67-be96-37add8774e64"/>
 			</line>
 			<textField>
-				<reportElement x="18" y="208" width="363" height="20" uuid="37f41ad9-ce29-4a6f-b12d-8201d0842e37"/>
+				<reportElement x="18" y="208" width="333" height="20" uuid="37f41ad9-ce29-4a6f-b12d-8201d0842e37"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Nome do Avaliador: Professor " + $P{Avaliador}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Nome do Avaliador: " + $P{Avaliador}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="381" y="208" width="100" height="20" uuid="48eb195e-3785-47b0-ae77-b05c4e3bedb8"/>
+				<reportElement x="351" y="208" width="100" height="20" uuid="48eb195e-3785-47b0-ae77-b05c4e3bedb8"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -142,7 +142,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Título do Trabalho: Pesquisa sobre " + $P{Titulo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Título do Trabalho: " + $P{Titulo}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="15" y="289" width="527" height="1" uuid="e3f28f9e-527b-4062-be4f-07c59d6cd718"/>
@@ -152,7 +152,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Nome do Aluno: Graduando " + $P{NomeDoAluno}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Nome do Aluno: " + $P{NomeDoAluno}]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="15" y="289" width="527" height="27" forecolor="#000000" backcolor="#CCCCCC" uuid="f775c656-cec0-4a45-a3ef-fc1f438b9ec1"/>
