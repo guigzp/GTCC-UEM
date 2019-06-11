@@ -17,16 +17,18 @@
                 </div>
                 <hr/>
                 <!-- MESSAGES -->
-                <form th:object="${proposta}" th:action="@{/gtcc/proposta/gerar}" method="POST" autocomplete="off"
+                <form th:object="${alunos}" th:action="@{/gtcc/proposta/gerar}" method="POST" autocomplete="off"
                       class="form-default form-horizontal" name="form">
                     <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
-                            <input type="text" name="nome"
-                                   id="nome" class="form-control"
-                                   th:field="*{nome}" autofocus="autofocus" placeholder="Nome do Aluno *" aria-label="Nome do Aluno"
-                                   aria-describedby="basic-addon1">
-                        </div>
-                    </div>
+							<div class="input-group col-xl-10">
+								<select th:field="*{aluno}" class="form-control">
+									<option value="">Nome do Aluno*</option>
+									<option th:each="aluno : ${alunos}"
+										th:value="${aluno.idUsuario}"
+										th:text="${aluno.nome}"></option>
+								</select>
+							</div>
+						</div>
 
                     <div class="form-group row justify-content-center">
                         <div class="input-group col-xl-5">
@@ -41,7 +43,7 @@
                 </div>
 
 
-                <div class="form-group offset-md-4 offset-sm-1">
+               <!--  <div class="form-group offset-md-4 offset-sm-1">
                     <div class="form-check row">
                         <input class="form-check-input" th:field="*{avaliacao}" type="radio" name="avaliacao1" id="avaliacao" value="1">
                         <label class="form-check-label" for="avaliacao1">
@@ -59,8 +61,8 @@
                 <label class="form-check-label" for="avaliacao3">
                     3° Bimestre
                 </label>
-            </div>
-                    <div>
+           		 </div>
+                    </div> -->
 
                     <br>
                     <div class="form-group row justify-content-center">
