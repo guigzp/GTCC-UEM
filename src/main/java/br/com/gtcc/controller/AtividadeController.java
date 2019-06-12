@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import br.com.gtcc.service.AtividadeService;
 
+/**
+ * 
+ * @author Grupo 03 - Ana Cláudia, Ana Paula, Rafael de Souza, Viviane Shiraishi
+ *
+ */
 @Controller
 @RequestMapping("/gtcc/atividade")
 public class AtividadeController {

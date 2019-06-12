@@ -43,17 +43,23 @@ public class Agendamento {
     @Column(nullable = false, columnDefinition = "int(1) default 1")
 	private int ativo;
     
+    @Column(nullable = true)
+    @NotNull(message = "Ano é uma informação obrigatória")
+    private int ano;
     
+    public Agendamento() {}
 
 	public Agendamento(Long id, FichaIdentificacao fichaIdentificacao,
 			@NotNull(message = "Data de agendamento é uma informação obrigatória") LocalDate dataDefesa,
-			@NotBlank(message = "Local é uma informação obrigatória") String local, int ativo) {
+			@NotBlank(message = "Local é uma informação obrigatória") String local, int ativo,
+			@NotNull(message = "Ano é uma informação obrigatória") int ano) {
 		super();
 		this.id = id;
 		this.fichaIdentificacao = fichaIdentificacao;
 		this.dataDefesa = dataDefesa;
 		this.local = local;
 		this.ativo = ativo;
+		this.ano = ano;
 	}
 
 	public Long getId() {
@@ -97,6 +103,14 @@ public class Agendamento {
 	}
     
     
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
