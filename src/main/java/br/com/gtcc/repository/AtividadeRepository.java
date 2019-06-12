@@ -17,4 +17,6 @@ import br.com.gtcc.model.Atividade;
 public interface AtividadeRepository extends JpaRepository<Atividade, Long> {
 
 	public List<Atividade> findByAno(int ano);
+	
+	public List<Atividade> findByAnoAndFase(int ano, int fase);
 }

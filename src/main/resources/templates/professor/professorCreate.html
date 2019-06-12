@@ -22,11 +22,12 @@
 
 
                     <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
+                        <div class="field-wrapper col-xl-5">
                             <input type="text" name="nome"
                                    id="nome" class="form-control"
-                                   th:field="*{nome}" autofocus="autofocus" placeholder="Nome Completo *" aria-label="Professor"
+                                   th:field="*{nome}" autofocus="autofocus"aria-label="Professor"
                                    aria-describedby="basic-addon1">
+                            <div class="field-placeholder"><span>Nome Completo*</span></div>
                         </div>
                     </div>
 
@@ -37,11 +38,12 @@
                     </div>
 
                     <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
+                        <div class="field-wrapper col-xl-5">
                             <input type="text" name="email"
                                    id="email" class="form-control"
-                                   th:field="*{email}" autofocus="autofocus" placeholder="E-mail *" aria-label="E-mail"
+                                   th:field="*{email}" autofocus="autofocus" aria-label="E-mail"
                                    aria-describedby="basic-addon1">
+                            <div class="field-placeholder"><span>E-mail*</span></div>
                         </div>
                     </div>
 

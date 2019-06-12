@@ -17,54 +17,56 @@
                 </div>
                 <hr/>
                 <!-- MESSAGES -->
-                <form th:object="${proposta}" th:action="@{/gtcc/proposta/gerar}" method="POST" autocomplete="off"
+                <form th:object="${alunos}" th:action="@{/gtcc/proposta/gerar/}" method="POST" autocomplete="off"
                       class="form-default form-horizontal" name="form">
                     <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
-                            <input type="text" name="nome"
-                                   id="nome" class="form-control"
-                                   th:field="*{nome}" autofocus="autofocus" placeholder="Nome do Aluno *" aria-label="Nome do Aluno"
-                                   aria-describedby="basic-addon1">
-                        </div>
-                    </div>
+							<div class="input-group col-xl-10">
+								<select name="aluno" class="form-control">
+									<option value="">Nome do Aluno*</option>
+									<option th:each="aluno : ${alunos}"
+										th:value="${aluno.idUsuario}"
+										th:text="${aluno.nome}"></option>
+								</select>
+							</div>
+						</div>
 
-                    <div class="form-group row justify-content-center">
+                    <!-- <div class="form-group row justify-content-center">
                         <div class="input-group col-xl-5">
                         <div style="color: red" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group row justify-content-center">
-                    <div class="input-group col-xl-5">
+                    <div class="input-group col-xl-10">
                         <label>Avaliação *</label>
                     </div>
                 </div>
 
 
-                <div class="form-group offset-md-4 offset-sm-1">
+                 <div class="form-group offset-md-2 offset-sm-1">
                     <div class="form-check row">
-                        <input class="form-check-input" th:field="*{avaliacao}" type="radio" name="avaliacao1" id="avaliacao" value="1">
+                        <input class="form-check-input"  type="radio" name="avaliacao" id="avaliacao" value="1">
                         <label class="form-check-label" for="avaliacao1">
                             1° Bimestre
                         </label>
                     </div>
                     <div class="form-check row">
-                    <input class="form-check-input" th:field="*{avaliacao}" type="radio" name="avaliacao2" id="avaliacao" value="2">
+                    <input class="form-check-input"  type="radio" name="avaliacao" id="avaliacao" value="2">
                     <label class="form-check-label" for="avaliacao2">
                         2° Bimestre
                     </label>
                 </div>
                 <div class="form-check row">
-                <input class="form-check-input" th:field="*{avaliacao}" type="radio" name="avaliacao3" id="avaliacao" value="3">
+                <input class="form-check-input"  type="radio" name="avaliacao" id="avaliacao" value="3">
                 <label class="form-check-label" for="avaliacao3">
                     3° Bimestre
                 </label>
-            </div>
-                    <div>
+           		 </div>
+                    </div>
 
                     <br>
                     <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
+                        <div class="input-group col-xl-10">
                             <label>* Esses campos são obrigatórios</label>
                         </div>
                     </div>
@@ -76,7 +78,7 @@
                                 Voltar </a>
                         </div>
                         <div class="col-sm-2 text-right">
-                            <button id="btn_salvar" type="button" class="btn btn-lg btn-success">
+                            <button id="btn_salvar" type="submit" class="btn btn-lg btn-success" >
                                 Gerar
                             </button>
                         </div>

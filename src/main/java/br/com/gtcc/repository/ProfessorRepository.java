@@ -11,6 +11,7 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long>{
 	
 	List<Professor> findByEmail(String email);
 
+	List<Professor> findByIdProfessor(Long id);
 
 	@Query("SELECT COUNT(professor) FROM Professor professor")
     Long countRows();
