@@ -36,7 +36,11 @@ public class Agendamento {
 	@NotNull(message = "Data de agendamento é uma informação obrigatória")
 	private LocalDate dataDefesa;
 
-    @Column(nullable = false)
+    @NotNull(message = "Horário da defesa é uma informação obrigatória")
+    private String horario;
+
+
+	@Column(nullable = false)
 	@NotBlank(message = "Local é uma informação obrigatória")
 	private String local;
 
@@ -51,12 +55,14 @@ public class Agendamento {
 
 	public Agendamento(Long id, FichaIdentificacao fichaIdentificacao,
 			@NotNull(message = "Data de agendamento é uma informação obrigatória") LocalDate dataDefesa,
+			@NotNull(message = "Horário da defesa é uma informação obrigatória") String horario,
 			@NotBlank(message = "Local é uma informação obrigatória") String local, int ativo,
 			@NotNull(message = "Ano é uma informação obrigatória") int ano) {
 		super();
 		this.id = id;
 		this.fichaIdentificacao = fichaIdentificacao;
 		this.dataDefesa = dataDefesa;
+		this.horario = horario;
 		this.local = local;
 		this.ativo = ativo;
 		this.ano = ano;
@@ -109,6 +115,14 @@ public class Agendamento {
 
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+	
+	public String getHorario() {
+		return horario;
+	}
+	
+	public void setHorario(String horario) {
+		this.horario = horario;
 	}
 
 	@Override
