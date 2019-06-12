@@ -1,8 +1,8 @@
 package br.com.gtcc.controller;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.gtcc.model.Aluno;
+import br.com.gtcc.model.Atividade;
 import br.com.gtcc.model.Professor;
 import br.com.gtcc.model.FichaIdentificacao;
 import br.com.gtcc.service.AlunoService;
@@ -36,69 +37,124 @@ import br.com.gtcc.security.Conexao;
 @Controller
 @RequestMapping("/gtcc/proposta")
 public class PropostaController {
-	
+
 	@Autowired
 	private AlunoService alunoService;
-	
+
 	@Autowired
 	private AlunoRepository alunoRepository;
-	
+
 	@Autowired
 	private ProfessorRepository professorRepository;
-	
+
 	@Autowired
 	private FichaIdentificacaoRepository fichaIdentificaoRepository;
-	
+
 	@Autowired
 	private AtividadeRepository atividadeRepository;
-	
+
 	@GetMapping
-	public ModelAndView index(){
+	public ModelAndView index() {
 		List<Aluno> alunos = this.alunoService.buscarTodos();
 		ModelAndView mv = new ModelAndView("proposta/proposta");
 		mv.addObject("proposta", true);
 		mv.addObject("alunos", alunos);
-	    return mv;
+		return mv;
 	}
-	
+
 	@PostMapping("/gerar")
-    public ModelAndView gerar(@RequestParam(name = "avaliacao") String avaliacao, @RequestParam(name = "aluno") String aluno) {
-		FichaIdentificacao fichaAluno = fichaIdentificaoRepository.findByAlunoIdUsuario(Long.parseLong(aluno)).get(0);
-		Professor coordenador = professorRepository.findByIdProfessor(new Long(1)).get(0);
+	public ModelAndView gerar(@RequestParam(name = "avaliacao", required = false) String avaliacao,
+			@RequestParam(name = "aluno", required = false) String aluno) {
+		//Avaliacao não preenchida não tem nenhum if mas não passa por causa do if da atividade
 		
-		System.out.println(atividadeRepository.findByAnoAndFase(fichaAluno.getAno(), Integer.parseInt(avaliacao)).get(0).getDataFinalEntrega());
-		DateFormat vdate = new SimpleDateFormat("dd/MM/yyyy");
-		//String data = vdate.format(atividadeRepository.findByAnoAndFase(fichaAluno.getAno(), Integer.parseInt(avaliacao)).get(0).getDataFinalEntrega());
+		if (aluno == "") {
+			System.out.print("Aluno não selecionado");
+			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+		}
+
+		List<FichaIdentificacao> fichasAluno = fichaIdentificaoRepository.findByAlunoIdUsuario(Long.parseLong(aluno));
+		Professor coordenador = professorRepository.findByIdProfessor(new Long(1)).get(0);
+
+		if (fichasAluno.isEmpty()) {
+			System.out.print("Ficha não cadastrada");
+			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+		}
+
+		FichaIdentificacao fichaAluno = fichasAluno.get(0);
+
+		List<Atividade> atividade = atividadeRepository.findByAnoAndDescricao(fichaAluno.getAno(),
+				new String("Entrega da Proposta de Projeto de TCC (" + avaliacao + "ºbim.)"));
+
+		if (atividade.isEmpty()) {
+			System.out.print("Atividade não cadastrada");
+			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+		}
+
+		LocalDate data = atividade.get(0).getDataFinalEntrega();
+
+		String dataS = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+		String caminho = new File("./").getAbsolutePath();
+		caminho = caminho.substring(0, caminho.length() - 1);
+		caminho = caminho + "src/main/resources/static/report/";
 		
 		HashMap parametros = new HashMap();
 		parametros.put("NomeCurso", fichaAluno.getAreaConcentracao());
 		parametros.put("Ano", Integer.toString(fichaAluno.getAno()));
 		parametros.put("Professor", coordenador.getNome());
-		//parametros.put("DataDeEntrega", data);
+		parametros.put("DataDeEntrega", dataS);
 		parametros.put("Avaliador", fichaAluno.getAvaliador1().getNome());
 		parametros.put("Titulo", fichaAluno.getTituloTrabalho());
 		parametros.put("NomeDoAluno", fichaAluno.getAluno().getNome());
-		
-		String caminho = new File("./").getAbsolutePath();
-        caminho = caminho.substring(0, caminho.length() - 1);
-		caminho = caminho + "src/main/resources/static/report/";
-		 JasperPrint print;
-		 try {
-             print = JasperFillManager.fillReport(caminho+"Proposta.jasper", parametros, Conexao.getConnection());
-             JRPdfExporter exporter = new JRPdfExporter();
-             ExporterInput exporterInput = new SimpleExporterInput(print);
-             exporter.setExporterInput(exporterInput);
-             OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(caminho+"Proposta.pdf");
-             exporter.setExporterOutput(exporterOutput);
-             SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-             exporter.setConfiguration(configuration);
-             exporter.exportReport();
-         } catch (JRException e) {
-             e.printStackTrace();
-         }
-     
-		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", true);
-    }
-	
-}
 
+		JasperPrint print;
+		try {
+			print = JasperFillManager.fillReport(caminho + "Proposta.jasper", parametros, Conexao.getConnection());
+			JRPdfExporter exporter = new JRPdfExporter();
+			ExporterInput exporterInput = new SimpleExporterInput(print);
+			exporter.setExporterInput(exporterInput);
+			OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(caminho + "Proposta1.pdf");
+			exporter.setExporterOutput(exporterOutput);
+			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+			exporter.setConfiguration(configuration);
+			exporter.exportReport();
+		} catch (JRException e) {
+			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+		}
+		
+		parametros.put("Avaliador", fichaAluno.getAvaliador2().getNome());
+		
+		try {
+			print = JasperFillManager.fillReport(caminho + "Proposta.jasper", parametros, Conexao.getConnection());
+			JRPdfExporter exporter = new JRPdfExporter();
+			ExporterInput exporterInput = new SimpleExporterInput(print);
+			exporter.setExporterInput(exporterInput);
+			OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(caminho + "Proposta2.pdf");
+			exporter.setExporterOutput(exporterOutput);
+			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+			exporter.setConfiguration(configuration);
+			exporter.exportReport();
+		} catch (JRException e) {
+			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+		}
+		
+		parametros.put("Avaliador", fichaAluno.getOrientador().getNome());
+		
+		try {
+			print = JasperFillManager.fillReport(caminho + "Proposta.jasper", parametros, Conexao.getConnection());
+			JRPdfExporter exporter = new JRPdfExporter();
+			ExporterInput exporterInput = new SimpleExporterInput(print);
+			exporter.setExporterInput(exporterInput);
+			OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(caminho + "Proposta3.pdf");
+			exporter.setExporterOutput(exporterOutput);
+			SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+			exporter.setConfiguration(configuration);
+			exporter.exportReport();
+		} catch (JRException e) {
+			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+		}
+
+		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", true);
+	}
+
+}

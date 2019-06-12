@@ -2,14 +2,16 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Proposta" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3abbd2c5-53cd-45fa-bfd8-9cff8eb4bc4c">
 	<property name="ireport.zoom" value="0.75"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="237"/>
+	<property name="ireport.y" value="93"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading" fontSize="14"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
 	<parameter name="NomeCurso" class="java.lang.String"/>
 	<parameter name="Ano" class="java.lang.String"/>
 	<parameter name="Professor" class="java.lang.String"/>
-	<parameter name="DataDeEntrega" class="java.lang.String"/>
+	<parameter name="DataDeEntrega" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
 	<parameter name="Avaliador" class="java.lang.String"/>
 	<parameter name="Titulo" class="java.lang.String"/>
 	<parameter name="NomeDoAluno" class="java.lang.String"/>
