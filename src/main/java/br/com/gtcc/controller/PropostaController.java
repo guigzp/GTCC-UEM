@@ -28,9 +28,9 @@ public class PropostaController {
 	    return mv;
 	}
 	
-	@PostMapping("/gerar")
+	@PostMapping("/gerar/")
 	public ModelAndView gerar() {
-		return null;
+		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", true);
     }
 	
 }
