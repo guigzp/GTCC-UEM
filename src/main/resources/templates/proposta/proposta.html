@@ -21,7 +21,7 @@
                       class="form-default form-horizontal" name="form">
                     <div class="form-group row justify-content-center">
 							<div class="input-group col-xl-10">
-								<select class="form-control">
+								<select name="aluno" class="form-control">
 									<option value="">Nome do Aluno*</option>
 									<option th:each="aluno : ${alunos}"
 										th:value="${aluno.idUsuario}"
