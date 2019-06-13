@@ -11,164 +11,248 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
+<!-- Nao encontrei o arquivo .css, dai tem que atualizar com este que esta aqui -->
 <style>
-        .defesa h3 {
-            text-align: center;
-            font-size: 2em;
-            margin: 1em auto 1em;
-        }
-        
-        .defesas-detalhe {
-            background-color: #e5e5e5;
-            padding: 2em 3em;
-            border-radius: 5px;
-            width: 100%;
-        }
-        
-        table {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-        thead {
-            width: 100%;
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 1em;
-        }
-        
-        .defesas-detalhe h5 {
-            font-size: 1.5em;
-            padding-bottom: .5em;
-        }
-        
-        table th { padding-left: 0.25em; }
-        
-        table .infos {
-            text-align: left;
-            font-weight: 700;  
-            padding-left: 0.5em;
-        }
-        
-        table th {
-            text-transform: none;
-            font-weight: 100;
-        }
-        
-          .jumbotron { background: #fff; }
-          .fa { font-size: 0.5em; }
-          .calendar table { width: 100%; }
-          .calendar th { text-align: center; }
-          .calendar td {
-            width: 120px;
-            height: 100px;
-            text-align: center;
-            line-height: 100px !important;
-            font-size: 1.5em;
-          }
-          .calendar td, #year { font-family: monospace; }
-          .calendar .hover { background: #eee; }
-          .calendar #about {
-            font-size: 5em !important;
-            position: absolute;
-            top: -35px;
-            right: 15px;
-          }
-          #about a { text-decoration: none; }
-          
-          .pdf {
-            background-color: #e5e5e5;
-            padding: 1em;
-            border-radius: 5px;
-            text-align: center;
-          }
-        
-          .pdf h5 {
-            text-align: left;
-            padding-bottom: 1em;
-          }
-        
-          .pdf button {
-            background-color: #343F4B;
-            border: none;
-            padding: .5em 2em;
-            color: white;
-            text-transform: uppercase;
-          }
-        
-        .cadastro-defesa form {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding: 0 1em;
-        }
-        
-        .cadastro-defesa label {
-          width: 100%;
-          padding-top: .5em;
-        }
-        
-        .cadastro-defesa .botoes {
-          padding-top: 1em;
-          display: flex;
-          justify-content: space-between;
-          
-        }
-        
-        .cadastro-defesa .botoes .cancelar {
-          background-color: #343F4B;
-          border: none;
-          padding: .5em 2em;
-          color: white;
-          text-transform: uppercase;
-          border-radius: 5px;
-          width: 150px;
-        }
-        
-        .cadastro-defesa .botoes .excluir {
-          background-color:#B60003;
-          border: none;
-          padding: .5em 2em;
-          color: white;
-          text-transform: uppercase;
-          border-radius: 5px;
-          width: 150px;
-        }
-        
-        .cadastro-defesa .botoes .confirmar {
-          background-color: #77D353;
-          border: none;
-          padding: .5em 2em;
-          color: white;
-          text-transform: uppercase;
-          border-radius: 5px;
-          width: 150px;
-        }
-        
-        .cadastro-defesa .banca h5 {
-          margin: .5em 0 0 0;
-          font-size: 20px;
-          padding: 0;
-        }
-        
-        .cadastro-defesa input { width: 100%; }
-        .visu-defesa .banca .prof { padding-top: 0.5em; }
-        .visu-defesa .banca .titulo { margin-left: 1.5em; }
-        
-        .cadastro-defesa .horalocal {
-          display: flex;
-          justify-content: space-between;
-          width: 100%;
-        }
-        
-        .cadastro-defesa form .nome,
-        .cadastro-defesa form .titulo {
-          display: flex;
-          flex-direction: column;
-        }
-        </style>
-        
+	.defesa h3 {
+		text-align: center;
+		font-size: 2em;
+		margin: 1em auto 1em;
+	}
+
+	.defesas-detalhe {
+		background-color: #e5e5e5;
+		padding: 2em 3em;
+		border-radius: 5px;
+		width: 100%;
+	}
+
+	.defesas-detalhe table {
+		display: flex;
+		align-items: center;
+		width: 100%;
+	}
+
+	.defesas-detalhe thead {
+		width: 100%;
+		background-color: #fff;
+		border-radius: 5px;
+		padding: 1em;
+	}
+
+	.defesas-detalhe h5 {
+		font-size: 1.5em;
+		padding-bottom: .5em;
+	}
+
+	.defesas-detalhe table th {
+		padding-left: 0.25em;
+	}
+
+	.defesas-detalhe table .infos {
+		text-align: left;
+		font-weight: 700;
+		padding-left: 0.5em;
+	}
+
+	.defesas-detalhe table th {
+		text-transform: none;
+		font-weight: 100;
+	}
+
+	.jumbotron {
+		background: #fff;
+	}
+
+	.fa {
+		font-size: 0.5em;
+	}
+
+	.calendar {
+		background-color: #e3e3e3;
+		border-radius: 5px;
+		padding: 1em 0;
+		margin-bottom: 1em;
+	}
+
+	.calendar table {
+		width: 90%;
+	}
+
+	.calendar th {
+		text-align: center;
+	}
+
+	.calendar td {
+		width: 100px;
+		text-align: center;
+		font-size: 1em;
+	}
+
+	.calendar td,
+	#year {
+		font-family: monospace;
+	}
+
+	.calendar .hover {
+		background: #eee;
+	}
+
+	.calendar #about {
+		font-size: 5em !important;
+		position: absolute;
+		top: -35px;
+		right: 15px;
+	}
+
+	.calendar h5 {
+		padding-left: 1em;
+		font-size: 1.25rem;
+	}
+
+	#about a {
+		text-decoration: none;
+	}
+
+	.pdf {
+		background-color: #e5e5e5;
+		padding: 1em;
+		border-radius: 5px;
+		text-align: center;
+	}
+
+	.pdf form {
+		text-align: left;
+		padding: 0 .5em;
+	}
+
+	.pdf button {
+		margin-top: 1em;
+	}
+
+	.pdf h5 {
+		text-align: left;
+	}
+
+	.pdf button {
+		background-color: #343F4B;
+		border: none;
+		padding: .5em 2em;
+		color: white;
+		text-transform: uppercase;
+	}
+
+	.cadastro-defesa form {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 0 1em;
+	}
+
+	.cadastro-defesa label {
+		width: 100%;
+		padding-top: .5em;
+	}
+
+	.cadastro-defesa .botoes {
+		padding-top: 1em;
+		display: flex;
+		justify-content: space-between;
+
+	}
+
+	.cadastro-defesa .botoes .cancelar {
+		background-color: #343F4B;
+		border: none;
+		padding: .5em 2em;
+		color: white;
+		text-transform: uppercase;
+		border-radius: 5px;
+		width: 150px;
+	}
+
+	.cadastro-defesa .botoes .excluir {
+		background-color: #B60003;
+		border: none;
+		padding: .5em 2em;
+		color: white;
+		text-transform: uppercase;
+		border-radius: 5px;
+		width: 150px;
+	}
+
+	.cadastro-defesa .botoes .confirmar {
+		background-color: #77D353;
+		border: none;
+		padding: .5em 2em;
+		color: white;
+		text-transform: uppercase;
+		border-radius: 5px;
+		width: 150px;
+	}
+
+	.cadastro-defesa .banca h5 {
+		margin: .5em 0 0 0;
+		font-size: 20px;
+		padding: 0;
+	}
+
+	.cadastro-defesa input {
+		width: 100%;
+	}
+
+
+	.visu-defesa .banca .prof {
+		padding-top: 0.5em;
+	}
+
+	.visu-defesa .banca .titulo {
+		margin-left: 1.5em;
+	}
+
+	.cadastro-defesa .horalocal {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	.cadastro-defesa form .nome,
+	.cadastro-defesa form .titulo {
+		display: flex;
+		flex-direction: column;
+	}
+
+	#datepicker,
+	.ui-datepicker {
+		width: 90% !important;
+		text-align: center;
+		margin: 0 auto;
+	}
+
+	.ui-datepicker td span,
+	.ui-datepicker td a {
+		text-align: center;
+	}
+
+	.ui-datepicker th {
+		padding: .135em;
+	}
+
+	.ui-datepicker-month,
+	.ui-datepicker-year {
+		font-size: 0.8em;
+		line-height: 1em;
+	}
+
+	.ui-widget-content .ui-state-default {
+		background: #b3b3b3 url('../../static/images/ui-bg_glass_75_e6e6e6_1x400.png') 50% 50% repeat-x;
+	}
+
+	.ui-state-default.ui-state-active {
+		background: white url('../../static/images/ui-bg_glass_75_e6e6e6_1x400.png') 50% 50% repeat-x;
+	}
+</style>
+
 
 <body>
     <div class="defesa container">
@@ -178,77 +262,60 @@
 
                 <div class="calendar">
                     <h5>Calendário</h5>
-
-                    <div class="container" id="main">
-                        <div class="jumbotron">
-                            <h1 class="text-center"><a id="left" href="#"><i class="fa fa-chevron-left">
-                                    </i></a><span>&nbsp;</span><span id="month"> </span><span>&nbsp;</span><span
-                                    id="year">
-                                </span><span>&nbsp;</span><a id="right" href="#"><i class="fa fa-chevron-right">
-                                    </i></a>
-                            </h1>
+                    <div id="datepicker"></div>
+                </div>
+                <div class="col-lg-9 defesas-detalhe cadastro-defesa">
+                    <h5>Cadastro de defesa</h5>
+                    <form action="">
+                        <div class="nome">
+                            <label for="nome">Nome</label>
+                            <select name="nome" id="" aria-placeholder="Aluno">
+                                <option value="opt">Ana Claudia Lima Almeida Inacio Costa</option>
+                                <option value="opt">Claudia</option>
+                            </select>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-10 col-sm-offset-1">
-                                <table class="table"></table>
+                        <div class="titulo">
+                            <label for="titulo">Título</label>
+                            <input type="text" placeholder="Título">
+                        </div>
+                        <div class="horalocal">
+                            <div class="data">
+                                <label for="data">Data</label>
+                                <input type="text">
+                            </div>
+                            <div class="local">
+                                <label for="local">Local</label>
+                                <input type="text">
+                            </div>
+                            <div class="hora">
+                                <label for="hora">Horário</label>
+                                <input type="text" class="last">
                             </div>
                         </div>
-                    </div><span id="about"><a href="http://odran037.github.io" target="_blank"><i
-                                class="fa fa-question-circle"> </i></a></span>
+
+                        <div class="banca">
+                            <div class="titulo">
+                                <label for="titulo">Orientador</label>
+                                <input type="text">
+                            </div>
+                            <div class="titulo">
+                                <label for="titulo">Professor Avaliador 1</label>
+                                <input type="text">
+                            </div>
+                            <div class="titulo">
+                                <label for="titulo">Professor Avaliador 2</label>
+                                <input type="text">
+                            </div>
+                        </div>
+
+                        <div class="botoes">
+                            <button class="cancelar">Cancelar</button>
+                            <button class="confirmar">Confirmar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-lg-9 defesas-detalhe cadastro-defesa">
-                <h5>Cadastro de defesa</h5>
-                <form action="">
-                    <div class="nome">
-                        <label for="nome">Nome</label>
-                        <select name="nome" id="" aria-placeholder="Aluno">
-                            <option value="opt">Ana Claudia Lima Almeida Inacio Costa</option>
-                            <option value="opt">Claudia</option>
-                        </select>
-                    </div>
-                    <div class="titulo">
-                        <label for="titulo">Título</label>
-                        <input type="text" placeholder="Título">
-                    </div>
-                    <div class="horalocal">
-                        <div class="data">
-                            <label for="data">Data</label>
-                            <input type="text">
-                        </div>
-                        <div class="local">
-                            <label for="local">Local</label>
-                            <input type="text">
-                        </div>
-                        <div class="hora">
-                            <label for="hora">Horário</label>
-                            <input type="text" class="last">
-                        </div>
-                    </div>
-
-                    <div class="banca">
-                        <div class="titulo">
-                            <label for="titulo">Orientador</label>
-                            <input type="text">
-                        </div>
-                        <div class="titulo">
-                            <label for="titulo">Professor Avaliador 1</label>
-                            <input type="text">
-                        </div>
-                        <div class="titulo">
-                            <label for="titulo">Professor Avaliador 2</label>
-                            <input type="text">
-                        </div>
-                    </div>
-
-                    <div class="botoes">
-                        <button class="cancelar">Cancelar</button>
-                        <button class="confirmar">Confirmar</button>
-                    </div>
-                </form>
-            </div>
         </div>
-    </div>
 </body>
 
 <script>
