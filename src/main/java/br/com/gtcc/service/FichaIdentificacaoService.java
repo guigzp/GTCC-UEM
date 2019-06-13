@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import br.com.gtcc.model.FichaIdentificacao;
 import br.com.gtcc.repository.FichaIdentificacaoRepository;
 
@@ -24,6 +25,15 @@ public class FichaIdentificacaoService {
 
 	public List<FichaIdentificacao> listarTodos() {
 		return fichaIdentificacaoRepository.findAll();
+	}
+	
+	public FichaIdentificacao buscar(Long id)
+	{
+		return this.fichaIdentificacaoRepository.getOne(id);
+	}
+	
+	public void deletar (FichaIdentificacao ficha) {
+		this.fichaIdentificacaoRepository.delete(ficha);
 	}
 
 	public List<FichaIdentificacao> buscarPorTituloTrabalho(String tituloTrabalho) {
