@@ -57,13 +57,13 @@ public class AgendamentoController {
         }
         agendamentoService.adicionar(agendamento);
 
-        return new ModelAndView("redirect:/gtcc/agendamentodefesa/index").addObject("sucesso", true);
+        return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
     }
 
     @GetMapping("/editar/{id}")
     public ModelAndView edit(@PathVariable("id") Long id) {
 
-        ModelAndView mv = new ModelAndView("agendamentodefesa/editarDefesa");
+        ModelAndView mv = new ModelAndView("agendamentodefesa/defesaUpdate");
         mv.addObject("agendamento", agendamentoService.buscarPorId(id));
 
         return mv;
@@ -81,13 +81,13 @@ public class AgendamentoController {
     public ModelAndView update(@Valid Agendamento agendamento, BindingResult result) {
 
         if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("");
+            ModelAndView mv = new ModelAndView("agendamentodefesa/defesaUpdate");
             mv.addObject("agendamento", agendamento);
             return mv;
         }
         
         agendamentoService.atualizar(agendamento);
-        return new ModelAndView("redirect:/gtcc/").addObject("atualizado", true);
+        return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("atualizado", true);
     }
 
     @GetMapping("/remover/{id}")
@@ -97,7 +97,7 @@ public class AgendamentoController {
     		agendamento.setAtivo(0);
     		agendamentoService.atualizar(agendamento);
     	}
-    	return new ModelAndView("redirect:/gtcc/agendamentodefesa/index").addObject("removido", true);
+    	return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("removido", true);
     }
     
     /*@PostMapping
