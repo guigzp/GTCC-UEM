@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Proposta" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3abbd2c5-53cd-45fa-bfd8-9cff8eb4bc4c">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="93"/>
+	<style name="Heading 1" fontSize="16" isBold="true"/>
+	<style name="Heading" fontSize="14"/>
+	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
+	<parameter name="NomeCurso" class="java.lang.String"/>
+	<parameter name="Ano" class="java.lang.String"/>
+	<parameter name="Professor" class="java.lang.String"/>
+	<parameter name="DataDeEntrega" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="Avaliador" class="java.lang.String"/>
+	<parameter name="Titulo" class="java.lang.String"/>
+	<parameter name="NomeDoAluno" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="aluno_ra" class="java.lang.Integer"/>
+	<field name="aluno_id_usuario" class="java.lang.Long"/>
+	<field name="aluno_curso" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="74" y="1" width="407" height="30" uuid="39be0df9-986d-41c5-bb78-9259779ff910"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Universidade Estadual de Maringá]]></text>
+			</staticText>
+			<image>
+				<reportElement x="481" y="15" width="74" height="43" uuid="9894aa69-acc8-416f-b135-a46e199938a2"/>
+				<imageExpression><![CDATA["logo-din.jpeg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="5" width="74" height="65" uuid="501716c2-0c43-4ffa-b402-ee5b572b2718"/>
+				<imageExpression><![CDATA["uem-logo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement positionType="Float" x="74" y="33" width="407" height="30" uuid="c38c6560-31a1-4254-82ad-d05404c14259"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bacharel em " + $P{NomeCurso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="35" uuid="01b275ba-6218-48a3-b1c0-2ed43b57c486"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Formulario de Avaliação da Proposta de Projeto de TCC - " + $P{Ano}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnFooter>
+		<band height="688">
+			<ellipse>
+				<reportElement mode="Opaque" x="13" y="28" width="4" height="4" backcolor="#000000" uuid="f24f0e63-5558-48a2-b694-4999c440f3f7"/>
+			</ellipse>
+			<staticText>
+				<reportElement x="21" y="22" width="523" height="32" uuid="6acff82d-eb21-457d-9d1a-19c2604a6f19"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Proceder à avaliação da Proposta de Projeto de TCC, pontuando de 0 a 10, individualmente, os itens da tabela abaixo. No final, atribua a sua Nota da Avaliação Geral de 0 a 10.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="54" width="523" height="32" uuid="a17cd9ba-799a-40f5-a28e-f0d1d4358b42"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[A Nota da Avaliação Geral será usada no cômputo da média final do aluno, entretanto, as avaliações individuais dos itens são estritamente necessárias para justificar a Nota da Avaliação Geral.]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement mode="Opaque" x="13" y="60" width="4" height="4" backcolor="#000000" uuid="29fdfbc5-9e8b-45ac-922f-c2a4274818fb"/>
+			</ellipse>
+			<ellipse>
+				<reportElement mode="Opaque" x="13" y="92" width="4" height="4" backcolor="#000000" uuid="b0140c0f-b347-4b53-b631-60323361a961"/>
+			</ellipse>
+			<staticText>
+				<reportElement x="21" y="86" width="523" height="32" uuid="326a5772-7b9e-4f67-9153-672bc799eb31"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sugestões de melhorias e comentários devem ser preenchidos no campo apropriado, os quais serão repassados ao aluno.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="118" width="523" height="32" uuid="544ad756-3306-4279-867a-f935b634fd60"/>
+				<textElement textAlignment="Justified">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Correções no texto e observações também podem ser feitas no documento impresso, neste caso, o mesmo deverá ser devolvido à coordenação de TCC junto com o formulário de avaliação.]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement mode="Opaque" x="13" y="124" width="4" height="4" backcolor="#000000" uuid="05c64a0d-2e18-43f3-a5b4-a4799d23c46c"/>
+			</ellipse>
+			<ellipse>
+				<reportElement mode="Opaque" x="13" y="156" width="4" height="4" backcolor="#000000" uuid="7a5fcaa9-ab5a-4ec2-93c9-74ded945660d"/>
+			</ellipse>
+			<textField>
+				<reportElement x="21" y="150" width="523" height="37" uuid="a38ccb81-8c39-4012-aa02-ee0ec016e14d"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Entregar este formulário devidamente preenchido e assinado no escaninho do(a) professor(a) " + $P{Professor} + " até " + $P{DataDeEntrega}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="13" y="202" width="531" height="486" uuid="c2b6470d-969d-4f7e-8cf6-643fc1d1f998"/>
+				<graphicElement>
+					<pen lineWidth="5.0"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="15" y="232" width="527" height="1" uuid="5d75baa3-48d9-4b67-be96-37add8774e64"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="208" width="333" height="20" uuid="37f41ad9-ce29-4a6f-b12d-8201d0842e37"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nome do Avaliador: " + $P{Avaliador}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="351" y="208" width="100" height="20" uuid="48eb195e-3785-47b0-ae77-b05c4e3bedb8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Assinatura:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="14" y="260" width="527" height="1" uuid="cc1ce920-2774-4e14-9571-1bdaccd99260"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="236" width="523" height="20" uuid="40993faf-b8b9-4ad3-8aba-15fbd449adcc"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Título do Trabalho: " + $P{Titulo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="15" y="289" width="527" height="1" uuid="e3f28f9e-527b-4062-be4f-07c59d6cd718"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="265" width="523" height="20" uuid="0ac1ffe8-8302-489f-beb1-1e25e67398b2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nome do Aluno: " + $P{NomeDoAluno}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="15" y="289" width="527" height="27" forecolor="#000000" backcolor="#CCCCCC" uuid="f775c656-cec0-4a45-a3ef-fc1f438b9ec1"/>
+			</rectangle>
+			<line>
+				<reportElement x="15" y="345" width="527" height="1" uuid="09647de5-5239-4548-9d22-0d1964b51cfd"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="321" width="289" height="20" uuid="7814e740-5ad5-4625-84e6-4ba6d861eeda"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["i. Organização do Texto"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="15" y="374" width="527" height="1" uuid="0698b1d0-30be-487a-8fe4-9bd3bada559a"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="350" width="289" height="20" uuid="da951006-e31d-4954-8c79-a310101edab9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ii. Ortografia e Gramática"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="15" y="403" width="527" height="1" uuid="6609f833-6e8d-436d-adbc-91d33318110b"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="379" width="398" height="20" uuid="e3d3b819-9865-45ee-80f1-6f780f43c9e3"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["iii. Descrição do problema, objetivos, justificativas e procedimentos"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="15" y="431" width="527" height="1" uuid="4732663a-2ceb-4e18-803b-3d406709baef"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="407" width="289" height="20" uuid="2cfee90b-1f77-4333-acee-aadfa0869345"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["iv. Desenvolvimento lógico de ideias e proposições"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="15" y="459" width="527" height="1" uuid="d6ac488d-5456-4436-b145-790b3544d887"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="435" width="289" height="20" uuid="d464dd06-a67c-4cf7-8631-92954152c613"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["v. Metodologia e exequibilidade do cronograma"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="16" y="487" width="527" height="1" uuid="59e14bd3-6f3e-410d-9ca9-2b56d82890f6"/>
+			</line>
+			<textField>
+				<reportElement x="18" y="463" width="289" height="20" uuid="2ebb1244-ab6b-4295-9899-cf8ea53261fd"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["vi. Citações no texto e referências bibliográficas"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="415" y="289" width="1" height="225" uuid="ea5903b8-280b-46d6-9c0e-e0ff7ce87363"/>
+			</line>
+			<staticText>
+				<reportElement x="50" y="290" width="365" height="26" uuid="4339c9cb-c816-4921-9711-0fa1939d0887"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ITENS AVALIADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="290" width="125" height="26" uuid="4603db78-99a4-4afd-b513-51351b6410fa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[NOTA]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="15" y="487" width="527" height="27" forecolor="#000000" backcolor="#CCCCCC" uuid="53147b92-e428-43c3-b946-2e94bad243b6"/>
+			</rectangle>
+			<textField>
+				<reportElement x="122" y="488" width="289" height="26" uuid="fc8a84a9-9a88-49d8-85a0-3621206fec06"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nota da Avaliação Geral"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="415" y="487" width="1" height="27" uuid="98a6ac06-369f-4553-83ab-186b4c0bc703"/>
+			</line>
+			<textField>
+				<reportElement x="17" y="518" width="289" height="20" uuid="811daf2e-3bda-40f9-9267-b37add02b744"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Comentários, Justificativas e Sugestões:"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="13" y="202" width="531" height="486" forecolor="#FFFFFF" uuid="259949cd-d516-4e24-9964-ee4a647aa144"/>
+			</rectangle>
+		</band>
+	</columnFooter>
+</jasperReport>
