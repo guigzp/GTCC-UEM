@@ -19,6 +19,7 @@
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
+			(function () {
 				var just_stop;
 
 				$('#datepicker').datepicker();
@@ -48,7 +49,7 @@
 
 				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
 
-			}.call(this);
+			}).call(this);
 		}, false);
 	</script>
 
@@ -57,34 +58,23 @@
 <!-- Nao encontrei o arquivo .css, dai tem que atualizar com este que esta aqui -->
 <style>
 	.defesa h3 {
-		text-align: center !important;
-		font-size: 2em !important;
-		margin: 1em auto 1em !important;
+		text-align: center !important;font-size: 2em !important;margin: 1em auto 1em !important;
 	}
 
 	.defesas-detalhe {
-		background-color: #e5e5e5 !important;
-		padding: 2em 3em !important;
-		border-radius: 5px !important;
-		width: 100% !important;
+		background-color: #e5e5e5 !important;padding: 2em 3em !important;border-radius: 5px !important;width: 100% !important;
 	}
 
 	.defesas-detalhe table {
-		display: flex !important;
-		align-items: center !important;
-		width: 100% !important;
+		display: flex !important;align-items: center !important;width: 100% !important;
 	}
 
 	.defesas-detalhe thead {
-		width: 100% !important;
-		background-color: #fff !important;
-		border-radius: 5px !important;
-		padding: 1em !important;
+		width: 100% !important;background-color: #fff !important;border-radius: 5px !important;padding: 1em !important;
 	}
 
 	.defesas-detalhe h5 {
-		font-size: 1.5em !important;
-		padding-bottom: .5em !important;
+		font-size: 1.5em !important;padding-bottom: .5em !important;
 	}
 
 	.defesas-detalhe table th {
@@ -157,15 +147,11 @@
 	}
 
 	.pdf {
-		background-color: #e5e5e5 !important;
-		padding: 1em !important;
-		border-radius: 5px !important;
-		text-align: center !important;
+		background-color: #e5e5e5 !important;padding: 1em !important;border-radius: 5px !important;text-align: center !important;
 	}
 
 	.pdf form {
-		text-align: left !important;
-		padding: 0 .5em !important;
+		text-align: left !important;padding: 0 .5em !important;
 	}
 
 	.pdf button {
@@ -177,11 +163,7 @@
 	}
 
 	.pdf button {
-		background-color: #343F4B !important;
-		border: none !important;
-		padding: .5em 2em !important;
-		color: white !important;
-		text-transform: uppercase !important;
+		background-color: #343F4B !important;border: none !important;padding: .5em 2em !important;color: white !important;text-transform: uppercase !important;
 	}
 
 	.cadastro-defesa form {
@@ -299,21 +281,18 @@
 <body>
 	<section layout:fragment="content">
 		<div id="wrap" class="container">
-			<div class="defesa container">
-				<h3>Agendamento de defesas</h3>
+			<div class="defesa container" style="width: 100% !important;background-color:#e5e5e5;box-sizing:border-box !important; padding: 2em; 	">
+				<h3 style="text-align: center !important;font-size: 2em !important;margin: 1em auto 1em !important;box-sizing:border-box !important;">Agendamento de defesas</h3>
 				<div class="row">
 					<div class="col-lg-3" style="width: 100%;">
 
 						<div class="calendar">
-							<h5>Calendário</h5>
 							<div id="datepicker"></div>
-							<div class="container" id="main">
-
-							</div>
+							<div class="container" id="main"></div>
 						</div>
-						<div class="pdf" style='background-color: #e5e5e5; padding: 1em;'>
-							<h5>Gerar PDF</h5>
-							<form action="">
+						<div class="pdf" style='background-color: #eceff5; padding: 1em;border-radius: 5px !important;text-align: center !important;'>
+							<h5 style="text-align: left !important;">Gerar PDF</h5>
+							<form action="" style="text-align: left !important;padding: 0 .5em !important;">
 								<input type="radio" name="edital" value="edital">
 								<label for="edital">Edital de Defesa</label><br>
 								<input type="radio" name="vehicle2" value="Car">
@@ -326,28 +305,28 @@
 								</select>
 							</form>
 
-							<button>Gerar</button>
+							<button style="margin-top: 1em !important;background-color: #343F4B !important;border: none !important;padding: .5em 2em !important;color: white !important;text-transform: uppercase !important;">Gerar</button>
 						</div>
 					</div>
-					<div class="col-lg-9 defesas-detalhe">
-						<h5>Próximas defesas</h5>
-						<table id="tabela_defesas" class="table table-hover table-striped table-bordered table-click">
+					<div class="col-lg-9 defesas-detalhe" style="box-sizing:border-box !important; background-color: #eceff5 !important;padding: 2em 1em !important;border-radius: 5px !important;width: 100% !important;">
+						<h5 style="font-size: 1.5em !important;padding-bottom: .5em !important;">Próximas defesas</h5>
+						<table id="tabela_defesas" class="table table-hover table-striped table-bordered table-click" style="display: flex !important;align-items: center !important;width: 100% !important;flex-direction:column;">
 
-							<thead>
-								<tr>
-									<th class="">Data</th>
-									<th class="">Orientando</th>
-									<th class="">Horário</th>
-									<th class="">Local</th>
-									<th class="">Ações</th>
+							<thead style="width: 100% !important; display:flex; justify-content: space-between; background-color: #fff !important; border:none; border-radius: 5px !important;padding: 1em !important;">
+								<tr style="width: 100% !important; display:flex; justify-content: space-between;">
+									<th style="padding-left: 0.25em !important;border:none;" class="">Data</th>
+									<th style="padding-left: 0.25em !important;border:none;" class="">Orientando</th>
+									<th style="padding-left: 0.25em !important;border:none;" class="">Horário</th>
+									<th style="padding-left: 0.25em !important;border:none;" class="">Local</th>
+									<th style="padding-left: 0.25em !important;border:none;" class="">Ações</th>
 								</tr>
 							</thead>
 
 							<tbody>
 								<tr th:if="${not #lists.isEmpty(agendamentos)}" th:each="agendamento : ${agendamentos}">
-									<td th:text="${agendamento.dataDefesa}"></td>
+									<td th:text="${#temporals.format(agendamento.dataDefesa, 'dd/MM/yyyy')}"></td>
 									<td th:text="${agendamento.fichaIdentificacao.aluno.nome}"></td>
-									<td th:text="${agendamento.horario}"></td>
+									<td style="text-align:left !important;" th:text="${agendamento.horario}"></td>
 									<td th:text="${agendamento.local}"></td>
 									<td>
 										<div class="btn-group pull-right">
@@ -362,9 +341,9 @@
 							</tbody>
 							<tfoot> </tfoot>
 						</table>
-						<div class="form-group row justify-content-end ">
+						<div class="form-group row" style="box-sizing:border-box; display:flex; justify-content: flex-end; margin-right:.01em;">
 							<div class="col-sm-2 text-right">
-								<a class="btn btn-lg btn-success"
+								<a class="btn btn-lg btn-success" style="padding: .5em 1em!important; font-size:1em!important;"
 									th:href="@{/gtcc/agendamentodefesa/cadastrar}">Adicionar</a>
 							</div>
 						</div>
