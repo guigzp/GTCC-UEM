@@ -134,11 +134,18 @@ public class InitDatabase implements ApplicationListener<ContextRefreshedEvent> 
 			professor.setCoordenador(false);
 			professor.setNome(nome);
 			professor.setEmail(matricula+"@uem.br");
+			professor.setAvaliador(false);
+			professor.setOrientador(false);
+			professor.setCoordenador_do_curso(false);
+			
 			//seta a Thelma como coordenadora
 			if(nome.contains("Thelma Elita Colanzi"))
 			{
 				professor.setCoordenador(true);
+				professor.setCoordenador_do_curso(true);
 			}
+			
+			
 			
 			repositoryProfessor.save(professor);
 			

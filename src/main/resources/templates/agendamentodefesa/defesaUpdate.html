@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}" >
+
+<head>
+</head>
+
+<body>
+    <body>
+	<section class="main-content" layout:fragment="content">
+		<div id="wrap" class="container">
+			<div id="main">
+				<div class="jumbotron">
+					<div class="row">
+						<div class="col text-center">
+							<h3 >Editar defesa</h3>
+						</div>
+					</div>
+					<hr/>
+					<!-- MESSAGES -->
+					<form th:object="${agendamento}" th:action="@{/gtcc/agendamentodefesa/editar/{id}(id=${agendamento.id})}" method="POST"
+						class="form-default form-horizontal" >
+						<div class="form-group row justify-content-left" >
+							<label for="nomeAluno" class="col-lg col-form-label   text-right">Nome do Aluno<span style="color: red;">*</span></label>
+							<div class="controls col-sm">
+								<input type="text" name="nomeAluno"
+									id="nome" class="form-control"
+									th:field="*{fichaIdentificacao.aluno.nome}" disabled/>
+									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.aluno.nome')}" th:errors="*{fichaIdentificacao.aluno.nome}" ></div>
+							</div>
+						</div>
+						<div class="form-group row justify-content-left" >
+							<label for="titulo" class="col-lg col-form-label   text-right">Título<span style="color: red;">*</span></label>
+							<div class="controls col-sm">
+								<input type="text" name="titulo"
+									id="titulo" class="form-control"
+									th:field="*{fichaIdentificacao.tituloTrabalho}"/>
+									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.tituloTrabalho')}" th:errors="*{fichaIdentificacao.tituloTrabalho}" ></div>
+							</div>
+						</div>
+						<div class="form-group row justify-content-left " >
+							<label for="dataDefesa" class="col-sm col-form-label   text-right">Data defesa<span style="color: red;">*</span></label>
+							<div class="controls col-sm">
+								<input type="text" name="dataDefesa"
+									id="dataDefesa" class="form-control"
+									th:field="*{dataDefesa}" 
+									autofocus="autofocus"
+									/>
+								<div style="color: red;" th:if="${#fields.hasErrors('dataDefesa')}" th:errors="*{dataDefesa}" ></div>
+							</div>
+						</div>
+						<div class="form-group row justify-content-left " >
+							<label for="horario" class="col-sm col-form-label   text-right">Horário<span style="color: red;">*</span></label>
+							<div class="controls col-sm">
+								<input type="text" name="horario"
+									id="horario" class="form-control"
+									th:field="*{horario}" 
+									autofocus="autofocus"
+									/>
+								<div style="color: red;" th:if="${#fields.hasErrors('horario')}" th:errors="*{horario}" ></div>
+							</div>
+						</div>
+						<div class="form-group row justify-content-left " >
+							<label for="local" class="col-sm col-form-label   text-right">Local<span style="color: red;">*</span></label>
+							<div class="controls col-sm">
+								<input type="text" name="local"
+									id="local" class="form-control"
+									th:field="*{local}" 
+									autofocus="autofocus"
+									/>
+								<div style="color: red;" th:if="${#fields.hasErrors('local')}" th:errors="*{local}" ></div>
+							</div>
+						</div>
+						<div class="form-group row justify-content-left" >
+							<label for="orientador" class="col-lg col-form-label   text-right">Orientador<span style="color: red;">*</span></label>
+							<div class="controls col-sm">
+								<input type="text" name="orientador"
+									id="orientador" class="form-control"
+									th:field="*{fichaIdentificacao.orientador.nome}"/>
+									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.orientador.nome')}" th:errors="*{fichaIdentificacao.orientador.nome}" ></div>
+							</div>
+						</div>
+						<div class="form-group row justify-content-left" >
+							<label for="avaliador1" class="col-lg col-form-label   text-right">Professor avaliador 1<span style="color: red;">*</span></label>
+							<div class="controls col-sm">
+								<input type="text" name="avaliador1"
+									id="avaliador1" class="form-control"
+									th:field="*{fichaIdentificacao.avaliador1.nome}"/>
+									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.avaliador1.nome')}" th:errors="*{fichaIdentificacao.avaliador1.nome}" ></div>
+							</div>
+						</div>
+						<div class="form-group row justify-content-left" >
+							<label for="avaliador2" class="col-lg col-form-label   text-right">Professor avaliador 2<span style="color: red;">*</span></label>
+							<div class="controls col-sm">
+								<input type="text" name="avaliador2"
+									id="avaliador2" class="form-control"
+									th:field="*{fichaIdentificacao.avaliador2.nome}"/>
+									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.avaliador2.nome')}" th:errors="*{fichaIdentificacao.avaliador2.nome}" ></div>
+							</div>
+						</div>
+						<p class="text-danger text-center">*Campos obrigatórios.</p>
+						<hr />
+						<div class="form-group row justify-content-center ">
+							<div class=" col-sm-2">
+								<a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/agendamentodefesa}"> Cancelar </a>
+							</div>
+							<div class="col-sm-2 text-right">
+								<button type="submit" class="btn btn-lg btn-success">Atualizar</button>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>
+			<div id="push"></div>
+		</div>
+		</div>
+	</section>
+</body>
+
+<script>
+
+</script>
+
+</html>

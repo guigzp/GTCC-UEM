@@ -42,12 +42,16 @@
 						<!-- 							</div> -->
 						<!-- 						</div> -->
 
+						<input id="id" type="hidden" th:field="*{id}" value="${id}" />
 						<div class="form-group row justify-content-center">
-							<div class="input-group col-xl-10">
+							<div class="field-wrapper col-xl-10">
 								<input type="text" name="tituloTrabalho" id="tituloTrabalho"
 									class="form-control" th:field="*{tituloTrabalho}"
-									autofocus="autofocus" placeholder="Título do Trabalho *"
-									aria-label="Título do Trabalho" aria-describedby="basic-addon1">
+									autofocus="autofocus" aria-label="Título do Trabalho"
+									aria-describedby="basic-addon1">
+								<div class="field-placeholder">
+									<span>Título do Trabalho *</span>
+								</div>
 							</div>
 						</div>
 
@@ -60,12 +64,14 @@
 						</div>
 
 						<div class="form-group row justify-content-center">
-							<div class="input-group col-xl-10">
+							<div class="field-wrapper col-xl-10">
 								<input type="text" name="areaConcentracao" id="areaConcentracao"
 									class="form-control" th:field="*{areaConcentracao}"
-									placeholder="Area de concentração *"
 									aria-label="Area de concentração"
 									aria-describedby="basic-addon1">
+								<div class="field-placeholder">
+									<span>Area de concentração *</span>
+								</div>
 							</div>
 						</div>
 
@@ -79,10 +85,13 @@
 
 						<div class="form-group row justify-content-center">
 
-							<div class="input-group col-xl-2">
+							<div class="field-wrapper col-xl-2">
 								<input type="number" name="ano" id="ano" class="form-control"
-									th:field="*{ano}" placeholder="Ano *" aria-label="Ano"
+									th:field="*{ano}" aria-label="Ano"
 									aria-describedby="basic-addon1">
+								<div class="field-placeholder">
+									<span>Ano *</span>
+								</div>
 							</div>
 
 							<div class="input-group col-xl-8"></div>
@@ -98,29 +107,27 @@
 
 						<div class="form-group row justify-content-center">
 							<div class="input-group col-xl-10">
-								<select th:field="*{aluno}" class="form-control">
+								<select th:field="*{aluno}" class="form-control" style="height: 60px;">
 									<option value="">Selecione o Aluno</option>
 									<option th:each="aluno : ${alunos}"
-										th:value="${aluno.idUsuario}"
-										th:text="${aluno.nome}"></option>
+										th:value="${aluno.idUsuario}" th:text="${aluno.nome}"></option>
 								</select>
 							</div>
 						</div>
 
 						<div class="form-group row justify-content-center">
 							<div class="input-group col-xl-10">
-								<div style="color: red;"
-									th:if="${#fields.hasErrors('aluno')}"
+								<div style="color: red;" th:if="${#fields.hasErrors('aluno')}"
 									th:errors="*{aluno}"></div>
 							</div>
 						</div>
 
 						<div class="form-group row justify-content-center">
 							<div class="input-group col-xl-10">
-								<select th:field="*{orientador}" class="form-control">
+								<select th:field="*{orientador}" class="form-control" style="height: 60px;">
 									<option value="">Selecione o Orientador</option>
 									<option th:each="orientador : ${professores}"
-										th:value="${orientador.idUsuario}"
+										th:value="${orientador.idProfessor}"
 										th:text="${orientador.nome}"></option>
 								</select>
 							</div>
@@ -136,10 +143,11 @@
 
 						<div class="form-group row justify-content-center">
 							<div class="input-group col-xl-10">
-								<select th:field="*{avaliador1}" class="form-control">
+								<select th:field="*{avaliador1}" class="form-control" style="height: 60px;">
 									<option value="">Selecione o 1° Avaliador</option>
 									<option th:each="avaliador : ${professores}"
-										th:value="${avaliador.idUsuario}" th:text="${avaliador.nome}"></option>
+										th:value="${avaliador.idProfessor}"
+										th:text="${avaliador.nome}"></option>
 								</select>
 							</div>
 						</div>
@@ -154,10 +162,11 @@
 
 						<div class="form-group row justify-content-center">
 							<div class="input-group col-xl-10">
-								<select th:field="*{avaliador2}" class="form-control">
+								<select th:field="*{avaliador2}" class="form-control" style="height: 60px;">
 									<option value="">Selecione o 2° Avaliador</option>
 									<option th:each="avaliador : ${professores}"
-										th:value="${avaliador.idUsuario}" th:text="${avaliador.nome}"></option>
+										th:value="${avaliador.idProfessor}"
+										th:text="${avaliador.nome}"></option>
 								</select>
 							</div>
 						</div>

@@ -1,5 +1,7 @@
 package br.com.gtcc.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.gtcc.model.Agendamento;
+import br.com.gtcc.model.FichaIdentificacao;
 import br.com.gtcc.service.AgendamentoService;
+import br.com.gtcc.service.FichaIdentificacaoService;
 /**
  * 
  * @author Grupo 03 - Ana Cláudia, Ana Paula, Rafael de Souza, Viviane Shiraishi
@@ -25,6 +29,8 @@ public class AgendamentoController {
 	
     @Autowired
     private AgendamentoService agendamentoService;
+    @Autowired
+    private FichaIdentificacaoService fichaIdentificacaoService;
 
 
     @GetMapping
@@ -41,7 +47,11 @@ public class AgendamentoController {
 
     @GetMapping("/cadastrar")
     public ModelAndView add(Agendamento agendamento) {
+    	
+    	List<FichaIdentificacao> fichas = fichaIdentificacaoService.listarTodos();
+    	
         ModelAndView mv = new ModelAndView("agendamentodefesa/defesaCreate");
+        mv.addObject("fichas", fichas);
         mv.addObject("agendamento", agendamento);
         return mv;
     }
@@ -57,13 +67,13 @@ public class AgendamentoController {
         }
         agendamentoService.adicionar(agendamento);
 
-        return new ModelAndView("redirect:/gtcc/agendamentodefesa/index").addObject("sucesso", true);
+        return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
     }
 
     @GetMapping("/editar/{id}")
     public ModelAndView edit(@PathVariable("id") Long id) {
 
-        ModelAndView mv = new ModelAndView("agendamentodefesa/editarDefesa");
+        ModelAndView mv = new ModelAndView("agendamentodefesa/defesaUpdate");
         mv.addObject("agendamento", agendamentoService.buscarPorId(id));
 
         return mv;
@@ -81,13 +91,13 @@ public class AgendamentoController {
     public ModelAndView update(@Valid Agendamento agendamento, BindingResult result) {
 
         if (result.hasErrors()) {
-            ModelAndView mv = new ModelAndView("");
+            ModelAndView mv = new ModelAndView("agendamentodefesa/defesaUpdate");
             mv.addObject("agendamento", agendamento);
             return mv;
         }
         
         agendamentoService.atualizar(agendamento);
-        return new ModelAndView("redirect:/gtcc/").addObject("atualizado", true);
+        return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("atualizado", true);
     }
 
     @GetMapping("/remover/{id}")
@@ -97,7 +107,7 @@ public class AgendamentoController {
     		agendamento.setAtivo(0);
     		agendamentoService.atualizar(agendamento);
     	}
-    	return new ModelAndView("redirect:/gtcc/agendamentodefesa/index").addObject("removido", true);
+    	return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("removido", true);
     }
     
     /*@PostMapping
