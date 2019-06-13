@@ -55,7 +55,7 @@
 				<tbody>
 					<tr th:if="${not #lists.isEmpty(agendamentos)}" th:each="agendamento : ${agendamentos}">
 						<td th:text="${agendamento.dataDefesa}"></td>
-						<td th:text="${agendamento.fichaIdentificacao.aluno}"></td>
+						<td th:text="${agendamento.fichaIdentificacao.aluno.nome}"></td>
 						<td th:text="${agendamento.horario}"></td>
 						<td th:text="${agendamento.local}"></td>
 						<td>
@@ -69,6 +69,11 @@
 				</tbody>
 				<tfoot>	</tfoot>
 			</table>
+			<div class="form-group row justify-content-end ">
+				<div class="col-sm-2 text-right">
+					<a class="btn btn-lg btn-success"  th:href="@{/gtcc/agendamentodefesa/cadastrar}">Adicionar</a>
+				</div>
+			</div>
 	      </div>
     </div>
   </div>
