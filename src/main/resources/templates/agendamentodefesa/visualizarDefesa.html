@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/layout}" >
+
+<head>
+</head>
+
+<body>
+	<section class="main-content" layout:fragment="content">
+    	<div id="wrap" class="container">
+			<div id="main">
+				<div class="jumbotron">
+					<div class="row justify-content-center">
+						<h3>Detalhes da defesa</h3>
+					</div>
+					<hr/>
+					<div th:object="${agendamento}">
+					<table id="agendamento"
+				class="table ">
+				
+				<tbody>
+                    <tr>
+						<th class="text-right" width="50%">Nome do aluno:</th>
+						<td th:text="*{fichaIdentificacao.aluno.nome}"></td>
+                    </tr>
+                    <tr>
+						<th class="text-right" width="50%">Título do trabalho:</th>
+						<td th:text="*{fichaIdentificacao.tituloTrabalho}"></td>
+                    </tr>
+                    <tr>
+						<th class="text-right" width="50%">Data:</th>
+						<td th:text="*{dataDefesa}"></td>
+                    </tr>
+                    <tr>
+						<th class="text-right" width="50%">Horário:</th>
+						<td th:text="*{horario}"></td>
+                    </tr>
+                    <tr>
+						<th class="text-right" width="50%">Local:</th>
+						<td th:text="*{local}"></td>
+                    </tr>
+                    <tr>
+						<th class="text-right" width="50%">Orientador:</th>
+						<td th:text="*{fichaIdentificacao.orientador.nome}"></td>
+                    </tr>
+                    <tr>
+						<th class="text-right" width="50%">Avaliador 1:</th>
+						<td th:text="*{fichaIdentificacao.avaliador1.nome}"></td>
+                    </tr>
+                    <tr>
+						<th class="text-right" width="50%">Avaliador 2:</th>
+						<td th:text="*{fichaIdentificacao.avaliador2.nome}"></td>
+                    </tr>
+				</tbody>
+				<tfoot>
+			
+				</tfoot>
+			</table>
+				<hr />
+				<div class="form-group row justify-content-center ">
+					<div class=" col-sm-2">
+						<a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/agendamentodefesa}"> Voltar </a>
+					</div>
+					<div class=" col-sm-2 text-right">
+						<a class="btn btn-lg btn-warning" th:href="@{/gtcc/agendamentodefesa/editar/{id}(id=${agendamento.id})}" >Editar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
