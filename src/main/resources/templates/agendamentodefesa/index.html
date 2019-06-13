@@ -13,11 +13,12 @@
 	<link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 	<script src="../../static/js/jquery_mask/jquery.mask.js"></script>
 	<script src="../../static/js/jquery_mask/jquery.mask.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
-
-			(function () {
 				var just_stop;
 
 				$('#datepicker').datepicker();
@@ -47,69 +48,66 @@
 
 				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
 
-			}).call(this);
+			}.call(this);
 		}, false);
 	</script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 
 <!-- Nao encontrei o arquivo .css, dai tem que atualizar com este que esta aqui -->
 <style>
 	.defesa h3 {
-		text-align: center;
-		font-size: 2em;
-		margin: 1em auto 1em;
+		text-align: center !important;
+		font-size: 2em !important;
+		margin: 1em auto 1em !important;
 	}
 
 	.defesas-detalhe {
-		background-color: #e5e5e5;
-		padding: 2em 3em;
-		border-radius: 5px;
-		width: 100%;
+		background-color: #e5e5e5 !important;
+		padding: 2em 3em !important;
+		border-radius: 5px !important;
+		width: 100% !important;
 	}
 
 	.defesas-detalhe table {
-		display: flex;
-		align-items: center;
-		width: 100%;
+		display: flex !important;
+		align-items: center !important;
+		width: 100% !important;
 	}
 
 	.defesas-detalhe thead {
-		width: 100%;
-		background-color: #fff;
-		border-radius: 5px;
-		padding: 1em;
+		width: 100% !important;
+		background-color: #fff !important;
+		border-radius: 5px !important;
+		padding: 1em !important;
 	}
 
 	.defesas-detalhe h5 {
-		font-size: 1.5em;
-		padding-bottom: .5em;
+		font-size: 1.5em !important;
+		padding-bottom: .5em !important;
 	}
 
 	.defesas-detalhe table th {
-		padding-left: 0.25em;
+		padding-left: 0.25em !important;
 	}
 
 	.defesas-detalhe table .infos {
-		text-align: left;
-		font-weight: 700;
-		padding-left: 0.5em;
+		text-align: left !important;
+		font-weight: 700 !important;
+		padding-left: 0.5em !important;
 	}
 
 	.defesas-detalhe table th {
-		text-transform: none;
-		font-weight: 100;
+		text-transform: none !important;
+		font-weight: 100 !important;
 	}
 
 	.jumbotron {
-		background: #fff;
+		background: #fff !important;
 	}
 
 	.fa {
-		font-size: 0.5em;
+		font-size: 0.5em !important;
 	}
 
 	.calendar {
@@ -159,96 +157,96 @@
 	}
 
 	.pdf {
-		background-color: #e5e5e5;
-		padding: 1em;
-		border-radius: 5px;
-		text-align: center;
+		background-color: #e5e5e5 !important;
+		padding: 1em !important;
+		border-radius: 5px !important;
+		text-align: center !important;
 	}
 
 	.pdf form {
-		text-align: left;
-		padding: 0 .5em;
+		text-align: left !important;
+		padding: 0 .5em !important;
 	}
 
 	.pdf button {
-		margin-top: 1em;
+		margin-top: 1em !important;
 	}
 
 	.pdf h5 {
-		text-align: left;
+		text-align: left !important;
 	}
 
 	.pdf button {
-		background-color: #343F4B;
-		border: none;
-		padding: .5em 2em;
-		color: white;
-		text-transform: uppercase;
+		background-color: #343F4B !important;
+		border: none !important;
+		padding: .5em 2em !important;
+		color: white !important;
+		text-transform: uppercase !important;
 	}
 
 	.cadastro-defesa form {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		padding: 0 1em;
+		width: 100% !important;
+		display: flex !important;
+		flex-direction: column !important;
+		justify-content: center !important;
+		padding: 0 1em !important;
 	}
 
 	.cadastro-defesa label {
-		width: 100%;
-		padding-top: .5em;
+		width: 100% !important;
+		padding-top: .5em !important;
 	}
 
 	.cadastro-defesa .botoes {
-		padding-top: 1em;
-		display: flex;
-		justify-content: space-between;
+		padding-top: 1em !important;
+		display: flex !important;
+		justify-content: space-between !important;
 
 	}
 
 	.cadastro-defesa .botoes .cancelar {
-		background-color: #343F4B;
-		border: none;
-		padding: .5em 2em;
-		color: white;
-		text-transform: uppercase;
-		border-radius: 5px;
-		width: 150px;
+		background-color: #343F4B !important;
+		border: none !important;
+		padding: .5em 2em !important;
+		color: white !important;
+		text-transform: uppercase !important;
+		border-radius: 5px !important;
+		width: 150px !important;
 	}
 
 	.cadastro-defesa .botoes .excluir {
-		background-color: #B60003;
-		border: none;
-		padding: .5em 2em;
-		color: white;
-		text-transform: uppercase;
-		border-radius: 5px;
-		width: 150px;
+		background-color: #B60003 !important;
+		border: none !important;
+		padding: .5em 2em !important;
+		color: white !important;
+		text-transform: uppercase !important;
+		border-radius: 5px !important;
+		width: 150px !important;
 	}
 
 	.cadastro-defesa .botoes .confirmar {
-		background-color: #77D353;
-		border: none;
-		padding: .5em 2em;
-		color: white;
-		text-transform: uppercase;
-		border-radius: 5px;
-		width: 150px;
+		background-color: #77D353 !important;
+		border: none !important;
+		padding: .5em 2em !important;
+		color: white !important;
+		text-transform: uppercase !important;
+		border-radius: 5px !important;
+		width: 150px !important;
 	}
 
 	.cadastro-defesa .banca h5 {
-		margin: .5em 0 0 0;
-		font-size: 20px;
-		padding: 0;
+		margin: .5em 0 0 0 !important;
+		font-size: 20px !important;
+		padding: 0 !important;
 	}
 
 	.cadastro-defesa input {
-		width: 100%;
+		width: 100% !important;
 	}
 
 
 	.visu-defesa .banca .prof {
-		padding-top: 0.5em;
+		padding-top: 0.5em !important;
 	}
 
 	.visu-defesa .banca .titulo {
@@ -308,12 +306,12 @@
 
 						<div class="calendar">
 							<h5>Calendário</h5>
-
+							<div id="datepicker"></div>
 							<div class="container" id="main">
 
 							</div>
 						</div>
-						<div class="pdf">
+						<div class="pdf" style='background-color: #e5e5e5; padding: 1em;'>
 							<h5>Gerar PDF</h5>
 							<form action="">
 								<input type="radio" name="edital" value="edital">
