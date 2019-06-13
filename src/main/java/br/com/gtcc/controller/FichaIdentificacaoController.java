@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.gtcc.model.Aluno;
 import br.com.gtcc.model.FichaIdentificacao;
 import br.com.gtcc.model.Professor;
+import br.com.gtcc.repository.FichaIdentificacaoRepositorySearch;
 import br.com.gtcc.service.AlunoService;
 import br.com.gtcc.service.FichaIdentificacaoService;
 import br.com.gtcc.service.ProfessorService;
@@ -30,6 +31,8 @@ public class FichaIdentificacaoController {
 	@Autowired
 	private FichaIdentificacaoService fichaService;
 	@Autowired
+	private FichaIdentificacaoRepositorySearch fichaSearch;
+	@Autowired
 	private ProfessorService professorService;
 	@Autowired
 	private AlunoService alunoService;
@@ -37,12 +40,16 @@ public class FichaIdentificacaoController {
 	@GetMapping("/consultar")
 	public ModelAndView view(FichaIdentificacao filtro) {
 		
-		List<FichaIdentificacao> fichas = this.fichaService.listarTodos();
-		
 		ModelAndView mv = new ModelAndView("fichaIdentificacao/fichaSearch");
-		mv.addObject("fichas", fichas);
+		mv.addObject("fichas", this.fichaSearch.filtrar(filtro));
 		mv.addObject("filtro", filtro);
 		return mv;
+	}
+	
+	@PostMapping("/consultar")
+	public ModelAndView listarEspecifico(FichaIdentificacao filtro)
+	{
+		return view(filtro);
 	}
 
 	@GetMapping("/cadastrar")
