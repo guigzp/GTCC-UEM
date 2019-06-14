@@ -26,17 +26,43 @@
 					      <th scope="col">Orientador</th>
 					      <th scope="col">Banca 1</th>
 					      <th scope="col">Banca 2</th>
+					      
 					    </tr>
 					  </thead>
 					  <tbody>
-					<tr th:if="${not #lists.isEmpty(mapaNotas)}" th:each="mapaNota : ${mapaNotas}">
+					  <tr>
+						<td >69600</td>
+						<td >AKINA KURITA</td>
+						<td >Aplicação de Medida de Centralidade na Rede de Financiamento das Eleições Brasileiras</td>
+						<td >Daniel Kikuti</td>
+						<td >Ademir Aparecido Constatino</td>
+						<td >Rodrigo Calvo</td>
+					</tr>
+					<tr>
+						<td>69822</td>
+						<td>ALISSON GUILHERME PALHARI COSTA</td>
+						<td>Aplicação do Padrão IEEE754 para Cálculos aritméticos</td>
+						<td>Airton Marco Polidório</td>
+						<td>André Barbosa Verona</td>
+						<td>Nardênio Almeida Marins</td>
+					</tr>
+					<tr>
+						<td>33034</td>
+						<td>ANDRE DIAS MENEGAZZO PEREIRA</td>
+						<td>Tringuçação de sinal</td>
+						<td>Airton Marco Polidório</td>
+						<td>Daniel Alves Medeiros Filho</td>
+						<td>Nardênio Almeida Martins</td>
+					</tr>
+					
+					<!-- <tr th:if="${not #lists.isEmpty(mapaNotas)}" th:each="mapaNota : ${mapaNotas}">
 						<td th:text="${mapaNota.fichaIdentificacao.aluno.ra}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.aluno.nome}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.tituloTrabalho}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.orientador.nome}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.avaliador1.nome}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.avaliador2.nome}"></td>
-					</tr>
+					</tr> -->
                     <tr th:if="${#lists.isEmpty(mapaNotas)}">
                     	<td colspan="6">
 	                    	<div class="alert alert-info" style="background-color: #f1f3f5;" role="alert">
