@@ -10,26 +10,6 @@
 <body>
 
 <section class="main-content" layout:fragment="content">
-<script type="text/javascript">
-                    function showMe () {
-
-                        var chboxs1 = document.getElementById("coordenador_do_curso");
-                        var chboxs2 = document.getElementById("coordenador");
-                        if(chboxs1!=null){
-                        	if(chboxs1.checked){
-                        		document.getElementById("curso").style.display = "flex";
-                            	return;
-                        	}
-                        }
-                        if(chboxs2 != null){
-                        	if(chboxs2.checked){
-                        		document.getElementById("curso").style.display = "flex";
-                        		return;
-                        	}
-                        }
-                        document.getElementById("curso").style.display = "none";
-                    }
-                    </script>
 
     <div id="wrap" class="container">
         <div id="main">
@@ -59,15 +39,7 @@
                         </div>
                     </div>
                     
-                    <div class="form-group row justify-content-center" id="curso" name="curso" style="display: none">
-                        <div class="field-wrapper col-xl-5">
-                            <input type="text" class="form-control"
-                                   autofocus="autofocus"
-                                   aria-describedby="basic-addon1">
-                            <div class="field-placeholder"><span>Curso*</span></div>
-                        </div>
-                    </div>            
-
+                    
                     <div class="form-group row justify-content-center">
                         <div class="field-wrapper col-xl-5">
                             <input type="text" name="email"
@@ -81,6 +53,15 @@
                     <div class="form-group row justify-content-center">
                         <div class="input-group col-xl-5">
                             <div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row justify-content-center" id="curso" name="curso">
+                        <div class="field-wrapper col-xl-5">
+                            <input type="text" class="form-control" onkeyup="showMe()"
+                                   autofocus="autofocus" th:field="*{curso}" id="cursoI"
+                                   aria-describedby="basic-addon1" disabled>
+                            <div class="field-placeholder"><span id="spanCurso" style="background-color: #e9ecef">Curso*</span></div>
                         </div>
                     </div>
 
@@ -175,6 +156,43 @@
         </div>
         <div id="push"></div>
     </div>
+    
+<script type="text/javascript">
+                    function showMe () {
+
+                        var chboxs1 = document.getElementById("coordenador_do_curso");
+                        var chboxs2 = document.getElementById("coordenador");
+                        var spanCurso = document.getElementById("spanCurso");
+                        if(chboxs1!=null){
+                        	if(chboxs1.checked){
+                    			document.getElementById("cursoI").disabled = false;
+                    			spanCurso.style.backgroundColor = "#FFF";
+                        		if(document.getElementById("cursoI").value == ""){
+                        			document.getElementById("btn_salvar").disabled = true;
+                        		}else{
+                        			document.getElementById("btn_salvar").disabled = false;
+                        		}
+                            	return;
+                        	}
+                        }
+                        if(chboxs2 != null){
+                        	if(chboxs2.checked){
+                        		document.getElementById("cursoI").disabled = false;
+                        		spanCurso.style.backgroundColor = "#FFF";
+                        		if(document.getElementById("cursoI").value == ""){
+                        			document.getElementById("btn_salvar").disabled = true;
+                        		}else{
+                        			document.getElementById("btn_salvar").disabled = false;
+                        		}
+                        		return;
+                        	}
+                        }
+                        document.getElementById("cursoI").value = null;
+                        document.getElementById("cursoI").disabled = true;
+                        spanCurso.style.backgroundColor = "#e9ecef";
+                        document.getElementById("btn_salvar").disabled = false;
+                    }
+</script>
 </section>
 
 </body>
