@@ -1,12 +1,21 @@
 package br.com.gtcc.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -100,32 +109,39 @@ public class PropostaController {
 		parametros.put("NomeDoAluno", fichaAluno.getAluno().getNome());
 
 		
+		String caminho = new File("./").getAbsolutePath();
+		caminho = caminho.substring(0, caminho.length() - 1);
+		caminho = caminho + "src/main/resources/static/report/";
+		
 		try {
 			gerarProposta("Proposta1.pdf", parametros);
+			String caminhoaux = caminho+"/Proposta1.pdf";
+			
 		} catch (JRException e) {
 			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
 		}
 
-		if (avaliacao.equals('1')) {
+		System.out.println(avaliacao);
+		if (Integer.parseInt(avaliacao) == 1) {
+			System.out.println("in");
 			parametros.put("Avaliador", fichaAluno.getAvaliador2().getNome());
 			try {
 				gerarProposta("Proposta2.pdf", parametros);
+				String caminhoaux = caminho+"/Proposta2.pdf";
 			} catch (JRException e) {
 				return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
 			}
 			parametros.put("Avaliador", fichaAluno.getOrientador().getNome());
 			try {
+				String caminhoaux = caminho+"/Proposta3.pdf";
 				gerarProposta("Proposta3.pdf", parametros);
 			} catch (JRException e) {
 				return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
 			}
 		}
-
 		
-
 		
-
-		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", true);
+		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
 	}
 
 	public void gerarProposta(String nome, HashMap parametros) throws JRException {
@@ -143,6 +159,24 @@ public class PropostaController {
 		exporter.setConfiguration(configuration);
 		exporter.exportReport();
 
+	}
+	
+	
+	@RequestMapping(value = "/show", produces =  "application/pdf")
+	public ResponseEntity<byte[]> mostrar(String caminho) {
+		Path path = Paths.get(caminho);
+		byte[] pdfContents = null;
+		try {
+			pdfContents = Files.readAllBytes(path);
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-disposition", "inline;filename=" + caminho);
+        ResponseEntity<byte[]> response = new ResponseEntity<byte[]> (
+        	pdfContents, headers, HttpStatus.OK);
+		return response;
 	}
 
 }
