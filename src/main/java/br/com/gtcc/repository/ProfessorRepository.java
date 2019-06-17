@@ -13,6 +13,8 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long>{
 
 	List<Professor> findByIdProfessor(Long id);
 
+	List<Professor> findByCurso(String curso);
+	
 	@Query("SELECT COUNT(professor) FROM Professor professor")
     Long countRows();
 

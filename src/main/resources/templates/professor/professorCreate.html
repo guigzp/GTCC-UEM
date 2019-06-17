@@ -58,16 +58,19 @@
                     
                     <div class="form-group row justify-content-center" id="curso" name="curso">
                         <div class="field-wrapper col-xl-5">
-                            <input type="text" class="form-control" onkeyup="showMe()"
-                                   autofocus="autofocus" th:field="*{curso}" id="cursoI"
-                                   aria-describedby="basic-addon1" disabled>
-                            <div class="field-placeholder"><span id="spanCurso" style="background-color: #e9ecef">Curso*</span></div>
+                        	<select class="form-control" onchange="showMe()" autofocus="autofocus" id="cursoI"
+                                   aria-describedby="basic-addon1" disabled th:field="*{curso}">
+                        		<option selected value=""> Curso* </option>
+                        		<option value="Ciência da Computação"> Ciência da Computação </option>
+                        		<option value="Informática"> Informática </option>
+                        	</select>
+                                                                                   
                         </div>
                     </div>
 
                     <div class="form-group row justify-content-center">
                         <div class="input-group col-xl-5">
-                            <label>Tipo de Professor *</label>
+                            <label style="margin-bottom: 0px;">Tipo de Professor *</label>
                         </div>
                     </div>
 
@@ -162,11 +165,10 @@
 
                         var chboxs1 = document.getElementById("coordenador_do_curso");
                         var chboxs2 = document.getElementById("coordenador");
-                        var spanCurso = document.getElementById("spanCurso");
+                        var first = document.getElementById("cursoI");
                         if(chboxs1!=null){
                         	if(chboxs1.checked){
                     			document.getElementById("cursoI").disabled = false;
-                    			spanCurso.style.backgroundColor = "#FFF";
                         		if(document.getElementById("cursoI").value == ""){
                         			document.getElementById("btn_salvar").disabled = true;
                         		}else{
@@ -178,7 +180,6 @@
                         if(chboxs2 != null){
                         	if(chboxs2.checked){
                         		document.getElementById("cursoI").disabled = false;
-                        		spanCurso.style.backgroundColor = "#FFF";
                         		if(document.getElementById("cursoI").value == ""){
                         			document.getElementById("btn_salvar").disabled = true;
                         		}else{
@@ -189,7 +190,7 @@
                         }
                         document.getElementById("cursoI").value = null;
                         document.getElementById("cursoI").disabled = true;
-                        spanCurso.style.backgroundColor = "#e9ecef";
+                        first.selectedIndex = "0";
                         document.getElementById("btn_salvar").disabled = false;
                     }
 </script>

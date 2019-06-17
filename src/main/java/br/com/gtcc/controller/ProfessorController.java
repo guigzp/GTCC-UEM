@@ -31,6 +31,7 @@ public class ProfessorController {
 
     @PostMapping("/cadastrar")
     public ModelAndView save(@Valid Professor professor, BindingResult result) {
+    	System.out.println(professor.getCurso());
         if (this.professorService.buscarPorEmail(professor.getEmail()) != null) {
             result.addError(new FieldError("professor", "email", "Email já cadastrado"));
         }
