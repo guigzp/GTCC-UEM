@@ -98,30 +98,13 @@
 		
 		<script type="text/javascript">
 		
-			function abrePdf(){
-	     	   var path0= window.location.href;
-	     	   //console.log(path0);
-	     	   var bimestre= document.querySelector('input[name="avaliacao"]:checked').value
-	     	   console.log(bimestre)
-	     	   if(bimestre == "1"){
-		     	   setTimeout(function (){
-		         	   window.open(path0 + "/show/1", "_blank", "");
-		         	   window.open(path0 + "/show/2", "_blank", "");
-		         	   window.open(path0 + "/show/3", "_blank", "");
-		     	   },3000)
-	     	   }else{
-	     		  setTimeout(function (){
-		         	   window.open(path0 + "/show/1", "_blank", "");
-		     	   },1000)
-	     	   }
-	        }
+			
 		
             document.getElementsByName("aluno")[0].selectedIndex = "0";
-            document.getElementById("btn_salvar").addEventListener("click", abrePdf)
+            //document.getElementById("btn_salvar").addEventListener("click", abrePdf)
 
-               
-                    
-                   </script>
+                   
+        </script>
 	</section>
 
 </body>
