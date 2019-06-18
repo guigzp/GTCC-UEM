@@ -104,10 +104,14 @@
                         </div> 
                     </li>
                     <li 
-                        class="nav-item">
-                        <a class="nav-link" th:href="@{/gtcc/mapanotas}"  role="button" >
+                        class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                             Mapa de Notas
                         </a>
+                         <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                            <a class="dropdown-item" href="#" >Lançar nota</a>
+                            <a class="dropdown-item" th:href="@{/gtcc/mapanotas}" >Consultar</a>
+                        </div> 
                     </li>
                     <li class="sair-nav">
                         <form th:action="@{/gtcc/login/logout}" method="post" class="navbar-form navbar-right">
@@ -147,6 +151,7 @@
         <script type="text/javascript" src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 		<script type="text/javascript" th:src="@{/js/criterioAvaliacao.js}"></script>
+		<script type="text/javascript" th:src="@{/js/mapaNotas.js}"></script>
 		
         <script type="text/javascript">
             <!-- BLOCO DE CÒDIGO USADO PARA AS MÁSCARAS  -->

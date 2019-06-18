@@ -140,6 +140,10 @@ html, body{
             transform: scale(.75) translateY(-39px) translateX(-60px);
             
         } 
+        
+.container-mapaNotas{
+	width: 95%;
+}
 
 
 .push { margin:0; padding:0; height:50px; }
