@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.gtcc.model.Aluno;
+import br.com.gtcc.model.CriterioAvaliacao;
 import br.com.gtcc.model.FichaIdentificacao;
 import br.com.gtcc.model.MapaNotas;
 import br.com.gtcc.model.Professor;
+import br.com.gtcc.service.CriterioAvaliacaoService;
 import br.com.gtcc.service.FichaIdentificacaoService;
 import br.com.gtcc.service.MapaNotasService;
 
@@ -34,6 +36,8 @@ public class MapaNotasController {
 	private MapaNotasService mapaNotasService;
 	@Autowired
 	private FichaIdentificacaoService fichaIndentificacaoService;
+	@Autowired
+	private CriterioAvaliacaoService criterioAvaliacaoService;
 
 	/**
 	 * Tela inicial do Mapa de Notas
@@ -42,8 +46,6 @@ public class MapaNotasController {
     @GetMapping
     public ModelAndView findAll() {
         ModelAndView mv = new ModelAndView("mapanotas/index");
-        
-        
         mv.addObject("mapaNotas", mapaNotasService.findAll());
         
         return mv;
@@ -53,9 +55,11 @@ public class MapaNotasController {
 	public ModelAndView add(MapaNotas mapaNotas) {
 		
 		List<FichaIdentificacao> fichas = this.fichaIndentificacaoService.listarTodos();
+		CriterioAvaliacao criterio = this.criterioAvaliacaoService.listarTodos().get(0);
 		
 		ModelAndView mv = new ModelAndView("mapanotas/lancar_notas");
 		mv.addObject("mapaNotas", mapaNotas);
+		mv.addObject("criterioAvaliacao", criterio);
 		mv.addObject("fichas", fichas);
 		return mv;
 	}
