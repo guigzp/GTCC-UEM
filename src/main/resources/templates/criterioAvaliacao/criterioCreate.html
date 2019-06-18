@@ -15,7 +15,7 @@
 						<h3>Cadastro do Critério de Avaliação</h3>
 					</div>
 					<hr />
-					<form th:object="${criterioAvaliacao}"
+					<form id="form" th:object="${criterioAvaliacao}"
 						th:action="@{/gtcc/criterioavaliacao/cadastrar}" method="POST"
 						class="form-default form-horizontal" name="form">
 
@@ -24,13 +24,22 @@
 								<label>* Esses campos são obrigatórios</label>
 							</div>
 						</div>
+						
+						<!-- Atualizado de acordo com os valores inseridos -->
+						<input type="hidden" name="quantidadeNotas" id="quantidadeNotas" 
+									th:field="*{quantidadeNotas}">
+						<input type="hidden" name="pesoPorNota" id="pesoPorNota" 
+									th:field="*{pesoPorNota}">
 
 						<div class="form-group row justify-content-center">
 
-							<div class="input-group col-xl-2">
+							<div class="field-wrapper col-xl-2">
 								<input type="number" name="ano" id="ano" class="form-control"
-									th:field="*{ano}" placeholder="Ano *" aria-label="Ano"
+									th:field="*{ano}" aria-label="Ano"
 									aria-describedby="basic-addon1">
+								<div class="field-placeholder">
+									<span>Ano *</span>
+								</div>
 							</div>
 
 							<div class="input-group col-xl-8"></div>
@@ -46,14 +55,16 @@
 
 						<div class="form-group row justify-content-center">
 
-							<div class="input-group col-xl-4">
+							<div class="field-wrapper col-xl-4">
 								<input type="number" name="quantidadeAvaliacao"
 									id="quantidadeAvaliacao"
 									class="form-control field-quantidade-avaliacoes"
 									th:field="*{quantidadeAvaliacao}"
-									placeholder="Quantidade de Avaliações *"
 									aria-label="Quantidade de Avaliações"
 									aria-describedby="basic-addon1">
+								<div class="field-placeholder">
+									<span>Quantidade de Avaliações *</span>
+								</div>
 							</div>
 
 							<div class="input-group col-xl-6"></div>
@@ -75,6 +86,7 @@
 
 						<br>
 						<hr />
+					
 						<div class="form-group row justify-content-center ">
 							<div class=" col-sm-2">
 								<a id="alert" class="btn btn-lg btn-danger"
