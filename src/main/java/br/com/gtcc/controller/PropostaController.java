@@ -1,7 +1,12 @@
 package br.com.gtcc.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,6 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +88,7 @@ public class PropostaController {
 
 	@PostMapping("/gerar")
 	public ModelAndView gerar(@RequestParam(name = "avaliacao", required = false) String avaliacao,
-			@RequestParam(name = "aluno", required = false) String aluno) throws InterruptedException {
+			@RequestParam(name = "aluno", required = false) String aluno) throws InterruptedException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
 
 		
 
@@ -141,13 +150,19 @@ public class PropostaController {
 				return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
 			}
 		}
-		TimeUnit.SECONDS.sleep(10);
 		
-		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", true);
+		return new ModelAndView("redirect:/gtcc/proposta/gerados/" + avaliacao);
+	}
+	
+	@GetMapping("/gerados/{avaliacao}")
+	public ModelAndView pdfs(@PathVariable Integer avaliacao) {
+		ModelAndView mv = new ModelAndView("proposta/propostaPdfs");
+		mv.addObject("avaliacao", avaliacao);
+		return mv;
 	}
 
 	
-	public void gerarProposta(String nome, HashMap parametros) throws JRException {
+	public void gerarProposta(String nome, HashMap parametros) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
 		String caminho = new File("./").getAbsolutePath();
 		caminho = caminho.substring(0, caminho.length() - 1);
 		caminho = caminho + "src/main/resources/static/report/";
@@ -161,7 +176,6 @@ public class PropostaController {
 		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
 		exporter.setConfiguration(configuration);
 		exporter.exportReport();
-		
 		
 	}
 	
