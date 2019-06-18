@@ -39,7 +39,7 @@ public class CriterioAvaliacao {
 	@NotNull(message = "Ano uma informação obrigadtória")
 	private Integer ano;
 	
-	
+	public CriterioAvaliacao() {}
 
 	public CriterioAvaliacao(
 			@NotNull(message = "A quantidade de avaliações uma informação obrigatória") Integer quantidadeAvaliacao,
