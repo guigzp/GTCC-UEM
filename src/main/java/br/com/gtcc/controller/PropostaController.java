@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,7 +79,7 @@ public class PropostaController {
 
 	@PostMapping("/gerar")
 	public ModelAndView gerar(@RequestParam(name = "avaliacao", required = false) String avaliacao,
-			@RequestParam(name = "aluno", required = false) String aluno) {
+			@RequestParam(name = "aluno", required = false) String aluno) throws InterruptedException {
 
 		
 
@@ -139,11 +141,12 @@ public class PropostaController {
 				return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
 			}
 		}
+		TimeUnit.SECONDS.sleep(10);
 		
-		
-		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", true);
 	}
 
+	
 	public void gerarProposta(String nome, HashMap parametros) throws JRException {
 		String caminho = new File("./").getAbsolutePath();
 		caminho = caminho.substring(0, caminho.length() - 1);
@@ -158,12 +161,16 @@ public class PropostaController {
 		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
 		exporter.setConfiguration(configuration);
 		exporter.exportReport();
-
+		
+		
 	}
 	
 	
-	@RequestMapping(value = "/show", produces =  "application/pdf")
-	public ResponseEntity<byte[]> mostrar(String caminho) {
+	@RequestMapping(value = "/show/{num}", produces =  "application/pdf")
+	public ResponseEntity<byte[]> mostrar(@PathVariable("num") String num) {
+		String caminho = new File("./").getAbsolutePath();
+		caminho = caminho.substring(0, caminho.length() - 1);
+		caminho = caminho + "src/main/resources/static/report/Proposta" + num + ".pdf";
 		Path path = Paths.get(caminho);
 		byte[] pdfContents = null;
 		try {
