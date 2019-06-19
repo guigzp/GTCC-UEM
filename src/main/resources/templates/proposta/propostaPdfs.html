@@ -6,19 +6,15 @@
 <head>
 <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
 </head>
-<body onload="abrePdf()">
+<body>
 	<section layout:fragment="content">
-		<div id="wrap" class="container">
-			
-		</div>
-		
 		<script type="text/javascript">
-		
 			
-		function abrePdf(){
+		window.onload = function(){
 			var path0= window.location.href;
 			var path= path0.substring(0, path0.length - 10)
 			var bimestre= [[${avaliacao}]];
+			console.log("dkjsnakjdna");
 		   	if(bimestre == 1){
 		 	   	window.open(path + "/show/1", "_blank", "");
 		       	window.open(path + "/show/2", "_blank", "");
@@ -26,11 +22,8 @@
 		   	}else{
 			  	window.open(path + "/show/1", "_blank", "");
 		   	}
-			window.open(path, "_parent");
+	   	window.open("/gtcc/home", "_self" );
 		}
-            //document.getElementById("btn_salvar").addEventListener("click", abrePdf)
-
-                   
         </script>
 	</section>
 
