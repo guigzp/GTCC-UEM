@@ -16,7 +16,7 @@
 					</div>
 					<hr />
 					<!-- MESSAGES -->
-					<form th:object="${fichaIdentificacaos}" autocomplete="off"
+					<form th:object="${fichaIdentificacaos}" autocomplete="off" th:action="@{/gtcc/declaracoes/salvar/}";
 						class="form-default form-horizontal" name="form">
 
 						<div class="form-group row justify-content-center">
@@ -27,10 +27,10 @@
 
 						<div class="form-group row justify-content-center">
 							<div class="input-group col-xl-10">
-								<select name="aluno" class="form-control">
+								<select name="alunoS" class="form-control">
 									<option th:each="fichaIdentificacaos : ${fichaIdentificacaos}"
-										th:value="${fichaIdentificacaos.alunoIdUsuario}"
-										th:text="${fichaIdentificacaos.alunoIdUsuario.nome}"></option>
+										th:value="${fichaIdentificacaos.aluno.IdUsuario}"
+										th:text="${fichaIdentificacaos.aluno.nome}"></option>
 								</select>
 							</div>
 						</div>
@@ -130,15 +130,29 @@
 			</div>
 			<div id="push"></div>
 		</div>
-
-		<script type="text/javascript">
 		
+		<script  th:inline="javascript">
+			var fichas= [[${fichaIdentificacaos}]];
+		
+		</script>
+
+		<script type="text/javascript">		
 			var cont = 1;
 			var total =1;
 			var listaParticipantes;
 			
+			window.onload = function(){
+				var titulo = fichas[0].tituloTrabalho;
+				document.getElementById("nomeReadOnly").value = titulo;
+			}
+			
+			$(document).on('change', '[name=alunoS]', function(){
+				var titulo = fichas[$(this).val()-1].tituloTrabalho;
+				document.getElementById("nomeReadOnly").value = titulo;
+			})
+			
 			$(document).on('click', '.ex', function(){
-				var target = $(this).closest('.ax').hide();
+				var target = $(this).closest('.ax').remove();
 				total = total -1
 				if(total==0){
 					$(".submit").attr("disabled", true);
@@ -186,17 +200,6 @@
 				this.ra = ra;
 				this.curso = curso;
 			  }
-			
-			$(".submit").click(function(){
-				listaParticipantes = [];
-			for(var o=1; o<cont; o = o + 1){
-				if(!$("#nome" + o + "]").ishide){
-					listaParticipantes.push(new Participante($("#nome" + o + "]").val(), $("#ra" + o + "]").val(), $("#curso" + o + "]").val()));
-				}
-			    o++;
-			}
-			th:action="@{/gtcc/declaracoes/salvar/}";
-			});
 		
 		</script>
 

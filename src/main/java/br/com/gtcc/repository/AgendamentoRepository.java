@@ -22,5 +22,5 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> 
 	
 	public List<Agendamento> findBydataDefesa(LocalDate data);
 
-	public List<Agendamento> findByHorarioGreaterThanAndDataDefesaGreaterThanEqual(int horario, LocalDate data);
+	public List<Agendamento> findByDataDefesaLessThanEqual(LocalDate data);
 }
