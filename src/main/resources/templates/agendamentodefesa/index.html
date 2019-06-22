@@ -17,7 +17,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-	<script>
+	<!-- <script>
 		document.addEventListener('DOMContentLoaded', function () {
 			(function () {
 				var just_stop;
@@ -51,7 +51,7 @@
 
 			}).call(this);
 		}, false);
-	</script>
+	</script>-->
 
 </head>
 
@@ -293,19 +293,21 @@
 						<div class="pdf" style='background-color: #eceff5; padding: 1em;border-radius: 5px !important;text-align: center !important;'>
 							<h5 style="text-align: left !important;">Gerar PDF</h5>
 							<form action="" style="text-align: left !important;padding: 0 .5em !important;">
-								<input type="radio" name="edital" value="edital">
+								<input type="checkbox" name="edital" id="edital" value="">
 								<label for="edital">Edital de Defesa</label><br>
-								<input type="radio" name="vehicle2" value="Car">
+								<input type="checkbox" name="ataDefesa" id="ataDefesa" value="" class="ataDefesa">
 								<label for="">Ata de Defesa</label><br>
-								<select style="margin: 0 1em !important; width: 85%;" name="nome" id=""
+								<select style="margin: 0 1em !important; width: 85%;" name="Options" id="Options" class="Options"
 									aria-placeholder="Todos">
 									<option value="opt">Todas</option>
-									<option value="opt">Ana Claudia Lima</option>
-									<option value="opt">Bruna Marques</option>
+									<option th:each="agendamento : ${agendamentos}" 
+										th:value="${agendamento.id}"
+										th:text="${agendamento.fichaIdentificacao.aluno.nome}"></option>
 								</select>
 							</form>
 
-							<button style="margin-top: 1em !important;background-color: #343F4B !important;border: none !important;padding: .5em 2em !important;color: white !important;text-transform: uppercase !important;">Gerar</button>
+							<button style="margin-top: 1em !important;border: none !important;padding: .5em 2em !important;text-transform: uppercase !important;"
+								type="button" class="btn btn-success">Gerar</button>
 						</div>
 					</div>
 					<div class="col-lg-9 defesas-detalhe" style="box-sizing:border-box !important; background-color: #eceff5 !important;padding: 2em 1em !important;border-radius: 5px !important;width: 100% !important;">
@@ -337,7 +339,13 @@
 										</div>
 									</td>
 								</tr>
-
+								<tr th:if="${#lists.isEmpty(agendamentos)}">
+									<td colspan="6">
+										<div class="alert alert-info" style="background-color: #f1f3f5;" role="alert">
+											Nenhuma defesa cadastrada encontrada.
+										</div> 
+									</td>
+								</tr>
 							</tbody>
 							<tfoot> </tfoot>
 						</table>
@@ -351,11 +359,23 @@
 				</div>
 			</div>
 		</div>
+		<script th:inline="javascript">
+		$(document).on('click','.ataDefesa',function() {
+			  $('.Options').attr('disabled', 'disabled');
+
+			  var $checkBox = $('.ataDefesa');
+
+			  var $select = $(this).prev();
+			    
+			    if (this.checked) {
+			      $select.removeAttr('disabled');
+			    } else {
+			      $select.attr('disabled', 'disabled');
+			    }
+
+			});
+</script>
 	</section>
 </body>
-
-<script>
-
-</script>
 
 </html>

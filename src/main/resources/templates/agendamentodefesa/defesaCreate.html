@@ -8,48 +8,68 @@
 <head>
   <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
+        rel="stylesheet">
+    <script src="../../static/js/jquery_mask/jquery.mask.js"></script>   
+    <script src="../../static/js/jquery_mask/jquery.mask.min.js"></script>  
+	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
     <title>GTCC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script>
+		document.addEventListener('DOMContentLoaded', function () {
+			(function () {
+				var just_stop;
+
+				$('#datepicker').datepicker();
+
+				window.clone_out = function (subject) {
+					var $subject;
+					$subject = $(subject);
+					$($subject.html()).appendTo('body');
+					$subject.remove();
+					return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
+				};
+
+				window.stop_it = function (e) {
+					console.log('hey', this);
+					$(this).toggleClass('ui-state-active');
+					//e.preventDefault()
+					e.stopPropagation();
+					return false;
+				};
+
+				just_stop = function (e) {
+					e.stopPropagation();
+					return false;
+				};
+
+				$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
+
+				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
+
+			}).call(this);
+		}, false);
+	</script> -->
 </head>        
 
 <body>
 	<section class="main-content"  layout:fragment="content">
 		<div id="wrap" class="container">
-			<div class="defesa container">
-				<h3>Agendamento de defesas</h3>
+			<div class="defesa container" style="width: 100% !important;background-color:#e5e5e5;box-sizing:border-box !important; padding: 2em; ">
+				<h3 style="text-align: center !important;font-size: 2em !important;margin: 1em auto 1em !important;box-sizing:border-box !important;">Agendamento de defesas</h3>
 	    	<div class="row">
 	      <div class="col-lg-3" style="width: 100%;">
 			<div class="jumbotron">
 	        <div class="row justify-content-center">
 	          <h5>Calendário</h5>
-	
+				<div id="datepicker"></div>
 	          <div class="container" id="main">
 	            
 	          </div>
 	        </div>
-	        </div>
-	        	<div class="jumbotron">
-	        <div class="row justify-content-center">
-	          <h5>Gerar PDF</h5>
-	          </div>
-	          <hr />
-                    <div class="form-group offset-md-4 offset-sm-1">
-                        <div class="form-check row">
-                            <input class="form-check-input" type="checkbox" name="" id="" value="1">
-                            <label class="form-check-label" for="">
-                                Edital de defesas
-                            </label>
-                        </div>
-                        <div class="form-check row">
-                            <input class="form-check-input" type="checkbox" name="" id="" value="1">
-                            <label class="form-check-label" for="">
-                                Ata de defesa
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-	          <button type="button" class="btn btn-success">Gerar</button>
-	          </div>
 	        </div>
 	      </div>
 	      	<div class="jumbotron col-lg-9" style="width:100%;">
@@ -67,11 +87,11 @@
 						class="form-default form-horizontal" >
 						<div class="form-group row justify-content-center">
 							<div class="controls col-sm-12 col-sm-12">
-								<select th:field="*{fichaIdentificacao}" id="fichaIdentificacao" class="form-control">
+								<select th:field="*{fichaIdentificacao}" name=fichaIdentificacao id="fichaIdentificacao" class="form-control">
 									<option value="" >Selecione o Aluno*</option>
-									<option th:each="ficha : ${fichas}"
+									<option th:each="ficha : ${fichas}" 
 										th:value="${ficha.id}"
-										th:text="${ficha.aluno.nome}" onchange="showMe({$ficha});"></option>
+										th:text="${ficha.aluno.nome}"></option>
 								</select>
 							</div>
 						</div>
@@ -142,13 +162,6 @@
 							</div>
 						</div>
 						
-							<script th:inline="javascript">
-								function showMe (ficha) {
-	
-									document.getElementById("orientador").placeholder(ficha.orientador);
-			                    }
-							</script>
-						
 						<!--  MODAL -->
 						<div class="modal fade" id="confirmacaoModal" tabindex="-1" role="dialog" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
 						  <div class="modal-dialog" role="document">
@@ -196,9 +209,23 @@
 				</div>
 				</div>
 				</div>
+				</div>
 			<div id="push"></div>
-		</div>
+		<script  th:inline="javascript">
+			var fichasIdentificacao= [[${fichas}]];
 		
+		</script>
+		<script type="text/javascript">
+			
+			$(document).on('change', '[name=fichaIdentificacao]', function(){
+				var obj = fichasIdentificacao[$(this).val()-1];
+				document.getElementById("tituloTrabalho").placeholder=obj.tituloTrabalho;
+				document.getElementById("orientador").placeholder=obj.orientador.nome;
+				document.getElementById("avaliador1").placeholder=obj.avaliador1.nome;
+				document.getElementById("avaliador2").placeholder=obj.avaliador2.nome;
+			});
+		
+		</script>
 		
 	</section>
 	
