@@ -77,55 +77,52 @@
 							<h3 >Cadastro de defesa</h3>
 							</div>
 							<hr />
-						<!-- <div class="text-right">
-							<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#ajudaModal">
-									Ajuda <i class="fa fa-question"></i>
-							</button>
-						</div>-->
-					<!-- MESSAGES -->
 					<form th:object="${agendamento}" th:action="@{/gtcc/agendamentodefesa/cadastrar}" method="POST" 
 						class="form-default form-horizontal" >
 						<div class="form-group row justify-content-center">
 							<div class="controls col-sm-12 col-sm-12">
-								<select th:field="*{fichaIdentificacao}" name=fichaIdentificacao id="fichaIdentificacao" class="form-control">
+								<select th:field="*{fichaIdentificacao}" name=fichaIdentificacao id="fichaIdentificacao" class="form-control" style="height: 55px;">
 									<option value="" >Selecione o Aluno*</option>
 									<option th:each="ficha : ${fichas}" 
 										th:value="${ficha.id}"
 										th:text="${ficha.aluno.nome}"></option>
 								</select>
 							</div>
+							<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao')}" th:errors="*{fichaIdentificacao}" ></div>
 						</div>
 						<div class="form-group row justify-content-center">
                         <div class="controls col-sm-12 col-sm-12">
-								<input id="tituloTrabalho" type="text" placeholder="Título do trabalho*" disabled / style="height: 40px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;">
+								<input id="tituloTrabalho" type="text" placeholder="Título do trabalho*" disabled style="height: 55px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;">
 							</div>
 						</div>
 						<div class="input-group">
 							<div class="form-row">
-                        	<div class="col">
+                        	<div class="field-wrapper col">
 								<input type="text" name="dataDefesa"
 									id="dataDefesa" class="form-control"
 									th:field="*{dataDefesa}" autofocus="autofocus"
 									placeholder="Data de defesa*" aria-label="Data de defesa"
                                    		aria-describedby="basic-addon1"/>
+                                   		<div class="field-placeholder"><span>Data de defesa*</span></div>
 									<div style="color: red;" th:if="${#fields.hasErrors('dataDefesa')}" th:errors="*{dataDefesa}" ></div>
 							</div>
-							<div class="col">
+							<div class="field-wrapper col">
 								<input type="text" name="horario"
 									id="horario" class="form-control"
 									th:field="*{horario}" autofocus="autofocus"
 									placeholder="Horário*" aria-label="Horario"
-                                   		aria-describedby="basic-addon1"
-									/>
+                                   		aria-describedby="basic-addon1"/>
+									<div class="field-placeholder"><span>Horário*</span></div>
 									<div style="color: red;" th:if="${#fields.hasErrors('horario')}" th:errors="*{horario}" ></div>
 							</div>
-							<div class="controls col">
+							<div class="field-wrapper col">
 								<input type="text" name="local"
 									th:field="*{local}"
 									id="local" class="form-control" autofocus="autofocus"
 									placeholder="Local*" aria-label="Local"
                                    		aria-describedby="basic-addon1"
 									/>
+									<div class="field-placeholder"><span>Local*</span></div>
 									<div style="color: red;" th:if="${#fields.hasErrors('local')}" th:errors="*{local}" ></div>
 							</div>
 						</div>
@@ -135,21 +132,26 @@
 						</div>
 						<div class="form-group row justify-content-center ">
 							<div class="controls col-sm-12 col-sm-12">
-								<input id="orientador" type="text" autofocus="autofocus" placeholder="Orientador" disabled style="height: 40px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
+								<input id="orientador" type="text" autofocus="autofocus" placeholder="Orientador" disabled style="height: 55px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
 							</div>
 						</div>
 						<div class="form-group row justify-content-center ">
 							<div class="controls col-sm-12 col-sm-12">
-								<input id="avaliador1" type="text" autofocus="autofocus" placeholder="Avaliador 1" disabled style="height: 40px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
+								<input id="avaliador1" type="text" autofocus="autofocus" placeholder="Avaliador 1" disabled style="height: 55px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
 							</div>
 						</div>
 						<div class="form-group row justify-content-center ">
 							<div class="controls col-sm-12 col-sm-12">
-								<input id="avaliador2" type="text" autofocus="autofocus" placeholder="Avaliador 2" disabled style="height: 40px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
+								<input id="avaliador2" type="text" autofocus="autofocus" placeholder="Avaliador 2" disabled style="height: 55px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
 							</div>
 						</div>
-						<p class="text-danger text-center">*Campos obrigatórios.</p>
-						<hr />
+						<br>
+						<div class="form-group row justify-content-center">
+                        <div class="input-group col-xl-5">
+                            <label>* Esses campos são obrigatórios</label>
+                        </div>
+                    </div>
+                    <hr/>
 						<div class="form-group row" style="display: flex; justify-content: space-between;">
 							<div class=" col-sm-2">
 								<a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/agendamentodefesa}" >
