@@ -6,52 +6,111 @@
     layout:decorate="~{layout/layout}" >
 
 <head>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
+        rel="stylesheet">
+    <script src="../../static/js/jquery_mask/jquery.mask.js"></script>   
+    <script src="../../static/js/jquery_mask/jquery.mask.min.js"></script>  
+	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
+    <title>GTCC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script>
+		document.addEventListener('DOMContentLoaded', function () {
+			(function () {
+				var just_stop;
+
+				$('#datepicker').datepicker();
+
+				window.clone_out = function (subject) {
+					var $subject;
+					$subject = $(subject);
+					$($subject.html()).appendTo('body');
+					$subject.remove();
+					return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
+				};
+
+				window.stop_it = function (e) {
+					console.log('hey', this);
+					$(this).toggleClass('ui-state-active');
+					//e.preventDefault()
+					e.stopPropagation();
+					return false;
+				};
+
+				just_stop = function (e) {
+					e.stopPropagation();
+					return false;
+				};
+
+				$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
+
+				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
+
+			}).call(this);
+		}, false);
+	</script> -->
 </head>
 
 <body>
 	<section class="main-content" layout:fragment="content">
     	<div id="wrap" class="container">
-			<div id="main">
-				<div class="jumbotron">
+			<div class="defesa container" style="width: 100% !important;background-color:#e5e5e5;box-sizing:border-box !important; padding: 2em; ">
+				<h3 style="text-align: center !important;font-size: 2em !important;margin: 1em auto 1em !important;box-sizing:border-box !important;">Agendamento de defesas</h3>
+	    	<div class="row">
+	      <div class="col-lg-3" style="width: 100%;">
+			<div class="jumbotron">
+	        <div class="row justify-content-center">
+	          <h5>Calendário</h5>
+				<div id="datepicker"></div>
+	          <div class="container" id="main">
+	            
+	          </div>
+	        </div>
+	        </div>
+	      </div>
+	      	<div class="jumbotron col-lg-9" style="width:100%;">
 					<div class="row justify-content-center">
 						<h3>Detalhes da defesa</h3>
 					</div>
 					<hr/>
 					<div th:object="${agendamento}">
-					<table id="agendamento"
-				class="table ">
+					<table id="agendamento" class="table">
 				
 				<tbody>
                     <tr>
-						<th class="text-right" width="50%">Nome do aluno:</th>
-						<td th:text="*{fichaIdentificacao.aluno.nome}"></td>
+						<th class="text" width="50%">Nome do aluno:</th>
+						<td style="text-align:left !important;" th:text="*{fichaIdentificacao.aluno.nome}"></td>
                     </tr>
                     <tr>
-						<th class="text-right" width="50%">Título do trabalho:</th>
+						<th class="text" width="50%">Título do trabalho:</th>
 						<td th:text="*{fichaIdentificacao.tituloTrabalho}"></td>
                     </tr>
                     <tr>
-						<th class="text-right" width="50%">Data:</th>
+						<th class="text" width="50%">Data:</th>
 						<td th:text="*{dataDefesa}"></td>
                     </tr>
                     <tr>
-						<th class="text-right" width="50%">Horário:</th>
+						<th class="text" width="50%">Horário:</th>
 						<td th:text="*{horario}"></td>
                     </tr>
                     <tr>
-						<th class="text-right" width="50%">Local:</th>
+						<th class="text" width="50%">Local:</th>
 						<td th:text="*{local}"></td>
                     </tr>
                     <tr>
-						<th class="text-right" width="50%">Orientador:</th>
+						<th class="text" width="50%">Orientador:</th>
 						<td th:text="*{fichaIdentificacao.orientador.nome}"></td>
                     </tr>
                     <tr>
-						<th class="text-right" width="50%">Avaliador 1:</th>
+						<th class="text" width="50%">Avaliador 1:</th>
 						<td th:text="*{fichaIdentificacao.avaliador1.nome}"></td>
                     </tr>
                     <tr>
-						<th class="text-right" width="50%">Avaliador 2:</th>
+						<th class="text" width="50%">Avaliador 2:</th>
 						<td th:text="*{fichaIdentificacao.avaliador2.nome}"></td>
                     </tr>
 				</tbody>
@@ -71,6 +130,8 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	</section>
 </body>
 
 </html>

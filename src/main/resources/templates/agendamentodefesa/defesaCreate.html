@@ -8,195 +8,68 @@
 <head>
   <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>GTCC</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
         rel="stylesheet">
     <script src="../../static/js/jquery_mask/jquery.mask.js"></script>   
     <script src="../../static/js/jquery_mask/jquery.mask.min.js"></script>  
 	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
+    <title>GTCC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script>
+		document.addEventListener('DOMContentLoaded', function () {
+			(function () {
+				var just_stop;
+
+				$('#datepicker').datepicker();
+
+				window.clone_out = function (subject) {
+					var $subject;
+					$subject = $(subject);
+					$($subject.html()).appendTo('body');
+					$subject.remove();
+					return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
+				};
+
+				window.stop_it = function (e) {
+					console.log('hey', this);
+					$(this).toggleClass('ui-state-active');
+					//e.preventDefault()
+					e.stopPropagation();
+					return false;
+				};
+
+				just_stop = function (e) {
+					e.stopPropagation();
+					return false;
+				};
+
+				$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
+
+				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
+
+			}).call(this);
+		}, false);
+	</script> -->
 </head>        
-
-<style>
-.defesa h3 {
-    text-align: center;
-    font-size: 2em;
-    margin: 1em auto 1em;
-}
-.defesas-detalhe {
-    background-color: #e5e5e5;
-    padding: 2em 3em;
-    border-radius: 5px;
-    width: 100%;
-}
-table {
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-thead {
-    width: 100%;
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 1em;
-}
-.defesas-detalhe h5 {
-    font-size: 1.5em;
-    padding-bottom: .5em;
-}
-table th { padding-left: 0.25em; }
-table .infos {
-    text-align: left;
-    font-weight: 700;  
-    padding-left: 0.5em;
-}
-table th {
-    text-transform: none;
-    font-weight: 100;
-}
-  .jumbotron { background: #fff; }
-  .fa { font-size: 0.5em; }
-  .calendar table { width: 100%; }
-  .calendar th { text-align: center; }
-  .calendar td {
-    width: 120px;
-    height: 100px;
-    text-align: center;
-    line-height: 100px !important;
-    font-size: 1.5em;
-  }
-  .calendar td, #year { font-family: monospace; }
-  .calendar .hover { background: #eee; }
-  .calendar #about {
-    font-size: 5em !important;
-    position: absolute;
-    top: -35px;
-    right: 15px;
-  }
-  #about a { text-decoration: none; }
-  
-  .pdf {
-    background-color: #e5e5e5;
-    padding: 1em;
-    border-radius: 5px;
-    text-align: center;
-  }
-  .pdf h5 {
-    text-align: left;
-    padding-bottom: 1em;
-  }
-  .pdf button {
-    background-color: #343F4B;
-    border: none;
-    padding: .5em 2em;
-    color: white;
-    text-transform: uppercase;
-  }
-.cadastro-defesa form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 1em;
-}
-.cadastro-defesa label {
-  width: 100%;
-  padding-top: .5em;
-}
-.cadastro-defesa .botoes {
-  padding-top: 1em;
-  display: flex;
-  justify-content: space-between;
-  
-}
-.cadastro-defesa .botoes .cancelar {
-  background-color: #343F4B;
-  border: none;
-  padding: .5em 2em;
-  color: white;
-  text-transform: uppercase;
-  border-radius: 5px;
-  width: 150px;
-}
-.cadastro-defesa .botoes .excluir {
-  background-color:#B60003;
-  border: none;
-  padding: .5em 2em;
-  color: white;
-  text-transform: uppercase;
-  border-radius: 5px;
-  width: 150px;
-}
-.cadastro-defesa .botoes .confirmar {
-  background-color: #77D353;
-  border: none;
-  padding: .5em 2em;
-  color: white;
-  text-transform: uppercase;
-  border-radius: 5px;
-  width: 150px;
-}
-.cadastro-defesa .banca h5 {
-  margin: .5em 0 0 0;
-  font-size: 20px;
-  padding: 0;
-}
-.cadastro-defesa input { width: 100%; }
-.visu-defesa .banca .prof { padding-top: 0.5em; }
-.visu-defesa .banca .titulo { margin-left: 1.5em; }
-.cadastro-defesa .horalocal {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-.cadastro-defesa form .nome,
-.cadastro-defesa form .titulo {
-  display: flex;
-  flex-direction: column;
-}
-</style>
-
 
 <body>
 	<section class="main-content"  layout:fragment="content">
 		<div id="wrap" class="container">
-			<div class="defesa container">
-				<h3>Agendamento de defesas</h3>
+			<div class="defesa container" style="width: 100% !important;background-color:#e5e5e5;box-sizing:border-box !important; padding: 2em; ">
+				<h3 style="text-align: center !important;font-size: 2em !important;margin: 1em auto 1em !important;box-sizing:border-box !important;">Agendamento de defesas</h3>
 	    	<div class="row">
 	      <div class="col-lg-3" style="width: 100%;">
 			<div class="jumbotron">
 	        <div class="row justify-content-center">
 	          <h5>Calendário</h5>
-	
+				<div id="datepicker"></div>
 	          <div class="container" id="main">
 	            
 	          </div>
 	        </div>
-	        </div>
-	        	<div class="jumbotron">
-	        <div class="row justify-content-center">
-	          <h5>Gerar PDF</h5>
-	          </div>
-	          <hr />
-                    <div class="form-group offset-md-4 offset-sm-1">
-                        <div class="form-check row">
-                            <input class="form-check-input" type="checkbox" name="" id="" value="1">
-                            <label class="form-check-label" for="">
-                                Edital de defesas
-                            </label>
-                        </div>
-                        <div class="form-check row">
-                            <input class="form-check-input" type="checkbox" name="" id="" value="1">
-                            <label class="form-check-label" for="">
-                                Ata de defesa
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-	          <button type="button" class="btn btn-success">Gerar</button>
-	          </div>
 	        </div>
 	      </div>
 	      	<div class="jumbotron col-lg-9" style="width:100%;">
@@ -204,79 +77,81 @@ table th {
 							<h3 >Cadastro de defesa</h3>
 							</div>
 							<hr />
-						<!-- <div class="text-right">
-							<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#ajudaModal">
-									Ajuda <i class="fa fa-question"></i>
-							</button>
-						</div>-->
-					<!-- MESSAGES -->
 					<form th:object="${agendamento}" th:action="@{/gtcc/agendamentodefesa/cadastrar}" method="POST" 
 						class="form-default form-horizontal" >
 						<div class="form-group row justify-content-center">
 							<div class="controls col-sm-12 col-sm-12">
-								<select id="alunoSelecionado" class="form-control">
-									<option value="">Selecione o Aluno*</option>
-									<option th:each="ficha : ${fichas}"
+								<select th:field="*{fichaIdentificacao}" name=fichaIdentificacao id="fichaIdentificacao" class="form-control" style="height: 55px;">
+									<option value="" >Selecione o Aluno*</option>
+									<option th:each="ficha : ${fichas}" 
 										th:value="${ficha.id}"
 										th:text="${ficha.aluno.nome}"></option>
 								</select>
 							</div>
+							<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao')}" th:errors="*{fichaIdentificacao}" ></div>
 						</div>
 						<div class="form-group row justify-content-center">
                         <div class="controls col-sm-12 col-sm-12">
-								<input id="tituloTrabalho" type="text" value="Título do trabalho*" disabled / style="height: 40px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;">
+								<input id="tituloTrabalho" type="text" placeholder="Título do trabalho*" disabled style="height: 55px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;">
 							</div>
 						</div>
-						<form>
-						<div class="form-row">
-                        	<div class="col">
+						<div class="input-group">
+							<div class="form-row">
+                        	<div class="field-wrapper col">
 								<input type="text" name="dataDefesa"
 									id="dataDefesa" class="form-control"
 									th:field="*{dataDefesa}" autofocus="autofocus"
 									placeholder="Data de defesa*" aria-label="Data de defesa"
                                    		aria-describedby="basic-addon1"/>
+                                   		<div class="field-placeholder"><span>Data de defesa*</span></div>
 									<div style="color: red;" th:if="${#fields.hasErrors('dataDefesa')}" th:errors="*{dataDefesa}" ></div>
 							</div>
-							<div class="col">
+							<div class="field-wrapper col">
 								<input type="text" name="horario"
 									id="horario" class="form-control"
 									th:field="*{horario}" autofocus="autofocus"
 									placeholder="Horário*" aria-label="Horario"
-                                   		aria-describedby="basic-addon1"
-									/>
+                                   		aria-describedby="basic-addon1"/>
+									<div class="field-placeholder"><span>Horário*</span></div>
 									<div style="color: red;" th:if="${#fields.hasErrors('horario')}" th:errors="*{horario}" ></div>
 							</div>
-							<div class="controls col">
+							<div class="field-wrapper col">
 								<input type="text" name="local"
 									th:field="*{local}"
 									id="local" class="form-control" autofocus="autofocus"
 									placeholder="Local*" aria-label="Local"
                                    		aria-describedby="basic-addon1"
 									/>
+									<div class="field-placeholder"><span>Local*</span></div>
 									<div style="color: red;" th:if="${#fields.hasErrors('local')}" th:errors="*{local}" ></div>
 							</div>
 						</div>
-						</form>
+						</div>
 						<div class="form-group row justify-content-center ">
 							
 						</div>
 						<div class="form-group row justify-content-center ">
 							<div class="controls col-sm-12 col-sm-12">
-								<input id="orientador" type="text" autofocus="autofocus" value="Orientador" disabled style="height: 40px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
+								<input id="orientador" type="text" autofocus="autofocus" placeholder="Orientador" disabled style="height: 55px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
 							</div>
 						</div>
 						<div class="form-group row justify-content-center ">
 							<div class="controls col-sm-12 col-sm-12">
-								<input id="avaliador1" type="text" autofocus="autofocus" value="Avaliador 1" disabled style="height: 40px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
+								<input id="avaliador1" type="text" autofocus="autofocus" placeholder="Avaliador 1" disabled style="height: 55px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
 							</div>
 						</div>
 						<div class="form-group row justify-content-center ">
 							<div class="controls col-sm-12 col-sm-12">
-								<input id="avaliador2" type="text" autofocus="autofocus" value="Avaliador 2" disabled style="height: 40px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
+								<input id="avaliador2" type="text" autofocus="autofocus" placeholder="Avaliador 2" disabled style="height: 55px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
 							</div>
 						</div>
-						<p class="text-danger text-center">*Campos obrigatórios.</p>
-						<hr />
+						<br>
+						<div class="form-group row justify-content-center">
+                        <div class="input-group col-xl-5">
+                            <label>* Esses campos são obrigatórios</label>
+                        </div>
+                    </div>
+                    <hr/>
 						<div class="form-group row" style="display: flex; justify-content: space-between;">
 							<div class=" col-sm-2">
 								<a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/agendamentodefesa}" >
@@ -288,16 +163,6 @@ table th {
 								</button>
 							</div>
 						</div>
-						
-							<script th:inline="javascript">
-								$('#alunoSelecionado').change(function() {
-							    	selectedOption = $('option:selected', this);
-							    	$("#tituloTrabalho").val( selectedOption.data('tituloTrabalho') );
-							    	$("#orientador").val( selectedOption.data('orientadorIdProfessor') );
-							   		$("#avaliador1").val( selectedOption.data('avaliador1IdProfessor') );
-							   		$("#avaliador2").val( selectedOption.data('avaliador2IdProfessor') );
-								});
-							</script>
 						
 						<!--  MODAL -->
 						<div class="modal fade" id="confirmacaoModal" tabindex="-1" role="dialog" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
@@ -346,9 +211,23 @@ table th {
 				</div>
 				</div>
 				</div>
+				</div>
 			<div id="push"></div>
-		</div>
+		<script  th:inline="javascript">
+			var fichasIdentificacao= [[${fichas}]];
 		
+		</script>
+		<script type="text/javascript">
+			
+			$(document).on('change', '[name=fichaIdentificacao]', function(){
+				var obj = fichasIdentificacao[$(this).val()-1];
+				document.getElementById("tituloTrabalho").placeholder=obj.tituloTrabalho;
+				document.getElementById("orientador").placeholder=obj.orientador.nome;
+				document.getElementById("avaliador1").placeholder=obj.avaliador1.nome;
+				document.getElementById("avaliador2").placeholder=obj.avaliador2.nome;
+			});
+		
+		</script>
 		
 	</section>
 	
