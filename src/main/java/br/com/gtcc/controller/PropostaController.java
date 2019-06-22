@@ -82,8 +82,10 @@ public class PropostaController {
 		List<Professor> coordenadores = professorRepository.findByCurso(fichaAluno.getAreaConcentracao());
 
 		if (coordenadores.isEmpty()) {
-			System.out.print("Coordenador não cadastrada");
-			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+			System.out.print("Coordenador não cadastrado");
+			ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+			mv.addObject("tipo", "1");
+			return mv;
 		}
 		
 		Professor coordenador = coordenadores.get(0);
@@ -93,7 +95,9 @@ public class PropostaController {
 
 		if (atividade.isEmpty()) {
 			System.out.print("Atividade não cadastrada");
-			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+			ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+			mv.addObject("tipo", "2");
+			return mv;
 		}
 
 		LocalDate data = atividade.get(0).getDataFinalEntrega();
@@ -117,7 +121,9 @@ public class PropostaController {
 		try {
 			gerarProposta("Proposta1.pdf", parametros);
 		} catch (JRException e) {
-			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+			ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+			mv.addObject("tipo", "3");
+			return mv;
 		}
 
 		if (Integer.parseInt(avaliacao) == 1) {
@@ -125,13 +131,17 @@ public class PropostaController {
 			try {
 				gerarProposta("Proposta2.pdf", parametros);
 			} catch (JRException e) {
-				return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+				ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+				mv.addObject("tipo", "3");
+				return mv;
 			}
 			parametros.put("Avaliador", fichaAluno.getOrientador().getNome());
 			try {
 				gerarProposta("Proposta3.pdf", parametros);
 			} catch (JRException e) {
-				return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+				ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+				mv.addObject("tipo", "3");
+				return mv;
 			}
 		}
 		

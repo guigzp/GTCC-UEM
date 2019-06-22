@@ -15,23 +15,38 @@ public class DeclaracaoParticipante {
 	private Long id;
 	
 	@Column(nullable = false)
-	@NotNull(message = "O nome do participante é uma informação obrigadtória")
+	@NotNull(message = "O nome do participante é uma informação obrigatória")
 	private String nomeParticipante;
 	
 	@Column(nullable = false)
-	@NotNull(message = "O RA do participante é uma informação obrigadtória")
+	@NotNull(message = "O RA do participante é uma informação obrigatória")
 	private String raParticipante;
 	
 	@Column(nullable = false)
-	@NotNull(message = "O curso do participante é uma informação obrigadtória")
+	@NotNull(message = "O curso do participante é uma informação obrigatória")
 	private String cursoParticipante;
 	
 	@Column(nullable = false)
-	@NotNull(message = "O carga horaria é uma informação obrigadtória")
+	@NotNull(message = "O carga horaria é uma informação obrigatória")
 	private Double cargaHoraria;
 	
 	@Column
 	private String cursoVisto;
+
+	
+	
+	public DeclaracaoParticipante(
+			@NotNull(message = "O nome do participante é uma informação obrigatória") String nomeParticipante,
+			@NotNull(message = "O RA do participante é uma informação obrigatória") String raParticipante,
+			@NotNull(message = "O curso do participante é uma informação obrigatória") String cursoParticipante,
+			@NotNull(message = "O carga horaria é uma informação obrigatória") Double cargaHoraria, String cursoVisto) {
+		super();
+		this.nomeParticipante = nomeParticipante;
+		this.raParticipante = raParticipante;
+		this.cursoParticipante = cursoParticipante;
+		this.cargaHoraria = cargaHoraria;
+		this.cursoVisto = cursoVisto;
+	}
 
 	public String getNomeParticipante() {
 		return nomeParticipante;
