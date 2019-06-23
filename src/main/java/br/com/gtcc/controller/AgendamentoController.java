@@ -127,7 +127,7 @@ public class AgendamentoController {
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("atualizado", true);
     }
 
-    @GetMapping("/remover/{id}")
+    @GetMapping("/editar/{id}/remover/{id}")
     public ModelAndView delete(@PathVariable("id") Long id) {
     	Agendamento agendamento = agendamentoService.buscarPorId(id);
     	if(agendamento != null) {
