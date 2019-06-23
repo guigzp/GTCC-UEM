@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.gtcc.model.Aluno;
-import br.com.gtcc.model.Usuario;
 import br.com.gtcc.repository.AlunoRepository;
 
 @Service

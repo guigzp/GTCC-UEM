@@ -22,6 +22,9 @@ public class Professor {
 	private String email;
 
 	@Column
+	private String curso;
+	
+	@Column
 	private Boolean coordenador;
 
 	@Column
@@ -38,9 +41,10 @@ public class Professor {
 	}
 
 	public Professor(String nome, String email, Boolean coordenador, Boolean orientador,
-					 Boolean avaliador, Boolean coordenador_do_curso) {
+					 Boolean avaliador, Boolean coordenador_do_curso, String curso) {
 		super();
 		this.nome = nome;
+		this.curso = curso;
 		this.email = email;
 		this.coordenador = coordenador;
 		this.orientador = orientador;
@@ -71,6 +75,16 @@ public class Professor {
 	public void setEmail(String email) {
 		this.email = email;
 
+	}
+	
+	
+
+	public String getCurso() {
+		return curso;
+	}
+
+	public void setCurso(String curso) {
+		this.curso = curso;
 	}
 
 	public Boolean getCoordenador() {

@@ -171,6 +171,13 @@
         </div>
         <div id="push"></div>
     </div>
+    <script th:inline="javascript">
+			window.onload = function(){
+		        if([[${param.sucesso}]]=="true"){
+		  			alertify.success('Usuário cadastrado com sucesso!');
+		        }
+			}
+	</script>
 </section>
 
 </body>

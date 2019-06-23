@@ -17,6 +17,7 @@
         <link rel="stylesheet" type="text/css" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" >
 
 
+		<script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
         <title>Gtcc</title>
 
     </head>
@@ -40,8 +41,8 @@
                             Declarações
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarAdmin">
-                            <a  class="dropdown-item" >Cadastrar</a>
-                            <a  class="dropdown-item">Consultar</a>
+                            <a  class="dropdown-item" th:href="@{/gtcc/declaracoes/cadastro}" >Cadastrar</a>
+                            <a  class="dropdown-item" th:href="@{/gtcc/declaracoes/consulta}">Consultar</a>
                         </div>
                     </li>
 
@@ -96,6 +97,15 @@
                     <li 
                         class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Critério
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                            <a class="dropdown-item" th:href="@{/gtcc/criterioavaliacao/cadastrar}" >Cadastrar</a>
+                        </div> 
+                    </li>
+                    <li 
+                        class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Ficha de Identificação
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarAdmin">
@@ -104,10 +114,14 @@
                         </div> 
                     </li>
                     <li 
-                        class="nav-item">
-                        <a class="nav-link" th:href="@{/gtcc/mapanotas}"  role="button" >
+                        class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                             Mapa de Notas
                         </a>
+                         <div class="dropdown-menu" aria-labelledby="navbarAdmin">
+                            <a class="dropdown-item" th:href="@{/gtcc/mapanotas/lancarNotas}" >Lançar nota</a>
+                            <a class="dropdown-item" th:href="@{/gtcc/mapanotas}" >Consultar</a>
+                        </div> 
                     </li>
                     <li class="sair-nav">
                         <form th:action="@{/gtcc/login/logout}" method="post" class="navbar-form navbar-right">
@@ -137,7 +151,6 @@
 
 
         <!-- include javascript in the footer -->
-        <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
         <script type="text/javascript" th:src="@{/webjars/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
         <script type="text/javascript" th:src="@{/js/jquery_mask/jquery.mask.min.js}"></script>
         <script type="text/javascript" th:src="@{/js/alertifyjs/alertify.min.js}"></script>
@@ -147,6 +160,7 @@
         <script type="text/javascript" src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 		<script type="text/javascript" th:src="@{/js/criterioAvaliacao.js}"></script>
+		<script type="text/javascript" th:src="@{/js/mapaNotas.js}"></script>
 		
         <script type="text/javascript">
             <!-- BLOCO DE CÒDIGO USADO PARA AS MÁSCARAS  -->

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
+</head>
+<body>
+<section class="main-content" layout:fragment="content">
+    <div id="wrap" class="container">
+        <div id="main">
+            <div class="jumbotron">
+            	<div th:if="${param.sucesso}">
+						<script th:inline="javascript">
+							/*<![CDATA[*/
+								var flag = [[${param.sucesso}]]; 
+							    window.onload = function() {
+							        if(flag){
+							  			alertify.success('Aluno Cadastrado com sucesso!');
+							        }
+								};
+							/*]]>*/
+						</script>
+						
+					</div>
+            
+            
+                <div class="row justify-content-center">
+                    <h3>Lançamento de notas</h3>
+                </div>
+                <hr/>
+                
+                <!-- MESSAGES -->
+                <form th:object="${mapaNotas}" th:action="@{/gtcc/mapaNotas/lancarNotas}" method="POST" autocomplete="off"
+                      class="form-default form-horizontal" name="form">
+
+					<div class="form-group  row justify-content-center">
+							<div class="input-group col-8">
+								<label>* Esses campos são obrigatórios</label>
+							</div>
+					</div>
+		
+					<div class="row justify-content-center">
+						<div class="col-8">
+							<div class="form-group" >
+		                                <label for="ano" class="col-form-label text-right">Ano</label>
+		                                <div class="controls">
+		                                    <input type="number" name="ano"
+		                                           id="ano" class="form-control"
+		                                           autofocus="autofocus"
+		                                           th:field="*{ano}"
+		                                    />
+		                                    <div style="color: red;" th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}" ></div>
+		                                </div>
+		                     </div>
+	                     </div>
+                    </div>
+					<div class="row justify-content-center">
+						<div class="col-8">
+							<div class="form-group" >
+		                                <label for="aluno" class="col-form-label text-right">Aluno</label>
+		                                <div class="controls">
+		                                    <select th:field="*{fichaIdentificacao}" class="form-control" style="height: 60px;">
+												<option value="">Selecione o Aluno</option>
+												<option th:each="ficha : ${fichas}"
+													th:value="${ficha.id}" th:text="${ficha.aluno.nome}"></option>
+											</select>
+		                                    <div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao')}" th:errors="*{fichaIdentificacao}" ></div>
+		                                </div>
+		                     </div>
+	                     </div>
+                    </div>
+                    <hr id="end-input"/>
+                    <div class="form-group row justify-content-center ">
+                        <div class=" col-sm-2">
+                            <a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/login}">
+                                Voltar </a>
+                        </div>
+                        <div class="col-sm-2 text-right">
+                            <button id="btn_salvar" type="submit" class="btn btn-lg btn-success">
+                                Confirmar
+                            </button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+    <script th:inline="javascript">
+		/*<![CDATA[*/
+			/*
+				CONSTRUÇÃO DOS CAMPOS DE NOTAS PARA O LANÇAMENTO DE NOTAS
+			*/
+			var quantidade_avaliacoes = [[${criterioAvaliacao.quantidadeAvaliacao}]]; 
+			var quantidade_notas = [[${criterioAvaliacao.quantidadeNotas}]].split(",");
+
+			for (let i = 0; i<quantidade_avaliacoes;i++){	
+				let count = i+1;
+				let inputs = "";
+				
+				for(let j = 0; j< quantidade_notas[i]; j++){
+					let count_nota = j + 1;
+					inputs += "<input type='number' name='nota-"+count+"-"+count_nota+
+                    			"' id='nota-"+count+"-"+count_nota+"' class='form-control'"+
+                    			"placeholder='Nota "+count_nota+"'"+
+             					"/>"
+                    			
+				}
+				   	$("#end-input").before(
+				   		  "<div class='row justify-content-center'>"+
+								"<div class='col-8'>"+
+									"<div class='form-group' >"+
+				                                "<label for='bim-"+count+ "' class='col-form-label text-right'> "+count+"Bimestre</label>"+
+				                                "<div class='controls'>"+
+				                                	inputs+
+				                                "</div>"+
+				                     "</div>"+
+			                     "</div>"+
+		                    "</div>"
+				   			);	
+			}
+			
+			/*
+				SETANDO VALORES DEFAULT PARA AS NOTAS
+			*/
+			for (let i = 0; i<quantidade_avaliacoes;i++){	
+				let count = i+1;				
+				for(let j = 0; j< quantidade_notas[i]; j++){
+					let count_nota = j + 1;
+					document.getElementById("nota-"+count+"-"+count_nota).defaultValue = 0.0;
+				}
+			}
+			
+			
+			/*
+				CAPTAÇÃO DOS VALORES
+			*/
+			$('#form').submit(function() {
+
+				//captura a quantidade de notas
+				let count = 0;
+				let notas = "";
+				console.log("EXECUTOU");
+				$("[name^='nota-']").each(function(){
+					qtdNotas += "" + this.value;
+					if (++count == quantidade_notas[0]){
+						qtdNotas += "|";
+						quantidade_notas.shift();
+					}else{
+						qtdNotas += ",";
+					}
+				});
+				qtdNotas = qtdNotas.substring(0, qtdNotas.length-1);
+				
+				console.log("NOTA:", qtdNotas);
+
+			});
+
+		/*]]>*/
+	</script>
+</section>				
+</body>
+</html>

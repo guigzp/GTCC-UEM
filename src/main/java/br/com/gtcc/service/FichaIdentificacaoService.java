@@ -1,5 +1,6 @@
 package br.com.gtcc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.gtcc.model.Aluno;
 
 import br.com.gtcc.model.FichaIdentificacao;
 import br.com.gtcc.repository.FichaIdentificacaoRepository;
@@ -25,6 +27,17 @@ public class FichaIdentificacaoService {
 
 	public List<FichaIdentificacao> listarTodos() {
 		return fichaIdentificacaoRepository.findAll();
+	}
+	
+	public List<Aluno> listarTodosAlunos(){
+		
+		List<Aluno> alunos =  new ArrayList<>();
+		
+		for(FichaIdentificacao fichaIdentificacao : fichaIdentificacaoRepository.findAll()){
+			alunos.add(fichaIdentificacao.getAluno());
+		}
+		
+		return alunos;
 	}
 	
 	public FichaIdentificacao buscar(Long id)
