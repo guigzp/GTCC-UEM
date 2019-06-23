@@ -35,8 +35,9 @@ public class Agendamento {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@NotNull(message = "Data de agendamento é uma informação obrigatória")
 	private LocalDate dataDefesa;
-
-    @NotNull(message = "Horário da defesa é uma informação obrigatória")
+    
+    @Column(nullable = false)
+    @NotBlank(message = "Horário da defesa é uma informação obrigatória")
     private String horario;
 
 
@@ -53,19 +54,13 @@ public class Agendamento {
     
     public Agendamento() {}
 
-	public Agendamento(Long id, FichaIdentificacao fichaIdentificacao,
+    public Agendamento(
 			@NotNull(message = "Data de agendamento é uma informação obrigatória") LocalDate dataDefesa,
-			@NotNull(message = "Horário da defesa é uma informação obrigatória") String horario,
-			@NotBlank(message = "Local é uma informação obrigatória") String local, int ativo,
-			@NotNull(message = "Ano é uma informação obrigatória") int ano) {
-		super();
-		this.id = id;
-		this.fichaIdentificacao = fichaIdentificacao;
+			@NotBlank(message = "Horário da defesa é uma informação obrigatória") String horario,
+			@NotBlank(message = "Local é uma informação obrigatória") String local) {
 		this.dataDefesa = dataDefesa;
 		this.horario = horario;
 		this.local = local;
-		this.ativo = ativo;
-		this.ano = ano;
 	}
 
 	public Long getId() {

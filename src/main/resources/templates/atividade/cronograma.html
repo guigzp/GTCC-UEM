@@ -80,11 +80,28 @@
 
 <body>
 	
-    <section layout:fragment="content">
+   <section layout:fragment="content">
     <div id="wrap" class="container">
     	<div class="calendario container">
         	<h2 style='margin-bottom:1.5em;'>Cronograma de Atividades </h2>
         	
+   	<form method="POST" th:action="@{/gtcc/atividade/cronograma/pesquisar}">
+   	<div style="display: flex;">
+    	<select class="form-control"  name="ano">
+      		<option> Selecionar Ano </option>
+      		<option th:each="ano : ${anos}" 
+					th:value="${ano}"
+					th:text="${ano}"></option>
+    	</select>
+    <button type="submit" class="btn btn-secondary" style="margin-left: 2em"> Selecionar </button>
+    
+    </div>
+	</form>
+	
+	
+	<br/>
+	<br/>
+	
         	<table id="tabela_atividades" class="table table-hover table-striped table-bordered table-click">
 			
 				<thead>
@@ -105,13 +122,20 @@
 						<td th:text="${#temporals.format(atividade.dataInicioEntrega, 'dd/MM/yyyy')}"></td>
 						<td th:text="${#temporals.format(atividade.dataFinalEntrega, 'dd/MM/yyyy')}"></td>
 					</tr>
-			
+				<tr th:if="${#lists.isEmpty(atividades)}">
+									<td colspan="6">
+										<div class="alert alert-info" style="background-color: #f1f3f5;" role="alert">
+											Nenhuma atividade encontrada nesse ano.
+										</div> 
+									</td>
+								</tr>
 				</tbody>
 				<tfoot>	</tfoot>
 			</table>
-
            </div>
+           <div id="push"></div>
        </div>
+       
 </section>
 </body>
 

@@ -1,165 +1,159 @@
 <!DOCTYPE html>
-<html lang="pt"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 <head>
-    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
+<meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
 </head>
 <body>
-<section layout:fragment="content" class="main-content">
-    <div id="wrap" class="container">
-        <div id="main">
-            <div class="jumbotron">
-            	
-            	<div th:if="${param.sucesso}">
+	<section layout:fragment="content" class="main-content">
+		<div id="wrap" class="container">
+			<div id="main">
+				<div class="jumbotron">
+					<div th:if="${param.sucesso}">
 						<script th:inline="javascript">
-							/*<![CDATA[*/
 								var flag = [[${param.sucesso}]]; 
 							    window.onload = function() {
 							        if(flag){
 							  			alertify.success('Aluno Cadastrado com sucesso!');
 							        }
 								};
-							/*]]>*/
 						</script>
 					</div>
-            
-            
-                <div class="row justify-content-center">
-                    <h3>Cadastro de Aluno</h3>
-                </div>
-                <hr/>
-                <!-- MESSAGES -->
-                <form th:object="${aluno}" th:action="@{/gtcc/alunos/cadastrar}" method="POST" autocomplete="off"
-                      class="form-default form-horizontal" name="form">
 
-					<div class="form-group  row justify-content-center">
+
+					<div class="row justify-content-center">
+						<h3>Cadastro de Aluno</h3>
+					</div>
+					<hr />
+					<!-- MESSAGES -->
+					<form th:object="${aluno}" th:action="@{/gtcc/alunos/cadastrar}"
+						method="POST" autocomplete="off"
+						class="form-default form-horizontal" name="form">
+
+						<div class="form-group  row justify-content-center">
 							<div class="input-group col-8">
 								<label>* Esses campos são obrigatórios</label>
 							</div>
-					</div>
-					<div class="row justify-content-center">
-						<div class="col-8">
-							<div class="form-group" >
-		                                <label for="ra" class="col-form-label text-right">RA</label>
-		                                <div class="controls">
-		                                    <input type="number" name="ra"
-		                                           id="ra" class="form-control"
-		                                           autofocus="autofocus"
-		                                           th:field="*{ra}"
-		                                    />
-		                                    <div style="color: red;" th:if="${#fields.hasErrors('ra')}" th:errors="*{ra}" ></div>
-		                                </div>
-		                     </div>
-	                     </div>
-                    </div>
-                    <div class="row justify-content-center">
-						<div class="col-8">
-							<div class="form-group" >
-		                                <label for="nome" class="col-form-label text-right">Nome</label>
-		                                <div class="controls">
-		                                    <input type="text" name="nome"
-		                                           id="nome" class="form-control"
-		                                           th:field="*{nome}"
-		                                    />
-		                                    <div style="color: red;" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" ></div>
-		                                </div>
-		                     </div>
-	                     </div>
-                    </div>
-                   <div class="row justify-content-center">
-						<div class="col-8">
-							<div class="form-group" >
-		                                <label for="email" class="col-form-label text-right">Email</label>
-		                                <div class="controls">
-		                                    <input type="email" name="email"
-		                                           id="email" class="form-control"
-		                                           th:field="*{email}"
-		                                    />
-		                                    <div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></div>
-		                                </div>
-		                     </div>
-	                     </div>
-                    </div>
-                    <div class="row justify-content-center">
-						<div class="col-8">
-							<div class="form-group" >
-		                                <label for="nome_usuario" class="col-form-label text-right">Nome de Usuário</label>
-		                                <div class="controls">
-		                                    <input type="text" name="nome_usuario"
-		                                           id="nome_usuario" class="form-control"
-		                                           th:field="*{nomeUsuario}"
-		                                    />
-		                                    <div style="color: red;" th:if="${#fields.hasErrors('nomeUsuario')}" th:errors="*{nomeUsuario}" ></div>
-		                                </div>
-		                     </div>
-	                     </div>
-                    </div>
-                    
-					<div class="row justify-content-center">
-						<div class="col-8">
-							<div class="form-group" >
-		                                <label for="telefone" class="col-form-label text-right">Telefone</label>
-		                                <div class="controls">
-		                                    <input type="text" name="telefone"
-		                                           id="telefone" class="form-control"
-		                                           th:field="*{telefone}"
-		                                    />
-		                                    <div style="color: red;" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}" ></div>
-		                                </div>
-		                     </div>
-	                     </div>
-                    </div>
-					<div class="row justify-content-center">
-						<div class="col-8">
-							<div class="form-group" >
-		                                <label for="senha" class="col-form-label text-right">Senha</label>
-		                                <div class="controls">
-		                                    <input type="password" name="senha"
-		                                           id="senha" class="form-control"
-		                                           th:field="*{senha}"
-		                                    />
-		                                    <div style="color: red;" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" ></div>
-		                                </div>
-		                     </div>
-	                     </div>
-                    </div>
-                    <div class="row justify-content-center">
-						<div class="col-8">
-							<div class="form-group" >
-		                                <label for="confirmarSenha" class="col-form-label text-right">Confirmar Senha</label>
-		                                <div class="controls">
-		                                    <input type="password" name="confirmarSenha"
-		                                           id="confirmarSenha" class="form-control"
-		                                           th:field="*{confirmarSenha}"
-		                                    />
-		                                    <div style="color: red;" th:if="${#fields.hasErrors('confirmarSenha')}" th:errors="*{confirmarSenha}" ></div>
-		                                </div>
-		                     </div>
-	                     </div>
-                    </div>
-                    <hr/>
-                    <div class="form-group row justify-content-center ">
-                        <div class=" col-sm-2">
-                            <a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/login}">
-                                Voltar </a>
-                        </div>
-                        <div class="col-sm-2 text-right">
-                            <button id="btn_salvar" type="submit" class="btn btn-lg btn-success">
-                                Confirmar
-                            </button>
-                        </div>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<label for="ra" class="col-form-label text-right">RA</label>
+									<div class="controls">
+										<input type="number" name="ra" id="ra" class="form-control"
+											autofocus="autofocus" th:field="*{ra}" />
+										<div style="color: red;" th:if="${#fields.hasErrors('ra')}"
+											th:errors="*{ra}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<label for="nome" class="col-form-label text-right">Nome</label>
+									<div class="controls">
+										<input type="text" name="nome" id="nome" class="form-control"
+											th:field="*{nome}" />
+										<div style="color: red;" th:if="${#fields.hasErrors('nome')}"
+											th:errors="*{nome}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<label for="email" class="col-form-label text-right">Email</label>
+									<div class="controls">
+										<input type="email" name="email" id="email"
+											class="form-control" th:field="*{email}" />
+										<div style="color: red;" th:if="${#fields.hasErrors('email')}"
+											th:errors="*{email}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<label for="nome_usuario" class="col-form-label text-right">Nome
+										de Usuário</label>
+									<div class="controls">
+										<input type="text" name="nome_usuario" id="nome_usuario"
+											class="form-control" th:field="*{nomeUsuario}" />
+										<div style="color: red;"
+											th:if="${#fields.hasErrors('nomeUsuario')}"
+											th:errors="*{nomeUsuario}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-                    </div>
+						<div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<label for="telefone" class="col-form-label text-right">Telefone</label>
+									<div class="controls">
+										<input type="text" name="telefone" id="telefone"
+											class="form-control" th:field="*{telefone}" />
+										<div style="color: red;"
+											th:if="${#fields.hasErrors('telefone')}"
+											th:errors="*{telefone}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<label for="senha" class="col-form-label text-right">Senha</label>
+									<div class="controls">
+										<input type="password" name="senha" id="senha"
+											class="form-control" th:field="*{senha}" />
+										<div style="color: red;" th:if="${#fields.hasErrors('senha')}"
+											th:errors="*{senha}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<label for="confirmarSenha" class="col-form-label text-right">Confirmar
+										Senha</label>
+									<div class="controls">
+										<input type="password" name="confirmarSenha"
+											id="confirmarSenha" class="form-control"
+											th:field="*{confirmarSenha}" />
+										<div style="color: red;"
+											th:if="${#fields.hasErrors('confirmarSenha')}"
+											th:errors="*{confirmarSenha}"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div class="form-group row justify-content-center ">
+							<div class=" col-sm-2">
+								<a id="alert" class="btn btn-lg btn-danger"
+									th:href="@{/gtcc/login}"> Voltar </a>
+							</div>
+							<div class="col-sm-2 text-right">
+								<button id="btn_salvar" type="submit"
+									class="btn btn-lg btn-success">Confirmar</button>
+							</div>
 
-                </form>
-            </div>
-        </div>
-        <div id="push"></div>
-    </div>
-</section>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<div id="push"></div>
+		</div>
+	</section>
 
 </body>
 </html>

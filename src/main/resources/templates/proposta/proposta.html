@@ -7,7 +7,7 @@
 <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
 </head>
 <body>
-	<section layout:fragment="content">
+	<section layout:fragment="content" class="main-content">
 		<div id="wrap" class="container">
 			<div id="main">
 				<div class="jumbotron">
@@ -96,10 +96,23 @@
 			<div id="push"></div>
 		</div>
 		
+		<script th:inline="javascript">
+			window.onload = function(){
+		        if([[${param.sucesso}]]=="true"){
+		  			alertify.success('Proposta gerada com sucesso!');
+		        }else{
+		        	if([[${param.tipo}]]=="1"){
+		        		alertify.error('Coordenador não cadastrado!');
+		        	}else if([[${param.tipo}]]=="2"){
+		        		alertify.error('Atividade não cadastrada!');
+		        	}else{
+		        		alertify.error('Erro JRException!');
+		        	}
+		        }
+			}
+		</script>
+		
 		<script type="text/javascript">
-		
-			
-		
             document.getElementsByName("aluno")[0].selectedIndex = "0";
             //document.getElementById("btn_salvar").addEventListener("click", abrePdf)
 

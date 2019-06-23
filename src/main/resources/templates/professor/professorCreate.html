@@ -160,6 +160,15 @@
         <div id="push"></div>
     </div>
     
+    
+    <script th:inline="javascript">
+			window.onload = function(){
+		        if([[${param.sucesso}]]=="true"){
+		  			alertify.success('Professor cadastrado com sucesso!');
+		        }
+			}
+		</script>
+    
 <script type="text/javascript">
                     function showMe () {
 

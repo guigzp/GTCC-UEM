@@ -1,12 +1,8 @@
 package br.com.gtcc.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,13 +10,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -38,7 +29,6 @@ import br.com.gtcc.model.Aluno;
 import br.com.gtcc.model.Atividade;
 import br.com.gtcc.model.Professor;
 import br.com.gtcc.model.FichaIdentificacao;
-import br.com.gtcc.service.AlunoService;
 import br.com.gtcc.service.FichaIdentificacaoService;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -49,7 +39,6 @@ import net.sf.jasperreports.export.OutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import br.com.gtcc.repository.AlunoRepository;
 import br.com.gtcc.repository.AtividadeRepository;
 import br.com.gtcc.repository.FichaIdentificacaoRepository;
 import br.com.gtcc.repository.ProfessorRepository;
@@ -58,12 +47,6 @@ import br.com.gtcc.security.Conexao;
 @Controller
 @RequestMapping("/gtcc/proposta")
 public class PropostaController {
-
-	@Autowired
-	private AlunoService alunoService;
-
-	@Autowired
-	private AlunoRepository alunoRepository;
 
 	@Autowired
 	private ProfessorRepository professorRepository;
@@ -96,21 +79,32 @@ public class PropostaController {
 		
 		FichaIdentificacao fichaAluno = fichasAluno.get(0);
 
-		Professor coordenador = professorRepository.findByCurso(fichaAluno.getAreaConcentracao()).get(0);
+		List<Professor> coordenadores = professorRepository.findByCurso(fichaAluno.getAreaConcentracao());
 
+		if (coordenadores.isEmpty()) {
+			System.out.print("Coordenador não cadastrado");
+			ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+			mv.addObject("tipo", "1");
+			return mv;
+		}
+		
+		Professor coordenador = coordenadores.get(0);
+		
 		List<Atividade> atividade = atividadeRepository.findByAnoAndDescricao(fichaAluno.getAno(),
 				new String("Entrega da Proposta de Projeto de TCC (" + avaliacao + "ºbim.)"));
 
 		if (atividade.isEmpty()) {
 			System.out.print("Atividade não cadastrada");
-			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+			ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+			mv.addObject("tipo", "2");
+			return mv;
 		}
 
 		LocalDate data = atividade.get(0).getDataFinalEntrega();
 
 		String dataS = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-		HashMap parametros = new HashMap();
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("NomeCurso", fichaAluno.getAreaConcentracao());
 		parametros.put("Ano", Integer.toString(fichaAluno.getAno()));
 		parametros.put("Professor", coordenador.getNome());
@@ -126,28 +120,28 @@ public class PropostaController {
 		
 		try {
 			gerarProposta("Proposta1.pdf", parametros);
-			String caminhoaux = caminho+"/Proposta1.pdf";
-			
 		} catch (JRException e) {
-			return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+			ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+			mv.addObject("tipo", "3");
+			return mv;
 		}
 
-		System.out.println(avaliacao);
 		if (Integer.parseInt(avaliacao) == 1) {
-			System.out.println("in");
 			parametros.put("Avaliador", fichaAluno.getAvaliador2().getNome());
 			try {
 				gerarProposta("Proposta2.pdf", parametros);
-				String caminhoaux = caminho+"/Proposta2.pdf";
 			} catch (JRException e) {
-				return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+				ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+				mv.addObject("tipo", "3");
+				return mv;
 			}
 			parametros.put("Avaliador", fichaAluno.getOrientador().getNome());
 			try {
-				String caminhoaux = caminho+"/Proposta3.pdf";
 				gerarProposta("Proposta3.pdf", parametros);
 			} catch (JRException e) {
-				return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", false);
+				ModelAndView mv = new ModelAndView("redirect:/gtcc/proposta").addObject("sucesso", false);
+				mv.addObject("tipo", "3");
+				return mv;
 			}
 		}
 		
@@ -162,7 +156,7 @@ public class PropostaController {
 	}
 
 	
-	public void gerarProposta(String nome, HashMap parametros) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
+	public void gerarProposta(String nome, HashMap<String, Object> parametros) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
 		String caminho = new File("./").getAbsolutePath();
 		caminho = caminho.substring(0, caminho.length() - 1);
 		caminho = caminho + "src/main/resources/static/report/";
@@ -176,7 +170,6 @@ public class PropostaController {
 		SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
 		exporter.setConfiguration(configuration);
 		exporter.exportReport();
-		
 	}
 	
 	

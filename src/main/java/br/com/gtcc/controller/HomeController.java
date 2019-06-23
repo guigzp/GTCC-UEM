@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.gtcc.model.Usuario;
-import br.com.gtcc.security.GpUserDetails;
 
 @Controller
 @RequestMapping("/gtcc/home")
