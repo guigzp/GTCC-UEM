@@ -32,6 +32,8 @@ public class CriterioAvaliacaoController {
 
 	@PostMapping("/cadastrar")
 	public ModelAndView save(@Valid CriterioAvaliacao criterioAvaliacao, BindingResult result) {
+		
+		
 
 		if (result.hasErrors()) {			
 			return add(criterioAvaliacao);

@@ -65,13 +65,19 @@
 
 						<div class="form-group row justify-content-center">
 							<div class="field-wrapper col-xl-10">
-								<input type="text" name="areaConcentracao" id="areaConcentracao"
-									class="form-control" th:field="*{areaConcentracao}"
-									aria-label="Area de concentração"
-									aria-describedby="basic-addon1">
-								<div class="field-placeholder">
-									<span>Area de concentração *</span>
-								</div>
+<!-- 								<input type="text" name="areaConcentracao" id="areaConcentracao" -->
+<!-- 									class="form-control" th:field="*{areaConcentracao}" -->
+<!-- 									aria-label="Area de concentração" -->
+<!-- 									aria-describedby="basic-addon1"> -->
+<!-- 								<div class="field-placeholder"> -->
+<!-- 									<span>Area de concentração *</span> -->
+<!-- 								</div> -->
+							<select class="form-control" autofocus="autofocus" id="areaConcentracao"
+                                   aria-describedby="basic-addon1" th:field="*{areaConcentracao}" style="height: 60px;">
+                        		<option selected value=""> Selecione a area de concentração </option>
+                        		<option value="Ciência da Computação"> Ciência da Computação </option>
+                        		<option value="Informática"> Informática </option>
+                        	</select>
 							</div>
 						</div>
 

@@ -69,7 +69,7 @@ public class UsuarioController {
         usuario.setAtivo(1);
         usuarioService.adicionar(usuario);
 
-        return new ModelAndView("redirect:/gtcc/login").addObject("sucesso", true);
+        return new ModelAndView("redirect:/gtcc/usuarios/cadastrar").addObject("sucesso", true);
     }
 
     @GetMapping("/editar/{id}")
