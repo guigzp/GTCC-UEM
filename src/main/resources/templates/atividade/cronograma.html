@@ -80,11 +80,26 @@
 
 <body>
 	
-    <section layout:fragment="content">
+   <section layout:fragment="content">
     <div id="wrap" class="container">
     	<div class="calendario container">
         	<h2 style='margin-bottom:1.5em;'>Cronograma de Atividades </h2>
         	
+   	<form method="POST"  th:action="@{/gtcc/atividade/cronograma/pesquisar}">
+   	<div style="display: flex;">
+    	<select class="form-control"  name="ano">
+      		<option> Selecionar Ano </option>
+      		<option th:value="${2019}">2019</option>
+      		<option th:value="${2018}">2018</option>
+    	</select>
+    <button type="submit" class="btn btn-secondary" style="margin-left: 2em"> Selecionar </button>
+    
+    </div>
+	
+	
+	<br/>
+	<br/>
+	
         	<table id="tabela_atividades" class="table table-hover table-striped table-bordered table-click">
 			
 				<thead>
@@ -109,9 +124,10 @@
 				</tbody>
 				<tfoot>	</tfoot>
 			</table>
-
+	</form>
            </div>
        </div>
+       
 </section>
 </body>
 

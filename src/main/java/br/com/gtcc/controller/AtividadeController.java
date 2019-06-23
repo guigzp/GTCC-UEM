@@ -32,4 +32,11 @@ public class AtividadeController {
 	     return mv;
 	}
 	
+	@PostMapping("/pesquisar")
+	public ModelAndView pesquisar(@RequestParam("ano") Integer ano) {
+		 ModelAndView mv = new ModelAndView("atividade/cronograma");
+		 mv.addObject("atividades", atividadeService.buscarPorAno(ano));
+		 return mv;
+		
+	}
 }
