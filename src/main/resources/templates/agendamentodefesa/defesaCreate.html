@@ -20,6 +20,7 @@
 	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<script src="https://cdnjs.com/libraries/jquery.mask"></script>
     <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
     <title>GTCC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,8 +107,8 @@
 								<input type="text" name="dataDefesa"
 									id="dataDefesa" class="form-control"
 									th:field="*{dataDefesa}" autofocus="autofocus"
-									placeholder="Data de defesa*" aria-label="Data de defesa"
-                                   		aria-describedby="basic-addon1"/>
+									placeholder="01/01/2010" aria-label="Data de defesa"
+                                   		aria-describedby="basic-addon1" data-mask="00/00/0000"/>
                                    		<div class="field-placeholder"><span>Data de defesa*</span></div>
 									<div style="color: red;" th:if="${#fields.hasErrors('dataDefesa')}" th:errors="*{dataDefesa}" ></div>
 							</div>
@@ -115,7 +116,7 @@
 								<input type="text" name="horario"
 									id="horario" class="form-control"
 									th:field="*{horario}" autofocus="autofocus"
-									placeholder="Horário*" aria-label="Horario"
+									placeholder="12h00m" aria-label="Horario"
                                    		aria-describedby="basic-addon1"/>
 									<div class="field-placeholder"><span>Horário*</span></div>
 									<div style="color: red;" th:if="${#fields.hasErrors('horario')}" th:errors="*{horario}" ></div>
@@ -231,7 +232,6 @@
 				document.getElementById("avaliador1").placeholder=obj.avaliador1.nome;
 				document.getElementById("avaliador2").placeholder=obj.avaliador2.nome;
 			});
-		
 		</script>
 		
 	</section>
