@@ -102,47 +102,6 @@
 		font-size: 0.5em !important;
 	}
 
-	.calendar {
-		background-color: #e3e3e3;
-		border-radius: 5px;
-		padding: 1em 0;
-		margin-bottom: 1em;
-	}
-
-	.calendar table {
-		width: 90%;
-	}
-
-	.calendar th {
-		text-align: center;
-	}
-
-	.calendar td {
-		width: 100px;
-		text-align: center;
-		font-size: 1em;
-	}
-
-	.calendar td,
-	#year {
-		font-family: monospace;
-	}
-
-	.calendar .hover {
-		background: #eee;
-	}
-
-	.calendar #about {
-		font-size: 5em !important;
-		position: absolute;
-		top: -35px;
-		right: 15px;
-	}
-
-	.calendar h5 {
-		padding-left: 1em;
-		font-size: 1.25rem;
-	}
 
 	#about a {
 		text-decoration: none;
@@ -282,16 +241,17 @@
 
 <body>
 	<section class="main-content" layout:fragment="content">
-		<div id="wrap" class="container">
-			<div class="defesa container" style="width: 100% !important;background-color:#e5e5e5;box-sizing:border-box !important; padding: 2em; 	">
-				<h3 style="text-align: center !important;font-size: 2em !important;margin: 1em auto 1em !important;box-sizing:border-box !important;">Agendamento de defesas</h3>
+		<div id="wrap" class="container" style="max-width: 1600px !important">
+			<div class="defesa container" style="max-width: 1600px !important;background-color:#e5e5e5;box-sizing:border-box !important; padding: 2em; 	">
+				<h3 style="text-align: center !important;font-size: 2em !important;margin: 1em auto 1em !important; box-sizing:border-box !important;">Agendamento de defesas</h3>
 				<div class="row">
-					<div class="col-lg-3" style="width: 100%;">
+					<div class="col-lg-3">
 
-						<div class="jumbotron">
-	        <div class="row justify-content-center">
-	          <h5>Calendário</h5>
-				<div id="datepicker"></div>
+			<div class="jumbotron" >
+			
+	        <div class="row" style="display: flex; flex-direction: column; justify-content: center; margin: 0 !important; padding: 0 !important; width: 100%;" >
+	          <h5 style="text-align: left !important; margin: 0px !important; padding-top: 0px !important; padding-bottom:1em; font-size:1.25em; ">Calendário</h5>
+				<div id="datepicker" ></div>
 	          <div class="container" id="main">
 	            
 	          </div>
@@ -337,21 +297,21 @@
 
 							<thead style="width: 100% !important; display:flex; justify-content: space-between; background-color: #fff !important; border:none; border-radius: 5px !important;padding: 1em !important;">
 								<tr style="width: 100% !important; display:flex; justify-content: space-between;">
-									<th style="padding-left: 0.25em !important;border:none;" class="">Data</th>
-									<th style="padding-left: 0.25em !important;border:none;" class="">Orientando</th>
-									<th style="padding-left: 0.25em !important;border:none;" class="">Horário</th>
-									<th style="padding-left: 0.25em !important;border:none;" class="">Local</th>
-									<th style="padding-left: 0.25em !important;border:none;" class="">Ações</th>
+									<th style="padding-left: 0.25em !important;border:none;  font-size:1.05em" class="">Data</th>
+									<th style="padding-left: 0.25em !important;border:none;  font-size:1.05em" class="">Orientando</th>
+									<th style="padding-left: 0.25em !important;border:none;  font-size:1.05em" class="">Horário</th>
+									<th style="padding-left: 0.25em !important;border:none; font-size:1.05em"  class="">Local</th>
+									<th style="padding-left: 0.25em !important;border:none; font-size:1.05em"  class="">Ações</th>
 								</tr>
 							</thead>
 
-							<tbody>
+							<tbody style="width:100%">
 								<tr th:if="${not #lists.isEmpty(agendamentos)}" th:each="agendamento : ${agendamentos}">
-									<td th:text="${#temporals.format(agendamento.dataDefesa, 'dd/MM/yyyy')}"></td>
-									<td th:text="${agendamento.fichaIdentificacao.aluno.nome}"></td>
-									<td style="text-align:left !important;" th:text="${agendamento.horario}"></td>
-									<td th:text="${agendamento.local}"></td>
-									<td>
+									<td width="15%" th:text="${#temporals.format(agendamento.dataDefesa, 'dd/MM/yyyy')}"></td>
+									<td width="30%"th:text="${agendamento.fichaIdentificacao.aluno.nome}"></td>
+									<td width="20%" style="text-align:left !important; padding: 0.75rem 2.75em !important;" th:text="${agendamento.horario}"></td>
+									<td width="20%" style="text-align:center !important;"th:text="${agendamento.local}"></td>
+									<td width="15%">
 										<div class="btn-group pull-right">
 											<a class="btn btn-sm btn-warning"
 												th:href="@{/gtcc/agendamentodefesa/detalhes/{id}(id=${agendamento.id})}">Detalhes</a>
