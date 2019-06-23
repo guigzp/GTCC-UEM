@@ -20,6 +20,7 @@ import br.com.gtcc.model.Agendamento;
 import br.com.gtcc.model.FichaIdentificacao;
 import br.com.gtcc.service.AgendamentoService;
 import br.com.gtcc.service.FichaIdentificacaoService;
+import br.com.gtcc.service.ProfessorService;
 /**
  * 
  * @author Grupo 03 - Ana Cláudia, Ana Paula, Rafael de Souza, Viviane Shiraishi
@@ -33,8 +34,8 @@ public class AgendamentoController {
     private AgendamentoService agendamentoService;
     @Autowired
     private FichaIdentificacaoService fichaIdentificacaoService;
-
-
+    @Autowired
+	private ProfessorService professorService;
     @GetMapping
     public ModelAndView findAll() {
         ModelAndView mv = new ModelAndView("agendamentodefesa/index");
@@ -90,6 +91,7 @@ public class AgendamentoController {
     public ModelAndView edit(@PathVariable("id") Long id) {
 
         ModelAndView mv = new ModelAndView("agendamentodefesa/defesaUpdate");
+        mv.addObject("professores", professorService.buscarTodos());
         mv.addObject("agendamento", agendamentoService.buscarPorId(id));
 
         return mv;
@@ -111,7 +113,16 @@ public class AgendamentoController {
             mv.addObject("agendamento", agendamento);
             return mv;
         }
-        
+        agendamento.getFichaIdentificacao().setId(agendamentoService.buscarPorId(agendamento.getId()).getFichaIdentificacao().getId());
+        agendamento.getFichaIdentificacao().setAluno(agendamentoService.buscarPorId(agendamento.getId()).getFichaIdentificacao().getAluno());
+        agendamento.getFichaIdentificacao().setAno(agendamentoService.buscarPorId(agendamento.getId()).getFichaIdentificacao().getAno());
+        agendamento.getFichaIdentificacao().setAreaConcentracao(agendamentoService.buscarPorId(agendamento.getId()).getFichaIdentificacao().getAreaConcentracao());
+        agendamento.getFichaIdentificacao().setAvaliador1(agendamento.getFichaIdentificacao().getAvaliador1());
+        agendamento.getFichaIdentificacao().setAvaliador2(agendamento.getFichaIdentificacao().getAvaliador2());
+        agendamento.getFichaIdentificacao().setOrientador(agendamento.getFichaIdentificacao().getOrientador());
+        agendamento.getFichaIdentificacao().setTituloTrabalho(agendamento.getFichaIdentificacao().getTituloTrabalho());
+        fichaIdentificacaoService.adicionar(agendamento.getFichaIdentificacao());
+        agendamento.setAtivo(1);
         agendamentoService.atualizar(agendamento);
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("atualizado", true);
     }

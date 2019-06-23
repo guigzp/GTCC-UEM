@@ -136,29 +136,35 @@
 						</div>
 						<div class="form-group row justify-content-center" >
 							<div class="field-wrapper controls col-sm-12 col-sm-12">
-								<input type="text" name="orientador"
-									id="orientador" class="form-control"
-									th:field="*{fichaIdentificacao.orientador.nome}"/>
-									<div class="field-placeholder"><span>Orientador*</span></div>
-									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.orientador.nome')}" th:errors="*{fichaIdentificacao.orientador.nome}" ></div>
+								<select th:field="*{fichaIdentificacao.orientador}" class="form-control" style="height: 60px;">
+									<option value="">Selecione o orientador</option>
+									<option th:each="avaliador : ${professores}"
+										th:value="${avaliador.idProfessor}"
+										th:text="${avaliador.nome}"></option>
+								</select>
+									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.orientador')}" th:errors="*{fichaIdentificacao.orientador}" ></div>
 							</div>
 						</div>
 						<div class="form-group row justify-content-center" >
 							<div class="field-wrapper controls col-sm-12 col-sm-12">
-								<input type="text" name="avaliador1"
-									id="avaliador1" class="form-control"
-									th:field="*{fichaIdentificacao.avaliador1.nome}"/>
-									<div class="field-placeholder"><span>Avaliador 1*</span></div>
-									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.avaliador1.nome')}" th:errors="*{fichaIdentificacao.avaliador1.nome}" ></div>
+									<select th:field="*{fichaIdentificacao.avaliador1}" class="form-control" style="height: 60px;">
+									<option value="">Selecione o 1° Avaliador</option>
+									<option th:each="avaliador : ${professores}"
+										th:value="${avaliador.idProfessor}"
+										th:text="${avaliador.nome}"></option>
+								</select>
+									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.avaliador1')}" th:errors="*{fichaIdentificacao.avaliador1}" ></div>
 							</div>
 						</div>
 						<div class="form-group row justify-content-center" >
 							<div class="field-wrapper controls col-sm-12 col-sm-12">
-								<input type="text" name="avaliador2"
-									id="avaliador2" class="form-control"
-									th:field="*{fichaIdentificacao.avaliador2.nome}"/>
-									<div class="field-placeholder"><span>Avaliador 2*</span></div>
-									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.avaliador2.nome')}" th:errors="*{fichaIdentificacao.avaliador2.nome}" ></div>
+								<select th:field="*{fichaIdentificacao.avaliador2}" class="form-control" style="height: 60px;">
+									<option value="">Selecione o 2° Avaliador</option>
+									<option th:each="avaliador : ${professores}"
+										th:value="${avaliador.idProfessor}"
+										th:text="${avaliador.nome}"></option>
+								</select>
+									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.avaliador2')}" th:errors="*{fichaIdentificacao.avaliador2}" ></div>
 							</div>
 						</div>
 						<br>
