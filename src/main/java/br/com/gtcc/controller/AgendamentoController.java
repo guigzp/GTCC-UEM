@@ -181,42 +181,43 @@ public class AgendamentoController {
     		}
 		}
     	else if (Integer.parseInt(options) == 2) {
-    		Agendamento agendamento = agendamentoService.buscarPorId(Long.parseLong(agendamentoid));
-    		FichaIdentificacao fichaAluno = agendamento.getFichaIdentificacao();
-    		
-    		List<Atividade> atividade = atividadeRepository.findByAnoAndFase(agendamento.getAno(), 10);
-    		
-    		String dataDefesa = agendamento.getDataDefesa().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    		String dataEntregaFinal = atividade.get(0).getDataFinalEntrega().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-    		
-    		HashMap<String, Object> parametros = new HashMap<String, Object>();
-    		parametros.put("ano", fichaAluno.getAno());
-    		parametros.put("data_defesa", dataDefesa);
-    		parametros.put("local", agendamento.getLocal());
-    		parametros.put("horario", agendamento.getHorario());
-    		parametros.put("titulo_trabalho", fichaAluno.getTituloTrabalho());
-    		parametros.put("area_concentracao", fichaAluno.getAreaConcentracao());
-    		parametros.put("nome_avaliador1", fichaAluno.getAvaliador1().getNome());
-    		parametros.put("nome_avaliador2", fichaAluno.getAvaliador2().getNome());
-    		parametros.put("nome_orientador", fichaAluno.getOrientador().getNome());
-    		parametros.put("nome_aluno", fichaAluno.getAluno().getNome());
-    		parametros.put("data_final_entrega", dataEntregaFinal);
-    		
-    		String caminho = new File("./").getAbsolutePath();
-    		caminho = caminho.substring(0, caminho.length() - 1);
-    		caminho = caminho + "src/main/resources/static/report/";
-    		
-    		try {
-    			gerarAtaDefesa("ata_de_defesa.pdf", parametros);
-    		} catch (JRException e) {
-    			ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
-    			return mv;
-    		}
+    		if (Long.parseLong(agendamentoid) == 0) {
+				List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
+				for (Agendamento agendamento : agendamentos) {
+	    			HashMap<String, Object> parametros = getParametros(agendamento);
+	    			
+	    			String caminho = new File("./").getAbsolutePath();
+	    			caminho = caminho.substring(0, caminho.length() - 1);
+	    			caminho = caminho + "src/main/resources/static/report/";
+	    			
+	    			try {
+	    				gerarAtaDefesa("ata_de_defesa"+ agendamento.getId() + ".pdf", parametros);
+	    			} catch (JRException e) {
+	    				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+	    				return mv;
+	    			}
+				}
+			} 
+    		else {
+    			Agendamento agendamento = agendamentoService.buscarPorId(Long.parseLong(agendamentoid));
+    			HashMap<String, Object> parametros = getParametros(agendamento);
+    			
+    			String caminho = new File("./").getAbsolutePath();
+    			caminho = caminho.substring(0, caminho.length() - 1);
+    			caminho = caminho + "src/main/resources/static/report/";
+    			
+    			try {
+    				gerarAtaDefesa("ata_de_defesa.pdf", parametros);
+    			} catch (JRException e) {
+    				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+    				return mv;
+    			}
+			}
 		}
 		
 		return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
 	}
-    
+
     public void gerarAtaDefesa(String nome, HashMap<String, Object> parametros) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
     	String caminho = new File("./").getAbsolutePath();
     	caminho = caminho.substring(0, caminho.length() - 1);
@@ -268,5 +269,28 @@ public class AgendamentoController {
         ResponseEntity<byte[]> response = new ResponseEntity<byte[]> (
         	pdfContents, headers, HttpStatus.OK);
 		return response;
+	}
+	
+	private HashMap<String, Object> getParametros(Agendamento agendamento) {
+		FichaIdentificacao fichaAluno = agendamento.getFichaIdentificacao();
+		List<Atividade> atividade = atividadeRepository.findByAnoAndFase(agendamento.getAno(), 10);
+		
+		String dataDefesa = agendamento.getDataDefesa().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		String dataEntregaFinal = atividade.get(0).getDataFinalEntrega().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
+		parametros.put("ano", fichaAluno.getAno());
+		parametros.put("data_defesa", dataDefesa);
+		parametros.put("local", agendamento.getLocal());
+		parametros.put("horario", agendamento.getHorario());
+		parametros.put("titulo_trabalho", fichaAluno.getTituloTrabalho());
+		parametros.put("area_concentracao", fichaAluno.getAreaConcentracao());
+		parametros.put("nome_avaliador1", fichaAluno.getAvaliador1().getNome());
+		parametros.put("nome_avaliador2", fichaAluno.getAvaliador2().getNome());
+		parametros.put("nome_orientador", fichaAluno.getOrientador().getNome());
+		parametros.put("nome_aluno", fichaAluno.getAluno().getNome());
+		parametros.put("data_final_entrega", dataEntregaFinal);
+		
+		return parametros;
 	}
 }
