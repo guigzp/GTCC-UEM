@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ata_defesa3" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="28d9f5a6-b443-4abd-99ac-6a24d8df8274">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<parameter name="ano" class="java.lang.Integer"/>
+	<parameter name="data_defesa" class="java.lang.String"/>
+	<parameter name="local" class="java.lang.String"/>
+	<parameter name="horario" class="java.lang.String"/>
+	<parameter name="titulo_trabalho" class="java.lang.String"/>
+	<parameter name="area_concentracao" class="java.lang.String"/>
+	<parameter name="nome_avaliador1" class="java.lang.String"/>
+	<parameter name="nome_avaliador2" class="java.lang.String"/>
+	<parameter name="nome_orientador" class="java.lang.String"/>
+	<parameter name="nome_aluno" class="java.lang.String"/>
+	<parameter name="data_final_entrega" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from agendamento]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="5" width="74" height="65" uuid="69ff0b99-009f-43f5-90b7-af259120c5d0"/>
+				<imageExpression><![CDATA["uem-logo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="481" y="15" width="74" height="43" uuid="9ad38af4-677c-4289-adda-4135d810e967"/>
+				<imageExpression><![CDATA["logo-din.jpeg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="74" y="1" width="407" height="78" uuid="955da841-6bc8-47e6-9c85-628a374152cd"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Universidade Estadual de Maringá
+Centro de Tecnologia
+Departamento de Informática]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="75" splitType="Stretch">
+			<textField>
+				<reportElement positionType="Float" x="0" y="0" width="555" height="30" uuid="9788a6a9-0cbb-41b8-873f-8e3f1c1c8a1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CURSO DE BACHARELADO EM " + $P{area_concentracao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="555" height="45" uuid="eb47d2a6-f6a6-4405-8426-5f845add4625"/>
+				<box>
+					<pen lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TCC - TRABALHO DE CONCLUSÃO DE CURSO
+ATA DE DEFESA PÚBLICA]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="497">
+			<textField>
+				<reportElement positionType="Float" x="0" y="20" width="555" height="250" uuid="2290a340-6324-4757-aa94-865e7ea9b285"/>
+				<textElement textAlignment="Justified">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Em " + $P{data_defesa} + ", às " + $P{horario} + ", reuniu-se na " + $P{local} + ", Campus Sede UEM, Maringá-PR, a banca examinadora composta pelos professors " + $P{nome_orientador} + " (orientador), " + $P{nome_avaliador1} + " (primeiro examinador) e " + $P{nome_avaliador2} + " (segundo examinador) para a defesa do Trabalho de Conclusão de Curso intitulado " + $P{titulo_trabalho} + ", do(a) acadêmico(a) " + $P{nome_aluno} + ". Após a representação do trabalho pelo(a) aluno(a) e a arguição da banca e dos demais presentes, os membros da banca examinadora resolveram atribuir as notas individuais especificadas abaixo, cuja média aritmética simples resultou em ________________________. A coordenadora do TCC determina que o acadêmico entregue a versão final da monografia do Trabalho de Conclusão de Curso até " + $P{data_final_entrega} + ", já corrigida, com as sugestões da banca, em arquivo PDF (Moodle), legível e dentro dos padrões estabelecidos pela coordenação do componente curricular, sob pena de retificação das notas a ele atribuídas."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="350" y="270" width="194" height="20" uuid="9aec331e-98a1-41ca-93c3-612758d2c305"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Maringá " + $P{data_defesa}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="323" width="555" height="140" uuid="173f1352-7d54-42ae-b801-aad23b28605c"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="261" y="415" width="294" height="23" backcolor="#B5B5B5" uuid="6c4b834c-d3b2-476c-a58a-f4e655b9d551"/>
+				<graphicElement>
+					<pen lineColor="#000000"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="190" y="323" width="1" height="115" uuid="5c6866ec-cb6e-47f3-b3b9-7baa8f5f7a50"/>
+			</line>
+			<line>
+				<reportElement x="260" y="323" width="1" height="140" uuid="23861b57-d270-4207-9677-9b2ed33fb42f"/>
+			</line>
+			<line>
+				<reportElement x="0" y="340" width="555" height="1" uuid="1f5a3920-93d4-43ea-a527-1adf974a2b64"/>
+			</line>
+			<line>
+				<reportElement x="0" y="438" width="555" height="1" uuid="fd60a6f3-0b07-4f8a-af92-e832ed65a56b"/>
+			</line>
+			<line>
+				<reportElement x="0" y="365" width="555" height="1" uuid="915592e5-80dd-485b-abb7-3f1fc8cd0918"/>
+			</line>
+			<line>
+				<reportElement x="0" y="389" width="555" height="1" uuid="73e36886-05d7-4abf-9e3c-73b92e27d79d"/>
+			</line>
+			<line>
+				<reportElement x="0" y="414" width="555" height="1" uuid="01876590-830a-4104-9a10-dc21c85eaa21"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="323" width="190" height="18" uuid="0e461c90-938c-445f-bbd4-23968f261a53"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Membros da Banca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="323" width="69" height="18" uuid="a5779690-0089-47c1-b829-4a53717e9fef"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nota]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="323" width="294" height="18" uuid="6c0e27e6-d09a-4ac1-8e46-52d245aaccea"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Assinaturas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="439" width="189" height="24" uuid="f597cc3a-613a-4ae8-9443-10690f3baaa2"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom" rotation="None">
+					<font size="14" isBold="true"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Ciência do Acadêmico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="414" width="189" height="24" uuid="a6b61b22-18da-4e0d-9660-7da6543ef034"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom" rotation="None">
+					<font size="14" isBold="true"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Média:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="390" width="189" height="24" uuid="052fd0e9-3403-4ed2-92aa-43eb486ab7e0"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None">
+					<font size="14" isBold="false"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Segundo Examinador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="365" width="189" height="24" uuid="664ec43f-a29f-464f-87f6-fba55aa863f9"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None">
+					<font size="14" isBold="false"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Primeiro Examinador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="341" width="189" height="24" uuid="b454997e-1c64-40d7-9660-aebcdbf487a0"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None">
+					<font size="14" isBold="false"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Orientador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="475" width="554" height="20" uuid="baec5275-3ef8-4a1c-9bdf-7edb7a09940a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font size="12" isBold="false"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[O orientador deverá DEVOLVER esta ata ao coordenador de TCC.]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<pageFooter>
+		<band height="63" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<staticText>
+				<reportElement x="0" y="0" width="554" height="61" uuid="398b8568-a574-4e6c-ac29-3d0c39fb08b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font size="10" isBold="true"/>
+					<paragraph lineSpacingSize="1.0"/>
+				</textElement>
+				<text><![CDATA[Universidade Estadual de Maringá - Departamento de Informática
+Av. Colombo, 5790 - Bloco C56 - Zona 7 - CEP: 87020-900
+Fone: (44) 3011-4324/3011-4219
+Maringá - PR]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
