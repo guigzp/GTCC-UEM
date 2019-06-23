@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -187,19 +188,30 @@ public class AgendamentoController {
     	else if (Integer.parseInt(options) == 2) {
     		if (Long.parseLong(agendamentoid) == 0) {
 				List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
+				List<JasperPrint> prints = new ArrayList<JasperPrint>();
+				String caminho = new File("./").getAbsolutePath();
+				caminho = caminho.substring(0, caminho.length() - 1);
+				caminho = caminho + "src/main/resources/static/report/";
 				for (Agendamento agendamento : agendamentos) {
 	    			HashMap<String, Object> parametros = getParametros(agendamento);
-	    			
-	    			String caminho = new File("./").getAbsolutePath();
-	    			caminho = caminho.substring(0, caminho.length() - 1);
-	    			caminho = caminho + "src/main/resources/static/report/";
-	    			
 	    			try {
-	    				gerarAtaDefesa("ata_de_defesa"+ agendamento.getId() + ".pdf", parametros);
+	    				prints.add(JasperFillManager.fillReport(caminho + "ata_defesa.jasper", parametros, Conexao.getConnection()));
+	    		    	
 	    			} catch (JRException e) {
 	    				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
 	    				return mv;
 	    			}
+				}
+				JRPdfExporter exporter = new JRPdfExporter();
+				exporter.setExporterInput(SimpleExporterInput.getInstance(prints));
+				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(caminho + "atas_defesas.pdf"));
+				SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+				exporter.setConfiguration(configuration);
+				try {
+					exporter.exportReport();
+				} catch (JRException e) {
+					ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+    				return mv;
 				}
 			} 
     		else {
