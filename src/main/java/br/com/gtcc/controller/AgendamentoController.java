@@ -105,7 +105,11 @@ public class AgendamentoController {
     	if(agendamento.getFichaIdentificacao() == null){
     		result.addError(new FieldError("agendamento", "fichaIdentificacao", "Selecione um aluno"));
     	}
-
+    	String horario = agendamento.getHorario();
+    	if(horario.regionMatches(2, "00h00m", 2, 1) || horario.regionMatches(5, "00h00m", 5, 1) || horario.length() != 6) {
+    		result.addError(new FieldError("agendamento", "horario", "Formato incorreto. Por favor, digite no padrão 12h00m"));
+    	}
+    	
         if (result.hasErrors()) {
             return add(agendamento);
         }
