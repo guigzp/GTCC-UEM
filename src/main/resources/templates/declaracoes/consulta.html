@@ -17,9 +17,7 @@
 					<hr />
 
 
-					<form
-						th:action="@{/gtcc/declaracoes/consultar}" method="POST"
-						class="form-default form-horizontal">
+					<form class="form-default form-horizontal">
 						<div class="form-group row justify-content-center">
 							<div class="field-wrapper col-xl-6">
 								<input type="text" name="tituloTrabalho" id="tituloTrabalho"
@@ -39,25 +37,25 @@
 								</div>
 							</div>
 							
-							<div class="input-group col-xl-2">
-								<button class="btn btn-outline-secondary" type="submit"
+							<div class="input-group search col-xl-2">
+								<div class="btn btn-outline-secondary"
 									style="height: 60px;">
 									<span class="fa fa-search"></span> Pesquisar
-								</button>
+								</div>
 							</div>
 							
 							
-							<div id="nome" class="form-group offset-md-8" style="margin-left: 0; margin-right: 750px">
+							<div id="nome" class="form-group offset-md-8" style="margin-left: 0; margin-right: 70%">
 								<div class="form-check row">
-									<input class="form-check-input" type="radio" CHECKED name="tipoNome"
-										id="tipoNome" value="1"> <label
-										class="form-check-label" for="checkAluno"> Aluno
+									<input class="form-check-input professor" type="radio" CHECKED name="tipoNome"
+										id="tipoNome" value="2"> <label
+										class="form-check-label" for="checkProfessor"> Professor
 									</label>
 								</div>
 								<div class="form-check row">
-									<input class="form-check-input" type="radio" name="tipoNome"
-										id="tipoNome" value="2"> <label
-										class="form-check-label" for="checkProfessor"> Professor
+									<input class="form-check-input aluno" type="radio" name="tipoNome"
+										id="tipoNome" value="1"> <label
+										class="form-check-label" for="checkAluno"> Participante
 									</label>
 								</div>
 							</div>
@@ -90,14 +88,43 @@
 											<th>Gerar</th>
 										</tr>
 									</thead>
-									<tbody>
 									
-										<tr th:each="declaracao : ${declaracoes}">
-
+									
+									
+									<tbody name="declaracaoProf">
+										<tr th:id=P+${declaracao.idProfessor} th:each="declaracao : ${declaracoes}">
 											<td th:text=${declaracao.nome}></td>
+											<td class="text-center" id="professor">
+												<form method="POST"
+												th:action="@{/gtcc/declaracoes/gerar/P/{id}(id=${declaracao.idProfessor})}">
+													<input type="hidden" name="_method" value="POST" />
 
-											<td class="text-center"><a class="btn btn-info btn-xs"><span
-													class="fa fa-file-pdf-o"></span></a></td>
+													<button type="submit" class="btn btn-info btn-xs">
+														<span class="fa fa-file-pdf-o"></span>
+													</button>
+												</form>
+											</td>
+										</tr>
+
+										<tr th:if="${declaracoes.empty}">
+											<td colspan="5">Nenhuma Declaração
+												cadastrada</td>
+										</tr>
+										
+									</tbody>
+									
+									<tbody name="declaracaoPP">
+										<tr th:id=PP+${declaracao.id} th:each="declaracao : ${declaracoesPP}">
+											<td th:text=${declaracao.nomeParticipante}></td>
+											<td class="text-center">
+												<form method="POST"
+												th:action="@{/gtcc/declaracoes/gerar/PP/{id}(id=${declaracao.id})}">
+													<input type="hidden" name="_method" value="POST" />
+													<button type="submit" class="btn btn-info btn-xs">
+														<span class="fa fa-file-pdf-o"></span>
+													</button>
+												</form>
+											</td>
 										</tr>
 
 										<tr th:if="${declaracoes.empty}">
@@ -118,6 +145,59 @@
 			</div>
 			<div id="push"></div>
 		</div>
+		
+		<script th:inline="javascript">
+			var declaracoesProfessor= [[${declaracoes}]];
+			var declaracoesPP= [[${declaracoesPP}]];
+		</script>
+		
+		<script type="text/javascript">
+		window.onload = function(){
+			$("[name=declaracaoPP]").hide();
+			document.getElementById("anoTrabalho").value = new Date().getFullYear();
+			for(var i=1;i<=declaracoesPP.length;i++){
+				if(declaracoesPP[i-1].ano != document.getElementById("anoTrabalho").value){
+					console.log("PP"+i)
+					$("#PP"+i).hide();
+				}else{
+					$("#PP"+i).show();
+				}
+			}
+		}
+		
+		$(".aluno").click(function(){
+			$("[name=declaracaoProf]").hide();
+			$("[name=declaracaoPP]").show();
+		});
+		$(".professor").click(function(){
+			$("[name=declaracaoPP]").hide();
+			$("[name=declaracaoProf]").show();
+		});
+		$(".search").click(function(){
+			if($(".aluno").prop("checked")){
+				for(var i=1;i<=declaracoesPP.length;i++){
+					if(declaracoesPP[i-1].ano != document.getElementById("anoTrabalho").value){
+						console.log("PP"+i)
+						$("#PP"+i).hide();
+					}else{
+						$("#PP"+i).show();
+					}
+				}
+			}
+		});
+		$("#anoTrabalho").on("input", function(){
+			if($(".aluno").prop("checked")){
+				for(var i=1;i<=declaracoesPP.length;i++){
+					if(declaracoesPP[i-1].ano != document.getElementById("anoTrabalho").value){
+						console.log("PP"+i)
+						$("#PP"+i).hide();
+					}else{
+						$("#PP"+i).show();
+					}
+				}
+			}
+		});
+        </script>
 	</section>
 
 </body>
