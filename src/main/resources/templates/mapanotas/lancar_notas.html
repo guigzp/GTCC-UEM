@@ -57,6 +57,7 @@
 		                                           id="ano" class="form-control"
 		                                           autofocus="autofocus"
 		                                           th:field="*{ano}"
+		                                           required
 		                                    />
 		                                    <div style="color: red;" th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}" ></div>
 		                                </div>
@@ -102,112 +103,110 @@
 				CONSTRUÇÃO DOS CAMPOS DE NOTAS PARA O LANÇAMENTO DE NOTAS
 			*/
 			var criterioAvaliacaoID = [[${criterioAvaliacao.id}]]; 
-			var quantidade_avaliacoes = [[${criterioAvaliacao.quantidadeAvaliacao}]]; 
-			var quantidade_notas = [[${criterioAvaliacao.quantidadeNotas}]].split(",");
-			
 
-			for (let i = 0; i<quantidade_avaliacoes;i++){	
-				let count = i+1;
-				let inputs = "";
-				
-				for(let j = 0; j< quantidade_notas[i]; j++){
-					let count_nota = j + 1;
-					inputs += "<input type='number' name='nota-"+count+"-"+count_nota+
-                    			"' id='nota-"+count+"-"+count_nota+"' class='form-control'"+
-                    			"placeholder='Nota "+count_nota+"'"+
-             					"/>"
-                    			
+			if(criterioAvaliacaoID != -1){
+				var quantidade_avaliacoes = [[${criterioAvaliacao.quantidadeAvaliacao}]]; 
+				var quantidade_notas = [[${criterioAvaliacao.quantidadeNotas}]].split(",");
+				for (let i = 0; i<quantidade_avaliacoes;i++){	
+					let count = i+1;
+					let inputs = "";
+					
+					for(let j = 0; j< quantidade_notas[i]; j++){
+						let count_nota = j + 1;
+						inputs += "<input type='number' name='nota-"+count+"-"+count_nota+
+	                    			"' id='nota-"+count+"-"+count_nota+"' class='form-control'"+
+	                    			"placeholder='Nota "+count_nota+"'"+
+	             					"/>"
+	                    			
+					}
+					   	$("#end-input").before(
+					   		  "<div class='row justify-content-center'>"+
+									"<div class='col-8'>"+
+										"<div class='form-group' >"+
+					                                "<label for='bim-"+count+ "' class='col-form-label text-right'> "+count+" Bimestre</label>"+
+					                                "<div class='controls'>"+
+					                                	inputs+
+					                                "</div>"+
+					                     "</div>"+
+				                     "</div>"+
+			                    "</div>"
+					   			);	
 				}
-				   	$("#end-input").before(
+				
+				
+				/*
+					CAPTAÇÃO DOS VALORES
+				*/
+				$('#submitMapaNotas').submit(function(e) {
+					var notas = "";
+					//captura os valores atribuidos as notas
+					for (let i = 0; i<quantidade_avaliacoes;i++){	
+						let count = i+1;				
+						for(let j = 0; j< quantidade_notas[i]; j++){
+							let count_nota = j + 1;
+							let nota = document.getElementById("nota-"+count+"-"+count_nota).value;
+							nota = (nota == "") ? "0" : nota;
+							notas += nota;
+							if(count_nota != quantidade_notas[i])
+							notas +="#";
+						}
+						notas += "|";
+						//atualiza os valores das variaveis
+						$("#notas").val(notas);
+						$("#criterioAvaliacao").val(criterioAvaliacaoID);
+					}
+					
+				});
+				
+				/*
+					ATUALIZAÇÃO DOS ALUNOS COM BASE NO ANO
+				*/
+				$("#ano").blur(function(e){
+					var ano = e.target.value;
+					$.ajax({
+						url : window.location.href+"/ano/"+ano,
+						type : "get",
+					    contentType: "application/json",
+					    dataType: "json",
+						success : function(response) {
+							if(response.length > 0 ){
+								$("#select_fichas").attr("disabled", false);
+								$('#select_fichas').empty();
+								$('#select_fichas').append($('<option>', {
+								    value: 0,
+								    text:  'Selecione um aluno'
+								}));
+								for (item in response) {
+									$('#select_fichas').append($('<option>', {
+									    value: response[item].id,
+									    text:  response[item].aluno.nome
+									}));
+								}
+							}else{
+								$("#select_fichas").attr("disabled", true);
+								$('#select_fichas').empty();
+								$('#select_fichas').append($('<option>', {
+								    value: 0,
+								    text:  'Nenhum aluno encontrado com este ano'
+								}));
+							}
+						},
+						error : function(e) {
+							 //alert("Submit failed" + JSON.stringify(e));
+						}
+					})
+				})
+			}else{
+				$("#end-input").before(
 				   		  "<div class='row justify-content-center'>"+
 								"<div class='col-8'>"+
-									"<div class='form-group' >"+
-				                                "<label for='bim-"+count+ "' class='col-form-label text-right'> "+count+"Bimestre</label>"+
-				                                "<div class='controls'>"+
-				                                	inputs+
-				                                "</div>"+
-				                     "</div>"+
+									"<div class='alert alert-danger' role='alert'>"+
+									  "Não foi encontrado nenhum critério de avaliação ativo!"+
+									"</div>"+
 			                     "</div>"+
 		                    "</div>"
 				   			);	
 			}
-			
-			/*
-				SETANDO VALORES DEFAULT PARA AS NOTAS
-			*/
-			for (let i = 0; i<quantidade_avaliacoes;i++){	
-				let count = i+1;				
-				for(let j = 0; j< quantidade_notas[i]; j++){
-					let count_nota = j + 1;
-					document.getElementById("nota-"+count+"-"+count_nota).defaultValue = 0.0;
-				}
-			}
-			
-			
-			/*
-				CAPTAÇÃO DOS VALORES
-			*/
-			$('#submitMapaNotas').submit(function(e) {
-				var notas = "";
-				//captura os valores atribuidos as notas
-				for (let i = 0; i<quantidade_avaliacoes;i++){	
-					let count = i+1;				
-					for(let j = 0; j< quantidade_notas[i]; j++){
-						let count_nota = j + 1;
-						notas += document.getElementById("nota-"+count+"-"+count_nota).value;
-						if(count_nota != quantidade_notas[i])
-						notas +="#";
-					}
-					notas += "|";
-					//atualiza os valores das variaveis
-					$("#notas").val(notas);
-					$("#criterioAvaliacao").val(criterioAvaliacaoID);
-				}
-
-				
-				
-				
-			});
-			
-			/*
-				ATUALIZAÇÃO DOS ALUNOS COM BASE NO ANO
-			*/
-			$("#ano").blur(function(e){
-				var ano = e.target.value;
-				$.ajax({
-					url : window.location.href+"/ano/"+ano,
-					type : "get",
-				    contentType: "application/json",
-				    dataType: "json",
-					success : function(response) {
-						if(response.length > 0 ){
-							$("#select_fichas").attr("disabled", false);
-							$('#select_fichas').empty();
-							$('#select_fichas').append($('<option>', {
-							    value: 0,
-							    text:  'Selecione um aluno'
-							}));
-							for (item in response) {
-								$('#select_fichas').append($('<option>', {
-								    value: response[item].id,
-								    text:  response[item].aluno.nome
-								}));
-							}
-						}else{
-							$("#select_fichas").attr("disabled", true);
-							$('#select_fichas').empty();
-							$('#select_fichas').append($('<option>', {
-							    value: 0,
-							    text:  'Nenhum aluno encontrado com este ano'
-							}));
-						}
-					},
-					error : function(e) {
-						 //alert("Submit failed" + JSON.stringify(e));
-					}
-				})
-				
-			})
 
 		/*]]>*/
 	</script>

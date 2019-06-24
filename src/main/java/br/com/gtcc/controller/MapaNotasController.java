@@ -58,7 +58,7 @@ public class MapaNotasController {
     @GetMapping("/lancarNotas")
 	public ModelAndView add(MapaNotas mapaNotas) {
 		
-		CriterioAvaliacao criterio = this.criterioAvaliacaoService.listarTodos().get(0);
+		CriterioAvaliacao criterio = this.criterioAvaliacaoService.buscarAtivo();
 		
 		ModelAndView mv = new ModelAndView("mapanotas/lancar_notas");
 		mv.addObject("mapaNotas", mapaNotas);

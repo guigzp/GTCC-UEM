@@ -1,5 +1,6 @@
 package br.com.gtcc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -47,6 +48,15 @@ public class CriterioAvaliacaoService {
 
 	public CriterioAvaliacao buscarPorId(Long id) {
 		return criterioAvaliacaoRepository.findById(id).get();
+	}
+	
+	public CriterioAvaliacao buscarAtivo() {
+		
+		List<CriterioAvaliacao> criterios = this.criterioAvaliacaoRepository.findByAtivoTrue();
+		CriterioAvaliacao criterio = new CriterioAvaliacao();
+		criterio.setId(-1L);
+		
+		return criterios.size() > 0 ? criterios.get(0) : criterio;
 	}
 	
 	public CriterioAvaliacao adicionar(@Valid CriterioAvaliacao criterio)
