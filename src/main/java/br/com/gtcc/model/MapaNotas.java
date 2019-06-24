@@ -22,6 +22,7 @@ public class MapaNotas {
 	private Long id;
 	
 	@OneToOne
+	@NotNull(message = "Aluno é uma informação obrigatória")
 	private FichaIdentificacao fichaIdentificacao;
 	
 	@OneToOne
@@ -36,8 +37,9 @@ public class MapaNotas {
 	
 	public MapaNotas() {}
 
-	public MapaNotas(FichaIdentificacao fichaIdentificacao,
-			@NotNull(message = "Ano uma informação obrigadtória") Integer ano) {
+	public MapaNotas(
+			@NotNull(message = "Aluno é uma informação obrigatória") FichaIdentificacao fichaIdentificacao,
+			@NotNull(message = "Ano uma informação obrigatória") Integer ano) {
 		super();
 		this.fichaIdentificacao = fichaIdentificacao;
 		this.ano = ano;
