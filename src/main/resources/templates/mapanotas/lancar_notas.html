@@ -18,7 +18,7 @@
 								var flag = [[${param.sucesso}]]; 
 							    window.onload = function() {
 							        if(flag){
-							  			alertify.success('Aluno Cadastrado com sucesso!');
+							  			alertify.success('Nota Cadastrada com sucesso!');
 							        }
 								};
 							/*]]>*/
@@ -33,7 +33,7 @@
                 <hr/>
                 
                 <!-- MESSAGES -->
-                <form id="submitMapaNotas" th:object="${mapaNotas}" th:action="@{/gtcc/mapaNotas/lancarNotas}" method="POST" autocomplete="off"
+                <form id="submitMapaNotas" th:object="${mapaNotas}" th:action="@{/gtcc/mapanotas/lancarNotas}" method="POST" autocomplete="off"
                       class="form-default form-horizontal" name="form">
 
 					<div class="form-group  row justify-content-center">

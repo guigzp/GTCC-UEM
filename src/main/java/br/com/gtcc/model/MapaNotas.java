@@ -24,8 +24,14 @@ public class MapaNotas {
 	@OneToOne
 	private FichaIdentificacao fichaIdentificacao;
 	
+	@OneToOne
+	private CriterioAvaliacao criterioAvaliacao;
+	
+	@Column
+	private String notas;
+	
 	@Column(nullable = false)
-	@NotNull(message = "Ano uma informação obrigadtória")
+	@NotNull(message = "Ano uma informação obrigatória")
 	private Integer ano;
 	
 	public MapaNotas() {}
@@ -52,6 +58,22 @@ public class MapaNotas {
 
 	public void setFichaIdentificacao(FichaIdentificacao fichaIdentificacao) {
 		this.fichaIdentificacao = fichaIdentificacao;
+	}
+
+	public CriterioAvaliacao getCriterioAvaliacao() {
+		return criterioAvaliacao;
+	}
+
+	public void setCriterioAvaliacao(CriterioAvaliacao criterioAvaliacao) {
+		this.criterioAvaliacao = criterioAvaliacao;
+	}
+	
+	public String getNotas() {
+		return notas;
+	}
+
+	public void setNotas(String notas) {
+		this.notas = notas;
 	}
 
 	public Integer getAno() {
