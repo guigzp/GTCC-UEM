@@ -176,12 +176,19 @@ public class AgendamentoController {
 	public ModelAndView gerar(@RequestParam(name = "options", required = false) String options,
 							  @RequestParam(name = "select", required = false) String agendamentoid) throws 
 							InterruptedException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
+    	if (options == null) {
+    		ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+    		mv.addObject("tipo", "1");
+			return mv;
+		}
+    	
     	
     	if (Integer.parseInt(options) == 1) {
     		try {
     			gerarEditalDefesas("edital_defesa.pdf");
     		} catch (JRException e) {
     			ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+    			mv.addObject("tipo", "2");
     			return mv;
     		}
 		}
@@ -199,6 +206,7 @@ public class AgendamentoController {
 	    		    	
 	    			} catch (JRException e) {
 	    				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+	    				mv.addObject("tipo", "2");
 	    				return mv;
 	    			}
 				}
@@ -211,6 +219,7 @@ public class AgendamentoController {
 					exporter.exportReport();
 				} catch (JRException e) {
 					ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+					mv.addObject("tipo", "2");
     				return mv;
 				}
 			} 
@@ -226,12 +235,15 @@ public class AgendamentoController {
     				gerarAtaDefesa("ata_de_defesa.pdf", parametros);
     			} catch (JRException e) {
     				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+    				mv.addObject("tipo", "2");
     				return mv;
     			}
 			}
 		}
 		
-		return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
+    	ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
+		mv.addObject("tipo", "1");
+		return mv;
 	}
 
     public void gerarAtaDefesa(String nome, HashMap<String, Object> parametros) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
