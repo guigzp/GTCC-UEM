@@ -1,241 +1,273 @@
 <!DOCTYPE html>
-<html lang="pt"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout}" >
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 
 <head>
-  <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-    <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
-        rel="stylesheet">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
-	<link rel="stylesheet" type="text/css" media="screen" href="main.css">
-	<link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../../static/js/jquery_mask/jquery.mask.js"></script>   
-    <script src="../../static/js/jquery_mask/jquery.mask.min.js"></script>  
-	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
-    <title>GTCC</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-		document.addEventListener('DOMContentLoaded', function () {
-			(function () {
-				var just_stop;
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" media="screen" href="main.css">
+<link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" media="screen" href="main.css">
+<link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="../../static/js/jquery_mask/jquery.mask.js"></script>
+<script src="../../static/js/jquery_mask/jquery.mask.min.js"></script>
+<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
+<title>GTCC</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
 
-				$('#datepicker').datepicker();
+	document.addEventListener('DOMContentLoaded', function() {
+		(function() {
+			var just_stop;
 
-				window.clone_out = function (subject) {
-					var $subject;
-					$subject = $(subject);
-					$($subject.html()).appendTo('body');
-					$subject.remove();
-					return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-				};
+			$('#datepicker').datepicker();
 
-				window.stop_it = function (e) {
-					console.log('hey', this);
-					$(this).toggleClass('ui-state-active');
-					//e.preventDefault()
-					e.stopPropagation();
-					return false;
-				};
+			window.clone_out = function(subject) {
+				var $subject;
+				$subject = $(subject);
+				$($subject.html()).appendTo('body');
+				$subject.remove();
+				return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
+			};
 
-				just_stop = function (e) {
-					e.stopPropagation();
-					return false;
-				};
+			window.stop_it = function(e) {
+				console.log('hey', this);
+				$(this).toggleClass('ui-state-active');
+				//e.preventDefault()
+				e.stopPropagation();
+				return false;
+			};
 
-				$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
+			just_stop = function(e) {
+				e.stopPropagation();
+				return false;
+			};
 
+			$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
 				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-
 			}).call(this);
 		}, false);
-	</script>
-</head>     
+	
+</script>
+
+<script th:inline="javascript">
+
+	/*<![CDATA[*/
+	window.onload = function() {
+		var agendamentoID = 0;
+		$('#excluir').on('click', function() {
+			agendamentoID = $(this).val();
+		});
+	
+		$('#confirmacaoModal').on('show.bs.modal', function(e) {
+			$(this).find('#excluirModal').attr('href', agendamentoID + '/remover/' + agendamentoID);
+		});
+	};
+	/*]]>*/
+	
+</script>
+</head>
 
 <body>
 	<section class="main-content" layout:fragment="content">
 		<div id="wrap" class="container">
-			<div class="defesa container" style="width: 100% !important;background-color:#e5e5e5;box-sizing:border-box !important; padding: 2em; ">
-				<h3 style="text-align: center !important;font-size: 2em !important;margin: 1em auto 1em !important;box-sizing:border-box !important;">Agendamento de defesas</h3>
-					<div class="row">
-						<div class="col-lg-3" style="width: 100%;">
-			<div class="jumbotron">
-	        <div class="row justify-content-center">
-	          <h5>Calendário</h5>
-				<div id="datepicker"></div>
-	          <div class="container" id="main">
-	            
-	          </div>
-	        </div>
-	        </div>
-	      </div>
-	      	<div class="jumbotron col-lg-9" style="width:100%;">
-	      <div class="row justify-content-center">
-							<h3 >Editar defesa</h3>
-						</div>
-					<hr/>
-					<form th:object="${agendamento}" th:action="@{/gtcc/agendamentodefesa/editar/{id}(id=${agendamento.id})}" method="POST"
-						class="form-default form-horizontal" >
-						<div class="form-group row justify-content-center" >
-							<div class="controls col-sm-12 col-sm-12">
-								<input type="text" name="nomeAluno"
-									id="nome" class="form-control"
-									th:field="*{fichaIdentificacao.aluno.nome}" disabled 
-									style="height: 55px;border-radius: 5px;border: 1px solid #bebebe;width: 100%;padding: 0 1em;"/>
-									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.aluno.nome')}" th:errors="*{fichaIdentificacao.aluno.nome}" ></div>
+			<div class="defesa container"
+				style="width: 100% !important; background-color: #e5e5e5; box-sizing: border-box !important; padding: 2em;">
+				<h3
+					style="text-align: center !important; font-size: 2em !important; margin: 1em auto 1em !important; box-sizing: border-box !important;">Agendamento
+					de defesas</h3>
+				<div class="row">
+					<div class="col-lg-3" style="width: 100%;">
+						<div class="jumbotron">
+							<div class="row justify-content-center">
+								<h5>Calendário</h5>
+								<div id="datepicker"></div>
+								<div class="container" id="main"></div>
 							</div>
 						</div>
-						<div class="form-group row justify-content-center" >
-							<div class="field-wrapper controls col-sm-12 col-sm-12">
-								<input type="text" name="titulo"
-									id="titulo" class="form-control"
-									th:field="*{fichaIdentificacao.tituloTrabalho}">
-									<div class="field-placeholder"><span>Título do trabalho*</span></div>
-									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.tituloTrabalho')}" th:errors="*{fichaIdentificacao.tituloTrabalho}" ></div>
-							</div>
+					</div>
+					<div class="jumbotron col-lg-9" style="width: 100%;">
+						<div class="row justify-content-center">
+							<h3>Editar defesa</h3>
 						</div>
-						<div class="input-group">
-							<div class="form-row">
-                        	<div class="field-wrapper col">
-								<input type="text" name="dataDefesa"
-									id="dataDefesa" class="form-control"
-									th:field="*{dataDefesa}" 
-									autofocus="autofocus" aria-label="Data de defesa"
-                                   	aria-describedby="basic-addon1"
-                                   	/>
-									<div class="field-placeholder"><span>Data de defesa*</span></div>
-									<div style="color: red;" th:if="${#fields.hasErrors('dataDefesa')}" th:errors="*{dataDefesa}" ></div>
-							</div>
-							<div class="field-wrapper col">
-								<input type="text" name="horario"
-									id="horario" class="form-control"
-									th:field="*{horario}" 
-									autofocus="autofocus" aria-label="Horario"
-                                   	aria-describedby="basic-addon1"
-                                   	/>
-									<div class="field-placeholder"><span>Horário*</span></div>
-									<div style="color: red;" th:if="${#fields.hasErrors('horario')}" th:errors="*{horario}" ></div>
-							</div>
-							<div class="field-wrapper col">
-								<input type="text" name="local"
-									id="local" class="form-control"
-									th:field="*{local}" 
-									autofocus="autofocus" aria-label="Local"
-                                   	aria-describedby="basic-addon1"
-									/>
-									<div class="field-placeholder"><span>Local*</span></div>
-									<div style="color: red;" th:if="${#fields.hasErrors('local')}" th:errors="*{local}" ></div>
-							</div>
-						</div>
-						</div>
-						<div class="form-group row justify-content-center ">
-							
-						</div>
-						<div class="form-group row justify-content-center" >
-							<div class="field-wrapper controls col-sm-12 col-sm-12">
-								<select th:field="*{fichaIdentificacao.orientador}" class="form-control" style="height: 60px;">
-									<option value="">Selecione o orientador</option>
-									<option th:each="avaliador : ${professores}"
-										th:value="${avaliador.idProfessor}"
-										th:text="${avaliador.nome}"></option>
-								</select>
-									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.orientador')}" th:errors="*{fichaIdentificacao.orientador}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center" >
-							<div class="field-wrapper controls col-sm-12 col-sm-12">
-									<select th:field="*{fichaIdentificacao.avaliador1}" class="form-control" style="height: 60px;">
-									<option value="">Selecione o 1° Avaliador</option>
-									<option th:each="avaliador : ${professores}"
-										th:value="${avaliador.idProfessor}"
-										th:text="${avaliador.nome}"></option>
-								</select>
-									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.avaliador1')}" th:errors="*{fichaIdentificacao.avaliador1}" ></div>
-							</div>
-						</div>
-						<div class="form-group row justify-content-center" >
-							<div class="field-wrapper controls col-sm-12 col-sm-12">
-								<select th:field="*{fichaIdentificacao.avaliador2}" class="form-control" style="height: 60px;">
-									<option value="">Selecione o 2° Avaliador</option>
-									<option th:each="avaliador : ${professores}"
-										th:value="${avaliador.idProfessor}"
-										th:text="${avaliador.nome}"></option>
-								</select>
-									<div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao.avaliador2')}" th:errors="*{fichaIdentificacao.avaliador2}" ></div>
-							</div>
-						</div>
-						<br>
-						<div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
-                            <label>* Esses campos são obrigatórios</label>
-                        </div>
-                    </div>
-                    <hr/>
-						<div class="form-group row" style="display: flex; justify-content: space-between;">
-							<div class=" col-sm-2">
-							<button id="excluir" type="button" th:value="${agendamento.id}" class="btn btn-lg btn-danger"  data-toggle="modal"  data-target="#confirmacaoModal">
-                                Excluir</button>
+						<hr />
+						<form th:object="${agendamento}"
+							th:action="@{/gtcc/agendamentodefesa/editar/{id}(id=${agendamento.id})}"
+							method="POST" class="form-default form-horizontal">
+							<div class="form-group row justify-content-center">
+								<div class="controls col-sm-12 col-sm-12">
+									<input type="text" name="nomeAluno" id="nome"
+										class="form-control"
+										th:field="*{fichaIdentificacao.aluno.nome}" disabled
+										style="height: 55px; border-radius: 5px; border: 1px solid #bebebe; width: 100%; padding: 0 1em;" />
+									<div style="color: red;"
+										th:if="${#fields.hasErrors('fichaIdentificacao.aluno.nome')}"
+										th:errors="*{fichaIdentificacao.aluno.nome}"></div>
 								</div>
-							<div class="col-sm-8 text-right">
-								<a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/agendamentodefesa}"> Cancelar </a>
 							</div>
-							<div class="col-sm-2 text-right">
-								<button type="submit" class="btn btn-lg btn-success">Confirmar</button>
+							<div class="form-group row justify-content-center">
+								<div class="field-wrapper controls col-sm-12 col-sm-12">
+									<input type="text" name="titulo" id="titulo"
+										class="form-control"
+										th:field="*{fichaIdentificacao.tituloTrabalho}">
+									<div class="field-placeholder">
+										<span>Título do trabalho*</span>
+									</div>
+									<div style="color: red;"
+										th:if="${#fields.hasErrors('fichaIdentificacao.tituloTrabalho')}"
+										th:errors="*{fichaIdentificacao.tituloTrabalho}"></div>
+								</div>
 							</div>
-						</div>
+							<div class="input-group">
+								<div class="form-row">
+									<div class="field-wrapper col">
+										<input type="text" name="dataDefesa" id="dataDefesa"
+											class="form-control" th:field="*{dataDefesa}"
+											autofocus="autofocus" aria-label="Data de defesa"
+											aria-describedby="basic-addon1" />
+										<div class="field-placeholder">
+											<span>Data de defesa*</span>
+										</div>
+										<div style="color: red;"
+											th:if="${#fields.hasErrors('dataDefesa')}"
+											th:errors="*{dataDefesa}"></div>
+									</div>
+									<div class="field-wrapper col">
+										<input type="text" name="horario" id="horario"
+											class="form-control" th:field="*{horario}"
+											autofocus="autofocus" aria-label="Horario"
+											aria-describedby="basic-addon1" />
+										<div class="field-placeholder">
+											<span>Horário*</span>
+										</div>
+										<div style="color: red;"
+											th:if="${#fields.hasErrors('horario')}"
+											th:errors="*{horario}"></div>
+									</div>
+									<div class="field-wrapper col">
+										<input type="text" name="local" id="local"
+											class="form-control" th:field="*{local}"
+											autofocus="autofocus" aria-label="Local"
+											aria-describedby="basic-addon1" />
+										<div class="field-placeholder">
+											<span>Local*</span>
+										</div>
+										<div style="color: red;" th:if="${#fields.hasErrors('local')}"
+											th:errors="*{local}"></div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group row justify-content-center "></div>
+							<div class="form-group row justify-content-center">
+								<div class="field-wrapper controls col-sm-12 col-sm-12">
+									<select th:field="*{fichaIdentificacao.orientador}"
+										class="form-control" style="height: 60px;">
+										<option value="">Selecione o orientador</option>
+										<option th:each="avaliador : ${professores}"
+											th:value="${avaliador.idProfessor}"
+											th:text="${avaliador.nome}"></option>
+									</select>
+									<div style="color: red;"
+										th:if="${#fields.hasErrors('fichaIdentificacao.orientador')}"
+										th:errors="*{fichaIdentificacao.orientador}"></div>
+								</div>
+							</div>
+							<div class="form-group row justify-content-center">
+								<div class="field-wrapper controls col-sm-12 col-sm-12">
+									<select th:field="*{fichaIdentificacao.avaliador1}"
+										class="form-control" style="height: 60px;">
+										<option value="">Selecione o 1° Avaliador</option>
+										<option th:each="avaliador : ${professores}"
+											th:value="${avaliador.idProfessor}"
+											th:text="${avaliador.nome}"></option>
+									</select>
+									<div style="color: red;"
+										th:if="${#fields.hasErrors('fichaIdentificacao.avaliador1')}"
+										th:errors="*{fichaIdentificacao.avaliador1}"></div>
+								</div>
+							</div>
+							<div class="form-group row justify-content-center">
+								<div class="field-wrapper controls col-sm-12 col-sm-12">
+									<select th:field="*{fichaIdentificacao.avaliador2}"
+										class="form-control" style="height: 60px;">
+										<option value="">Selecione o 2° Avaliador</option>
+										<option th:each="avaliador : ${professores}"
+											th:value="${avaliador.idProfessor}"
+											th:text="${avaliador.nome}"></option>
+									</select>
+									<div style="color: red;"
+										th:if="${#fields.hasErrors('fichaIdentificacao.avaliador2')}"
+										th:errors="*{fichaIdentificacao.avaliador2}"></div>
+								</div>
+							</div>
+							<br>
+							<div class="form-group row justify-content-center">
+								<div class="input-group col-xl-5">
+									<label>* Esses campos são obrigatórios</label>
+								</div>
+							</div>
+							<hr />
+							<div class="form-group row"
+								style="display: flex; justify-content: space-between;">
+								<div class=" col-sm-2">
+									<button id="excluir" type="button" th:value="${agendamento.id}"
+										class="btn btn-lg btn-danger" data-toggle="modal"
+										data-target="#confirmacaoModal">Excluir</button>
+								</div>
+								<div class="col-sm-8 text-right">
+									<a id="alert" class="btn btn-lg btn-danger"
+										th:href="@{/gtcc/agendamentodefesa}"> Cancelar </a>
+								</div>
+								<div class="col-sm-2 text-right">
+									<button type="submit" class="btn btn-lg btn-success">Confirmar</button>
+								</div>
+							</div>
 						</form>
 						<!--  MODAL -->
-						<div class="modal fade" id="confirmacaoModal" tabindex="-1" role="dialog" aria-labelledby="confirmacaoModalLabel" aria-hidden="true">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="confirmacaoModalLabel">Exclusão de defesa</h5>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
-						        </button>
-						      </div>
-						      <div class="modal-body">
-						        Tem certeza disso?
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						        
-						        <a  id="excluirModal" class="delete btn btn-primary" >Excluir</a>
-						      </div>
-						    </div>
-						  </div>
+						<div class="modal fade" id="confirmacaoModal" tabindex="-1"
+							role="dialog" aria-labelledby="confirmacaoModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="confirmacaoModalLabel">Exclusão
+											de defesa</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">Tem certeza disso?</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Cancelar</button>
+
+										<a id="excluirModal" class="delete btn btn-primary">Excluir</a>
+									</div>
+								</div>
+							</div>
 						</div>
-						<script th:inline="javascript">
-								/*<![CDATA[*/
-									window.onload = function() {
-										var agendamentoID = 0;
-								    	$('#excluir').on('click', function(){
-								    		agendamentoID = $(this).val();
-								    	});
-								    	$('#confirmacaoModal').on('show.bs.modal', function (e) {
-								            $(this).find('#excluirModal').attr('href', agendamentoID + '/remover/' + agendamentoID);
-								        });
-									};
-								/*]]>*/
-							</script>
-					
 					</div>
 				</div>
-		</div>
+			</div>
 		</div>
 	</section>
 </body>
 
 <script>
-
+	
 </script>
 
 </html>

@@ -1,183 +1,221 @@
 <!DOCTYPE html>
-<html lang="pt"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/layout}" >
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
 
 <head>
 <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
-    <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
-        rel="stylesheet">
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
-	<link rel="stylesheet" type="text/css" media="screen" href="main.css">
-	<link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="../../static/js/jquery_mask/jquery.mask.js"></script>
-	<script src="../../static/js/jquery_mask/jquery.mask.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-	<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
-    <title>GTCC</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-		document.addEventListener('DOMContentLoaded', function () {
-			(function () {
-				var just_stop;
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" media="screen" href="main.css">
+<link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" media="screen" href="main.css">
+<link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="../../static/js/jquery_mask/jquery.mask.js"></script>
+<script src="../../static/js/jquery_mask/jquery.mask.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}" />
+<title>GTCC</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
 
-				$('#datepicker').datepicker();
+	document.addEventListener('DOMContentLoaded', function () {
+		(function () {
+			var just_stop;
 
-				window.clone_out = function (subject) {
-					var $subject;
-					$subject = $(subject);
-					$($subject.html()).appendTo('body');
-					$subject.remove();
-					return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-				};
+			$('#datepicker').datepicker();
 
-				window.stop_it = function (e) {
-					console.log('hey', this);
-					$(this).toggleClass('ui-state-active');
-					//e.preventDefault()
-					e.stopPropagation();
-					return false;
-				};
+			window.clone_out = function (subject) {
+				var $subject;
+				$subject = $(subject);
+				$($subject.html()).appendTo('body');
+				$subject.remove();
+				return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
+			};
 
-				just_stop = function (e) {
-					e.stopPropagation();
-					return false;
-				};
+			window.stop_it = function (e) {
+				console.log('hey', this);
+				$(this).toggleClass('ui-state-active');
+				//e.preventDefault()
+				e.stopPropagation();
+				return false;
+			};
 
-				$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
+			just_stop = function (e) {
+				e.stopPropagation();
+				return false;
+			};
 
-				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
+			$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
+			
+			$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
 
-			}).call(this);
-		}, false);
-	</script>
+		}).call(this);
+	}, false);
+	
+</script>
+	
+<script type="text/javascript">
+
+	$(document).on('change','[id=ataDefesa]',function(){
+		$('[name=select]').prop('disabled',!this.checked);
+	});
+	
+	$(document).on('change','[id=edital]',function(){
+		$('[name=select]').prop('disabled',this.checked);
+	});
+	
+</script>
+		
+<script th:inline="javascript">
+
+	window.onload = function(){
+		if([[${param.sucesso}]]=="true"){
+			if([[${param.tipo}]]=="1"){
+		  		alertify.success('PDF gerado com sucesso');
+		  	}
+		}else{
+			if([[${param.tipo}]]=="1"){
+		        alertify.error('Nenhuma opção selecionada!');
+			}else if([[${param.tipo}]]=="2"){
+		        alertify.error('Erro ao gerar PDF!');
+			}
+		}
+	}
+	
+</script>
 </head>
 
 <body>
 	<section class="main-content" layout:fragment="content">
-    	<div id="wrap" class="container" style="max-width: 1600px !important">
-			<div class="defesa container" style="max-width: 1600px !important;background-color:#e5e5e5;box-sizing:border-box !important; padding: 2em; ">
-				<h3 style="text-align: center !important;font-size: 2em !important;margin: 1em auto 1em !important;box-sizing:border-box !important;">Agendamento de defesas</h3>
-	    	<div class="row">
-	      <div class="col-lg-3" style="width: 100%;">
-			<div class="jumbotron">
-	        <div class="row">
-	          <h5 style="text-align: left !important; margin: 0px !important; padding-top: 0px !important; padding-bottom:1em; font-size:1.25em;">Calendário</h5>
-				<div id="datepicker"></div>
-	          <div class="container" id="main">
-	            
-	          </div>
-	        </div>
-	        </div>
-	        <div class="pdf" style='background-color: #eceff5; padding: 1em;border-radius: 5px !important;text-align: center !important;'>
-							<h5 style="text-align: left !important;">Gerar PDF</h5>
-							<form action="" style="text-align: left !important;padding: 0 .5em !important;">
-								
-							<div class="form-group offset-md-2 offset-sm-1">
-							<div class="form-check row">
-								<input class="form-check-input" type="radio" name="options"
-									id="edital" value="1"> <label
-									class="form-check-label" for="avaliacao1"> Edital de defesa
-								</label>
-							</div>
-							<div class="form-check row">
-								<input class="form-check-input" type="radio" name="options"
-									id="ataDefesa" value="2"> 
-									<label class="form-check-label" for="avaliacao2"> Ata de defesa</label>
-									
+		<div id="wrap" class="container" style="max-width: 1600px !important">
+			<div class="defesa container"
+				style="max-width: 1600px !important; background-color: #e5e5e5; box-sizing: border-box !important; padding: 2em;">
+				<h3
+					style="text-align: center !important; font-size: 2em !important; margin: 1em auto 1em !important; box-sizing: border-box !important;">Agendamento
+					de defesas</h3>
+				<div class="row">
+					<div class="col-lg-3" style="width: 100%;">
+						<div class="jumbotron">
+							<div class="row">
+								<h5
+									style="text-align: left !important; margin: 0px !important; padding-top: 0px !important; padding-bottom: 1em; font-size: 1.25em;">Calendário</h5>
+								<div id="datepicker"></div>
+								<div class="container" id="main"></div>
 							</div>
 						</div>
-						<select style="margin: 0 1em !important; width: 85%;" name="select" id="selectAta"
-									aria-placeholder="Todos" disabled>
+						<div class="pdf"
+							style='background-color: #eceff5; padding: 1em; border-radius: 5px !important; text-align: center !important;'>
+							<h5 style="text-align: left !important;">Gerar PDF</h5>
+							<form th:object="${agendamento}"
+								th:action="@{/gtcc/agendamentodefesa/gerar/}" method="POST"
+								style="text-align: left !important; padding: 0 .5em !important;">
+
+								<div class="form-group offset-md-2 offset-sm-1">
+									<div class="form-check row">
+										<input class="form-check-input" type="radio" name="options"
+											id="edital" value="1"> <label
+											class="form-check-label" for="avaliacao1"> Edital de
+											defesa</label>
+									</div>
+									<div class="form-check row">
+										<input class="form-check-input" type="radio" name="options"
+											id="ataDefesa" value="2"> <label
+											class="form-check-label" for="avaliacao2"> Ata de
+											defesa</label>
+
+									</div>
+								</div>
+								<select style="margin: 0 1em !important; width: 85%;"
+									name="select" id="selectAta" aria-placeholder="Todos" disabled>
 									<option value="0">Todas</option>
-									<option th:each="agendamento : ${agendamentos}" 
+									<option th:each="agendamento : ${agendamentos}"
 										th:value="${agendamento.id}"
 										th:text="${agendamento.fichaIdentificacao.aluno.nome}"></option>
 								</select>
-							</form>
-							
-							
 
-							<button style="margin-top: 1em !important;border: none !important;padding: .5em 2em !important;text-transform: uppercase !important;"
-								type="button" class="btn btn-success">Gerar</button>
+								<div
+									style='padding: 1em; border-radius: 5px !important; text-align: center !important;'>
+									<button
+										style="margin-top: 1em !important; border: none !important; padding: .5em 2em !important; text-transform: uppercase !important;"
+										type="submit" class="btn btn-success">Gerar</button>
+								</div>
+							</form>
 						</div>
-	      </div>
-	      	<div class="jumbotron col-lg-9" style="width:100%;">
-					<div class="row justify-content-center">
-						<h3>Detalhes da defesa</h3>
 					</div>
-					<hr/>
-					<div th:object="${agendamento}">
-					<table id="agendamento" class="table">
-				
-				<tbody>
-                    <tr>
-						<th class="text" width="50%">Nome do aluno:</th>
-						<td th:text="*{fichaIdentificacao.aluno.nome}"></td>
-                    </tr>
-                    <tr>
-						<th class="text" width="50%">Título do trabalho:</th>
-						<td th:text="*{fichaIdentificacao.tituloTrabalho}"></td>
-                    </tr>
-                    <tr>
-						<th class="text" width="50%">Data:</th>
-						<td th:text="*{#temporals.format(dataDefesa, 'dd/MM/yyyy')}"></td>
-                    </tr>
-                    <tr>
-						<th class="text" width="50%">Horário:</th>
-						<td th:text="*{horario}"></td>
-                    </tr>
-                    <tr>
-						<th class="text" width="50%">Local:</th>
-						<td th:text="*{local}"></td>
-                    </tr>
-                    <tr>
-						<th class="text" width="50%">Orientador:</th>
-						<td th:text="*{fichaIdentificacao.orientador.nome}"></td>
-                    </tr>
-                    <tr>
-						<th class="text" width="50%">Avaliador 1:</th>
-						<td th:text="*{fichaIdentificacao.avaliador1.nome}"></td>
-                    </tr>
-                    <tr>
-						<th class="text" width="50%">Avaliador 2:</th>
-						<td th:text="*{fichaIdentificacao.avaliador2.nome}"></td>
-                    </tr>
-				</tbody>
-				<tfoot>
-			
-				</tfoot>
-			</table>
-				<hr />
-				<div class="form-group row justify-content-center ">
-					<div class=" col-sm-2">
-						<a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/agendamentodefesa}"> Voltar </a>
-					</div>
-					<div class=" col-sm-2 text-right">
-						<a class="btn btn-lg btn-warning" th:href="@{/gtcc/agendamentodefesa/editar/{id}(id=${agendamento.id})}" >Editar</a>
+					<div class="jumbotron col-lg-9" style="width: 100%;">
+						<div class="row justify-content-center">
+							<h3>Detalhes da defesa</h3>
+						</div>
+						<hr />
+						<div th:object="${agendamento}">
+							<table id="agendamento" class="table">
+
+								<tbody>
+									<tr>
+										<th class="text" width="50%">Nome do aluno:</th>
+										<td th:text="*{fichaIdentificacao.aluno.nome}"></td>
+									</tr>
+									<tr>
+										<th class="text" width="50%">Título do trabalho:</th>
+										<td th:text="*{fichaIdentificacao.tituloTrabalho}"></td>
+									</tr>
+									<tr>
+										<th class="text" width="50%">Data:</th>
+										<td th:text="*{#temporals.format(dataDefesa, 'dd/MM/yyyy')}"></td>
+									</tr>
+									<tr>
+										<th class="text" width="50%">Horário:</th>
+										<td th:text="*{horario}"></td>
+									</tr>
+									<tr>
+										<th class="text" width="50%">Local:</th>
+										<td th:text="*{local}"></td>
+									</tr>
+									<tr>
+										<th class="text" width="50%">Orientador:</th>
+										<td th:text="*{fichaIdentificacao.orientador.nome}"></td>
+									</tr>
+									<tr>
+										<th class="text" width="50%">Avaliador 1:</th>
+										<td th:text="*{fichaIdentificacao.avaliador1.nome}"></td>
+									</tr>
+									<tr>
+										<th class="text" width="50%">Avaliador 2:</th>
+										<td th:text="*{fichaIdentificacao.avaliador2.nome}"></td>
+									</tr>
+								</tbody>
+								<tfoot>
+
+								</tfoot>
+							</table>
+							<hr />
+							<div class="form-group row justify-content-center ">
+								<div class=" col-sm-2">
+									<a id="alert" class="btn btn-lg btn-danger"
+										th:href="@{/gtcc/agendamentodefesa}"> Voltar </a>
+								</div>
+								<div class=" col-sm-2 text-right">
+									<a class="btn btn-lg btn-warning"
+										th:href="@{/gtcc/agendamentodefesa/editar/{id}(id=${agendamento.id})}">Editar</a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
-	</div>
-	<script type="text/javascript">
-			$(document).on('change','[id=ataDefesa]',function(){
-			   $('[name=select]').prop('disabled',!this.checked);
-			});
-			$(document).on('change','[id=edital]',function(){
-				   $('[name=select]').prop('disabled',this.checked);
-				});
-</script>
 	</section>
 </body>
 
