@@ -48,7 +48,8 @@
      join aluno al on
      fi.aluno_id_usuario = al.id_usuario
      join usuario us on
-     al.id_usuario = us.id_usuario]]>
+     al.id_usuario = us.id_usuario
+     where a.ativo = '1']]>
 		</queryString>
 		<field name="data_defesa" class="java.sql.Date">
 			<property name="com.jaspersoft.studio.field.label" value="data_defesa"/>
