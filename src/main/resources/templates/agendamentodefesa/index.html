@@ -347,7 +347,25 @@
 			$(document).on('change','[id=edital]',function(){
 				   $('[name=select]').prop('disabled',this.checked);
 				});
-</script>
+		</script>
+		<script th:inline="javascript">
+			window.onload = function(){
+		        if([[${param.sucesso}]]=="true"){
+		        	if([[${param.tipo}]]=="1"){
+		  				alertify.success('PDF gerado com sucesso');
+		  			}
+		        }else{
+		        	if([[${param.tipo}]]=="1"){
+		        		alertify.error('Nenhuma opção selecionada!');
+		        	}else if([[${param.tipo}]]=="2"){
+		        		alertify.error('Erro ao gerar PDF!');
+		        	}else{
+		        		alertify.error('Erro JRException!');
+		        	}
+		        }
+			}
+		</script>
+		
 	</section>
 </body>
 
