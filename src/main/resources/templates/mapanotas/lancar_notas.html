@@ -35,6 +35,12 @@
                 <!-- MESSAGES -->
                 <form id="submitMapaNotas" th:object="${mapaNotas}" th:action="@{/gtcc/mapanotas/lancarNotas}" method="POST" autocomplete="off"
                       class="form-default form-horizontal" name="form">
+                      
+                    <!-- Atualizado de acordo com os valores inseridos -->
+					<input type="hidden" name="notas" id="notas" 
+								th:field="*{notas}">
+					<input type="hidden" name="criterioAvaliacao" id="criterioAvaliacao" 
+								th:field="*{criterioAvaliacao}">		
 
 					<div class="form-group  row justify-content-center">
 							<div class="input-group col-8">
@@ -45,7 +51,7 @@
 					<div class="row justify-content-center">
 						<div class="col-8">
 							<div class="form-group" >
-		                                <label for="ano" class="col-form-label text-right">Ano</label>
+		                                <label for="ano" class="col-form-label text-right">Ano*</label>
 		                                <div class="controls">
 		                                    <input type="number" name="ano"
 		                                           id="ano" class="form-control"
@@ -60,7 +66,7 @@
 					<div class="row justify-content-center">
 						<div class="col-8">
 							<div class="form-group" >
-		                                <label for="aluno" class="col-form-label text-right">Aluno</label>
+		                                <label for="aluno" class="col-form-label text-right">Aluno*</label>
 		                                <div class="controls">
 		                                    <select id="select_fichas" th:field="*{fichaIdentificacao}" class="form-control" style="height: 60px;" disabled>
 												<option value="">Selecione o ano</option>
@@ -95,8 +101,10 @@
 			/*
 				CONSTRUÇÃO DOS CAMPOS DE NOTAS PARA O LANÇAMENTO DE NOTAS
 			*/
+			var criterioAvaliacaoID = [[${criterioAvaliacao.id}]]; 
 			var quantidade_avaliacoes = [[${criterioAvaliacao.quantidadeAvaliacao}]]; 
 			var quantidade_notas = [[${criterioAvaliacao.quantidadeNotas}]].split(",");
+			
 
 			for (let i = 0; i<quantidade_avaliacoes;i++){	
 				let count = i+1;
@@ -139,25 +147,26 @@
 			/*
 				CAPTAÇÃO DOS VALORES
 			*/
-			$('#form').submit(function() {
-
-				//captura a quantidade de notas
-				let count = 0;
-				let notas = "";
-				console.log("EXECUTOU");
-				$("[name^='nota-']").each(function(){
-					qtdNotas += "" + this.value;
-					if (++count == quantidade_notas[0]){
-						qtdNotas += "|";
-						quantidade_notas.shift();
-					}else{
-						qtdNotas += ",";
+			$('#submitMapaNotas').submit(function(e) {
+				var notas = "";
+				//captura os valores atribuidos as notas
+				for (let i = 0; i<quantidade_avaliacoes;i++){	
+					let count = i+1;				
+					for(let j = 0; j< quantidade_notas[i]; j++){
+						let count_nota = j + 1;
+						notas += document.getElementById("nota-"+count+"-"+count_nota).value;
+						if(count_nota != quantidade_notas[i])
+						notas +="#";
 					}
-				});
-				qtdNotas = qtdNotas.substring(0, qtdNotas.length-1);
-				
-				console.log("NOTA:", qtdNotas);
+					notas += "|";
+					//atualiza os valores das variaveis
+					$("#notas").val(notas);
+					$("#criterioAvaliacao").val(criterioAvaliacaoID);
+				}
 
+				
+				
+				
 			});
 			
 			/*
