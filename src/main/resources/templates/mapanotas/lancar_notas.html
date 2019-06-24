@@ -33,7 +33,7 @@
                 <hr/>
                 
                 <!-- MESSAGES -->
-                <form th:object="${mapaNotas}" th:action="@{/gtcc/mapaNotas/lancarNotas}" method="POST" autocomplete="off"
+                <form id="submitMapaNotas" th:object="${mapaNotas}" th:action="@{/gtcc/mapaNotas/lancarNotas}" method="POST" autocomplete="off"
                       class="form-default form-horizontal" name="form">
 
 					<div class="form-group  row justify-content-center">
@@ -62,7 +62,7 @@
 							<div class="form-group" >
 		                                <label for="aluno" class="col-form-label text-right">Aluno</label>
 		                                <div class="controls">
-		                                    <select th:field="*{fichaIdentificacao}" class="form-control" style="height: 60px;">
+		                                    <select id="select_fichas" th:field="*{fichaIdentificacao}" class="form-control" style="height: 60px;">
 												<option value="">Selecione o Aluno</option>
 												<option th:each="ficha : ${fichas}"
 													th:value="${ficha.id}" th:text="${ficha.aluno.nome}"></option>
@@ -160,6 +160,36 @@
 				console.log("NOTA:", qtdNotas);
 
 			});
+			
+			/*
+				ATUALIZAÇÃO DOS ALUNOS COM BASE NO ANO
+			*/
+			$("#ano").blur(function(e){
+				var ano = e.target.value;
+				$.ajax({
+					url : window.location.href+"/ano/"+ano,
+					type : "get",
+				    contentType: "application/json",
+				    dataType: "json",
+					success : function(response) {
+						$('#select_fichas').empty();
+						$('#select_fichas').append($('<option>', {
+						    value: 0,
+						    text:  'Selecione um aluno'
+						}));
+						for (item in response) {
+							$('#select_fichas').append($('<option>', {
+							    value: response[item].id,
+							    text:  response[item].aluno.nome
+							}));
+						}
+					},
+					error : function(e) {
+						 alert("Submit failed" + JSON.stringify(e));
+					}
+				})
+				
+			})
 
 		/*]]>*/
 	</script>
