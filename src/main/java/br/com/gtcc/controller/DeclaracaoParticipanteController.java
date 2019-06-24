@@ -5,6 +5,7 @@ import br.com.gtcc.model.FichaIdentificacao;
 import br.com.gtcc.repository.AgendamentoRepository;
 import br.com.gtcc.repository.DeclaracaoParticipanteRepository;
 import br.com.gtcc.repository.FichaIdentificacaoRepository;
+import br.com.gtcc.repository.ProfessorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,27 @@ public class DeclaracaoParticipanteController {
 
 	@Autowired
 	private FichaIdentificacaoRepository fichaIdentificacaoRepository;
-
+	
+	
+	@Autowired
+	private ProfessorRepository professorRepository;
+	
+	@GetMapping("/consultar")
+	public ModelAndView view(FichaIdentificacao filtro) {
+		
+		ModelAndView mv = new ModelAndView("declaracoes/consulta");
+		mv.addObject("declaracoes", this.professorRepository.findAll());
+		//mv.addObject("filtro", filtro);
+		return mv;
+	}
+	
+	@PostMapping("/consultar")
+	public ModelAndView listarEspecifico(FichaIdentificacao filtro)
+	{
+		return view(filtro);
+	}
+	
+	
 	@GetMapping("/cadastro")
 	public ModelAndView index() {
 		LocalDate data = LocalDate.now();
