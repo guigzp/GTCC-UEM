@@ -268,10 +268,18 @@ public class AgendamentoController {
     }
     
     @RequestMapping(value = "/show/{num}", produces =  "application/pdf")
-	public ResponseEntity<byte[]> mostrar() {
+	public ResponseEntity<byte[]> mostrar(@PathVariable("num") String num) {
 		String caminho = new File("./").getAbsolutePath();
 		caminho = caminho.substring(0, caminho.length() - 1);
-		caminho = caminho + "src/main/resources/static/report/ata_de_defesa.pdf";
+		if (num.equals("1")) {
+			caminho = caminho + "src/main/resources/static/report/edital_defesa.pdf";
+		}
+		else if (num.equals("2")) {
+			caminho = caminho + "src/main/resources/static/report/ata_de_defesa.pdf";
+		}
+		else {
+			caminho = caminho + "src/main/resources/static/report/atas_defesas.pdf";
+		}
 		Path path = Paths.get(caminho);
 		byte[] pdfContents = null;
 		try {
