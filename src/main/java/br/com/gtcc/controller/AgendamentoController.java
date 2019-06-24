@@ -107,7 +107,7 @@ public class AgendamentoController {
     		result.addError(new FieldError("agendamento", "fichaIdentificacao", "Selecione um aluno"));
     	}
     	String horario = agendamento.getHorario();
-    	if(horario.regionMatches(2, "00h00m", 2, 1) || horario.regionMatches(5, "00h00m", 5, 1) || horario.length() != 6) {
+    	if(!(horario.regionMatches(2, "00h00m", 2, 1)) || !(horario.regionMatches(5, "00h00m", 5, 1)) || horario.length() != 6) {
     		result.addError(new FieldError("agendamento", "horario", "Formato incorreto. Por favor, digite no padrão 12h00m"));
     	}
     	
@@ -134,9 +134,10 @@ public class AgendamentoController {
 
     @GetMapping("/detalhes/{id}")
     public ModelAndView details(@PathVariable("id") Long id) {
-
+    	List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
         ModelAndView mv = new ModelAndView("agendamentodefesa/visualizarDefesa");
         mv.addObject("agendamento", agendamentoService.buscarPorId(id));
+        mv.addObject("agendamentos", agendamentos);
         return mv;
     }
 
