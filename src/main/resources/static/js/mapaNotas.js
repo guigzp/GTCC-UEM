@@ -1,6 +1,6 @@
 $(function () {
 	
-	   $("#basic-informations").before("" +
+	   /*$("#basic-informations").before("" +
 	   		"<tr>"+
 	  			"<th colspan='6'>"+
 	  			"</th>"+
@@ -22,7 +22,7 @@ $(function () {
 		      "<th scope='col'>4Bim</th>"+
 		      "<th scope='col'>Média Final</th>" +
 	   			"")	
-	   		
+	   		*/
 	   		 
  
         });
