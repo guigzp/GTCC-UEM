@@ -25,6 +25,25 @@ public class CriterioAvaliacaoService {
 	public List<CriterioAvaliacao> listarTodos() {
 		return criterioAvaliacaoRepository.findAll();
 	}
+	
+	public void ativar(@Valid CriterioAvaliacao criterio)
+	{
+		List<CriterioAvaliacao> criteriosAtivos = criterioAvaliacaoRepository.findByAtivoTrue();
+		
+		//desativa os que estão ativos
+		if(criteriosAtivos != null && criteriosAtivos.size() > 0)
+		{
+			for(CriterioAvaliacao objeto : criteriosAtivos)
+			{
+				objeto.setAtivo(false);
+				this.criterioAvaliacaoRepository.save(objeto);
+			}
+		}
+		
+		//ativa o criterio
+		criterio.setAtivo(true);
+		this.criterioAvaliacaoRepository.save(criterio);
+	}
 
 	public CriterioAvaliacao buscarPorId(Long id) {
 		return criterioAvaliacaoRepository.findById(id).get();
