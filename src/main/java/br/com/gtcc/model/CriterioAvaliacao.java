@@ -21,23 +21,25 @@ public class CriterioAvaliacao {
 	private Long id;
 	
 	@Column(nullable = false)
-	@NotNull(message = "A quantidade de avaliações uma informação obrigadtória")
+	@NotNull(message = "A quantidade de avaliações uma informação obrigatória")
 	private Integer quantidadeAvaliacao;
 	
 	@Column(nullable = false)
-	@NotNull(message = "A quantidade de notas é uma informação obrigadtória")
+	@NotNull(message = "A quantidade de notas é uma informação obrigatória")
 	private String quantidadeNotas;
 	
 	@Column(nullable = false)
-	@NotNull(message = "Peso uma informação obrigadtória")
+	@NotNull(message = "Peso uma informação obrigatória")
 	private String pesoPorNota;
 	
 	@Column(nullable = true)
 	private Double mediaFinal;
 	
 	@Column(nullable = false)
-	@NotNull(message = "Ano uma informação obrigadtória")
+	@NotNull(message = "Ano uma informação obrigatória")
 	private Integer ano;
+
+	private Boolean ativo;
 	
 	public CriterioAvaliacao() {}
 
@@ -100,6 +102,14 @@ public class CriterioAvaliacao {
 
 	public void setAno(Integer ano) {
 		this.ano = ano;
+	}	
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo == null ? false : ativo;
 	}
 
 	@Override
