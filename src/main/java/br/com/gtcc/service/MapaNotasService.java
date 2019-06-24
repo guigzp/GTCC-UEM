@@ -31,6 +31,10 @@ public class MapaNotasService {
 		return mapaNotasRepository.findAll();
 	}
 	
+	public List<MapaNotas> findByAno(Integer ano){
+		return mapaNotasRepository.findByAno(ano);
+	}
+	
 	public MapaNotas adicionar(@Valid MapaNotas mapaNotas)
 	{
 		return this.mapaNotasRepository.save(mapaNotas);

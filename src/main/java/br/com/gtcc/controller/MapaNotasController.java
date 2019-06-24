@@ -47,13 +47,19 @@ public class MapaNotasController {
 	 * Tela inicial do Mapa de Notas
 	 * @return
 	 */
-    @GetMapping
-    public ModelAndView findAll() {
+    @GetMapping("/consultar")
+    public ModelAndView findAll(MapaNotas mapaNotasFiltro) {
         ModelAndView mv = new ModelAndView("mapanotas/index");
-        mv.addObject("mapaNotas", mapaNotasService.findAll());
-        
+        mv.addObject("mapaNotas", mapaNotasService.findByAno(mapaNotasFiltro.getAno()));
+        mv.addObject("mapaNotasFiltro", mapaNotasFiltro);
         return mv;
     }
+    
+	@PostMapping("/consultar")
+	public ModelAndView mapasPorAno(MapaNotas mapaNotasFiltro)
+	{
+		return findAll(mapaNotasFiltro);
+	}
     
     @GetMapping("/lancarNotas")
 	public ModelAndView add(MapaNotas mapaNotas) {
@@ -77,6 +83,7 @@ public class MapaNotasController {
 
         return new ModelAndView("redirect:/gtcc/mapanotas/lancarNotas").addObject("sucesso", true);
     }
+    
 
     @RequestMapping(value="/lancarNotas/ano/{ano}", method=RequestMethod.GET,
     		produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
