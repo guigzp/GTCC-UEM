@@ -32,20 +32,26 @@ public class DeclaracaoParticipante {
 	
 	@Column
 	private String cursoVisto;
-
 	
+	@Column
+	private Integer ano;
+
+	public DeclaracaoParticipante() {
+		super();
+	}
 	
 	public DeclaracaoParticipante(
 			@NotNull(message = "O nome do participante é uma informação obrigatória") String nomeParticipante,
 			@NotNull(message = "O RA do participante é uma informação obrigatória") String raParticipante,
 			@NotNull(message = "O curso do participante é uma informação obrigatória") String cursoParticipante,
-			@NotNull(message = "O carga horaria é uma informação obrigatória") Double cargaHoraria, String cursoVisto) {
+			@NotNull(message = "O carga horaria é uma informação obrigatória") Double cargaHoraria, String cursoVisto, Integer ano) {
 		super();
 		this.nomeParticipante = nomeParticipante;
 		this.raParticipante = raParticipante;
 		this.cursoParticipante = cursoParticipante;
 		this.cargaHoraria = cargaHoraria;
 		this.cursoVisto = cursoVisto;
+		this.ano = ano;
 	}
 
 	public String getNomeParticipante() {
@@ -66,6 +72,32 @@ public class DeclaracaoParticipante {
 
 	public String getCursoParticipante() {
 		return cursoParticipante;
+	}
+	
+
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getCursoVisto() {
+		return cursoVisto;
+	}
+
+	public void setCursoVisto(String cursoVisto) {
+		this.cursoVisto = cursoVisto;
+	}
+
+	public Integer getAno() {
+		return ano;
+	}
+
+	public void setAno(Integer ano) {
+		this.ano = ano;
 	}
 
 	public void setCursoParticipante(String cursoParticipante) {

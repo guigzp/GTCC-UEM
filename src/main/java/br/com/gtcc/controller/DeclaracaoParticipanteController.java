@@ -45,7 +45,7 @@ public class DeclaracaoParticipanteController {
 		
 		ModelAndView mv = new ModelAndView("declaracoes/consulta");
 		mv.addObject("declaracoes", this.professorRepository.findAll());
-		//mv.addObject("filtro", filtro);
+		mv.addObject("declaracoesPP", this.declaracaoParticipanteRepository.findAll());
 		return mv;
 	}
 	
@@ -78,12 +78,14 @@ public class DeclaracaoParticipanteController {
 			@RequestParam(name = "curso[]", required = false) String curso) throws InterruptedException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
 		
 		String cursoV = fichaIdentificacaoRepository.findByAlunoIdUsuario(Long.parseLong(alunoid)).get(0).getAreaConcentracao();
+		//mudar para ano do agendamento
+		Integer ano = fichaIdentificacaoRepository.findByAlunoIdUsuario(Long.parseLong(alunoid)).get(0).getAno();
 		String[] nomes = nome.split(",");
 		String[] ras = nome.split(",");
 		String[] cursos = nome.split(",");
 		
 		for(int i=0; i < nomes.length; i++) {
-			declaracaoParticipanteRepository.saveAndFlush(new DeclaracaoParticipante(nomes[i],ras[i],cursos[i],carga,cursoV));
+			declaracaoParticipanteRepository.saveAndFlush(new DeclaracaoParticipante(nomes[i],ras[i],cursos[i],carga,cursoV, ano));
 		}
 		
 		return new ModelAndView("redirect:/gtcc/declaracoes/cadastro").addObject("sucesso", true);
