@@ -17,9 +17,9 @@
                 </div>
                   <hr/>
                 <div class="table-responsive">
-				  <table class="table table-hover table-bordered">
+				  <table id="table" class="table table-hover table-bordered">
 				  	<thead class="thead-dark">
-					    <tr>
+					    <tr id="basic-informations">
 					      <th scope="col">RA</th>
 					      <th scope="col">Aluno</th>
 					      <th scope="col">Trabalho</th>
@@ -30,39 +30,14 @@
 					    </tr>
 					  </thead>
 					  <tbody>
-					  <tr>
-						<td >69600</td>
-						<td >AKINA KURITA</td>
-						<td >Aplicação de Medida de Centralidade na Rede de Financiamento das Eleições Brasileiras</td>
-						<td >Daniel Kikuti</td>
-						<td >Ademir Aparecido Constatino</td>
-						<td >Rodrigo Calvo</td>
-					</tr>
-					<tr>
-						<td>69822</td>
-						<td>ALISSON GUILHERME PALHARI COSTA</td>
-						<td>Aplicação do Padrão IEEE754 para Cálculos aritméticos</td>
-						<td>Airton Marco Polidório</td>
-						<td>André Barbosa Verona</td>
-						<td>Nardênio Almeida Marins</td>
-					</tr>
-					<tr>
-						<td>33034</td>
-						<td>ANDRE DIAS MENEGAZZO PEREIRA</td>
-						<td>Tringuçação de sinal</td>
-						<td>Airton Marco Polidório</td>
-						<td>Daniel Alves Medeiros Filho</td>
-						<td>Nardênio Almeida Martins</td>
-					</tr>
-					
-					<!-- <tr th:if="${not #lists.isEmpty(mapaNotas)}" th:each="mapaNota : ${mapaNotas}">
+					  <tr  id="informations_mapaNotas" th:if="${not #lists.isEmpty(mapaNotas)}" th:each="mapaNota : ${mapaNotas}">
 						<td th:text="${mapaNota.fichaIdentificacao.aluno.ra}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.aluno.nome}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.tituloTrabalho}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.orientador.nome}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.avaliador1.nome}"></td>
 						<td th:text="${mapaNota.fichaIdentificacao.avaliador2.nome}"></td>
-					</tr> -->
+					</tr> 
                     <tr th:if="${#lists.isEmpty(mapaNotas)}">
                     	<td colspan="6">
 	                    	<div class="alert alert-info" style="background-color: #f1f3f5;" role="alert">
@@ -70,7 +45,7 @@
 							</div> 
 						</td>
                     </tr>
-                    
+              
 				</tbody>
 				  </table>
 				</div>
@@ -78,6 +53,98 @@
             </div>
         </div>
     </div>
+    <script th:inline="javascript">
+		/*<![CDATA[*/
+			/*
+				CONSTRUÇÃO DOS CAMPOS DE NOTAS PARA O LANÇAMENTO DE NOTAS
+			*/
+			var mapaNotas = [[${mapaNotas}]]; 
+			if(mapaNotas.length > 0 ){
+				
+				var criterio = mapaNotas[0].criterioAvaliacao;
+				var notas = criterio.quantidadeNotas.split(",");
+				let theadNotas = "";
+				for(let i = 0; i< notas.length; i++){
+					let bim = i + 1;
+					let colspan = 1;
+					if(criterio.quantidadeNotas[i] > 1) colspan += parseInt(criterio.quantidadeNotas[i]);
+					theadNotas += "<th colspan='"+colspan+"'>"+
+		  			 bim+" Bim"+
+		  			"</th>";
+				}
+				
+				theadNotas += "<th colspan='1'>"+
+	  			"</th>";
+				$("#basic-informations").before("" +
+				   		"<tr>"+
+				  			"<th colspan='6'>"+
+				  			"</th>"+
+				  			theadNotas +
+				  		"</tr>" +
+				   		"");
+				
+				for (nota of notas) {
+					let media = "";
+					let ths = "";
+					if(nota > 1) 
+						media = "<th scope='col'>Média </th>";
+					
+					for(let i = 0; i< nota; i++){
+						let n = i + 1;
+						ths += "<th scope='col'>N"+n+"</th>"
+					}
+					ths += media;
+					   	$("#basic-informations th:last").after(
+					   		  ths
+					   		)	
+					   		
+				}
+				$("#basic-informations th:last").after(
+						"<th scope='col'>Média Final</th>"
+				   		)	
+				   		
+				//ALTERANDO O ID DAS ROWS DA TABLE
+				var table = document.getElementById("table");
+				for (let i = 2, row; row = table.rows[i]; i++) {
+					row.id = row.id+i;
+				}
+				
+				//ADICIONANDO OS VALORES DAS NOTAS
+				let count_id = 2;
+				for (mapa of mapaNotas){
+					let sum_total = 0;
+					let count_total = 0;
+					let notas_ano = mapa.notas.split("|")
+					notas_ano.pop();
+					let tds = "";
+					for(nota_bim of notas_ano){
+						let notas_bim = nota_bim.split("#");
+						let sum = 0;
+						for(nota of notas_bim ){
+							tds += "<td>"+nota+"</td>"
+							sum += parseFloat(nota);
+							sum_total += parseFloat(nota);
+							count_total++;
+						}
+						
+						if(notas_bim.length > 1){
+							tds += "<td>"+(sum/notas_bim.length).toFixed(2)+"</td>";
+						}
+						
+					}
+					
+					//ADICIONANDO MÉDIA FINAL
+					tds += "<td>"+(sum_total/count_total).toFixed(2)+"</td>";
+					
+					
+					$("#informations_mapaNotas"+count_id+" td:last").after(
+							tds
+					   		)
+					count_id++;
+				}
+		   		
+			}
+	</script>
 </section>
 
 </body>
