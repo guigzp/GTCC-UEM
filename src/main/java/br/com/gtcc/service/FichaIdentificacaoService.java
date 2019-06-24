@@ -28,6 +28,9 @@ public class FichaIdentificacaoService {
 	public List<FichaIdentificacao> listarTodos() {
 		return fichaIdentificacaoRepository.findAll();
 	}
+	public List<FichaIdentificacao> listarPorAno(Integer ano){
+		return fichaIdentificacaoRepository.findByAno(ano);
+	}
 	
 	public List<Aluno> listarTodosAlunos(){
 		
@@ -39,6 +42,9 @@ public class FichaIdentificacaoService {
 		
 		return alunos;
 	}
+	
+	
+	
 	
 	public FichaIdentificacao buscar(Long id)
 	{
