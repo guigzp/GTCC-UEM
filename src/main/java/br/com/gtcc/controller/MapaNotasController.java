@@ -59,7 +59,7 @@ public class MapaNotasController {
 		ModelAndView mv = new ModelAndView("mapanotas/lancar_notas");
 		mv.addObject("mapaNotas", mapaNotas);
 		mv.addObject("criterioAvaliacao", criterio);
-		mv.addObject("fichas", fichas);
+		//mv.addObject("fichas", fichas);
 		return mv;
 	}
 

@@ -62,10 +62,9 @@
 							<div class="form-group" >
 		                                <label for="aluno" class="col-form-label text-right">Aluno</label>
 		                                <div class="controls">
-		                                    <select id="select_fichas" th:field="*{fichaIdentificacao}" class="form-control" style="height: 60px;">
-												<option value="">Selecione o Aluno</option>
-												<option th:each="ficha : ${fichas}"
-													th:value="${ficha.id}" th:text="${ficha.aluno.nome}"></option>
+		                                    <select id="select_fichas" th:field="*{fichaIdentificacao}" class="form-control" style="height: 60px;" disabled>
+												<option value="">Selecione o ano</option>
+												
 											</select>
 		                                    <div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao')}" th:errors="*{fichaIdentificacao}" ></div>
 		                                </div>
@@ -172,20 +171,30 @@
 				    contentType: "application/json",
 				    dataType: "json",
 					success : function(response) {
-						$('#select_fichas').empty();
-						$('#select_fichas').append($('<option>', {
-						    value: 0,
-						    text:  'Selecione um aluno'
-						}));
-						for (item in response) {
+						if(response.length > 0 ){
+							$("#select_fichas").attr("disabled", false);
+							$('#select_fichas').empty();
 							$('#select_fichas').append($('<option>', {
-							    value: response[item].id,
-							    text:  response[item].aluno.nome
+							    value: 0,
+							    text:  'Selecione um aluno'
+							}));
+							for (item in response) {
+								$('#select_fichas').append($('<option>', {
+								    value: response[item].id,
+								    text:  response[item].aluno.nome
+								}));
+							}
+						}else{
+							$("#select_fichas").attr("disabled", true);
+							$('#select_fichas').empty();
+							$('#select_fichas').append($('<option>', {
+							    value: 0,
+							    text:  'Nenhum aluno encontrado com este ano'
 							}));
 						}
 					},
 					error : function(e) {
-						 alert("Submit failed" + JSON.stringify(e));
+						 //alert("Submit failed" + JSON.stringify(e));
 					}
 				})
 				
