@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Proposta" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3abbd2c5-53cd-45fa-bfd8-9cff8eb4bc4c">
 	<property name="ireport.zoom" value="1.607691607500001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="288"/>
+	<property name="ireport.y" value="530"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading" fontSize="14"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
@@ -27,17 +27,17 @@
 		</box>
 	</style>
 	<subDataset name="Table Dataset 1" uuid="5a8661c4-f89c-461f-8df4-1a1045dac2ff"/>
+	<parameter name="Data" class="java.lang.String"/>
 	<parameter name="NomeCurso" class="java.lang.String"/>
-	<parameter name="Ano" class="java.lang.String"/>
-	<parameter name="Professor" class="java.lang.String"/>
 	<parameter name="DataInicio" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
 	<parameter name="DataFim" class="java.lang.String"/>
-	<parameter name="Titulo" class="java.lang.String"/>
+	<parameter name="RA" class="java.lang.String"/>
 	<parameter name="NomeDoAluno" class="java.lang.String"/>
+	<parameter name="CursoAluno" class="java.lang.String"/>
+	<parameter name="CargaHoraria" class="java.lang.String"/>
 	<parameter name="CoordenadorCurso" class="java.lang.String"/>
-	<parameter name="Data" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -54,7 +54,7 @@
 				<textElement textAlignment="Center">
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Universidade Estadual de Maringá]]></text>
+				<text><![CDATA["Universidade Estadual de Maringá"]]></text>
 			</staticText>
 			<image>
 				<reportElement x="481" y="15" width="74" height="43" uuid="9894aa69-acc8-416f-b135-a46e199938a2"/>
@@ -73,7 +73,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[DECLARAÇÃO]]></textFieldExpression>
+				<textFieldExpression><![CDATA["DECLARAÇÃO"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -139,7 +139,7 @@
 				<textElement textAlignment="Left">
 					<font size="13" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[Atenciosamente.]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Atenciosamente."]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="266" y="56" width="235" height="34" uuid="2b0f5d94-256a-47af-8586-da915096109a"/>
@@ -167,14 +167,14 @@
 				<textElement textAlignment="Center">
 					<font size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[Fone: (44) 3011-4324]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Fone: (44) 3011-4324"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="620" width="531" height="34" uuid="a70bbcec-4c55-4f72-b13a-ef941840686f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[Av. Colombo, 5790 - Bloco C56 - CEP 87020-900 - Maringá - PR]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Av. Colombo, 5790 - Bloco C56 - CEP 87020-900 - Maringá - PR"]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="115" y="400" width="332" height="1" uuid="43c3421d-2675-42b2-a85d-f79b7c5bd647"/>
