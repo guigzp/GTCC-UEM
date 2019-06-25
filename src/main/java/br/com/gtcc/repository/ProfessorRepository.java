@@ -12,6 +12,8 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long>{
 	List<Professor> findByEmail(String email);
 
 	List<Professor> findByIdProfessor(Long id);
+	
+	List<Professor> findByNome(String nome);
 
 	List<Professor> findByCurso(String curso);
 	
