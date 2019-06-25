@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Proposta" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3abbd2c5-53cd-45fa-bfd8-9cff8eb4bc4c">
 	<property name="ireport.zoom" value="1.607691607500001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="529"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading" fontSize="14"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
@@ -28,61 +28,43 @@
 	</style>
 	<subDataset name="Table Dataset 1" uuid="5a8661c4-f89c-461f-8df4-1a1045dac2ff">
 		<parameter name="Professor" class="java.lang.String"/>
+		<parameter name="Ano" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[SELECT
+     agendamento.`ano` AS agendamento_ano,
+     ficha_identificacao.`orientador_id_professor` AS ficha_identificacao_orientador_id_professor,
+     agendamento.`data_defesa` AS agendamento_data_defesa,
      professor.`nome` AS professor_nome,
      ficha_identificacao.`titulo_trabalho` AS ficha_identificacao_titulo_trabalho,
-     ficha_identificacao.`avaliador1_id_professor` AS ficha_identificacao_avaliador1_id_professor,
-     ficha_identificacao.`avaliador2_id_professor` AS ficha_identificacao_avaliador2_id_professor,
-     agendamento.`data_defesa` AS agendamento_data_defesa,
      usuario.`nome` AS usuario_nome
 FROM
-     `professor` professor INNER JOIN `ficha_identificacao` ficha_identificacao ON professor.`id_professor` = ficha_identificacao.`avaliador2_id_professor`
-     AND professor.`id_professor` = ficha_identificacao.`avaliador1_id_professor`
+     `ficha_identificacao` ficha_identificacao INNER JOIN `agendamento` agendamento ON ficha_identificacao.`id` = agendamento.`ficha_identificacao_id`
+     INNER JOIN `professor` professor ON ficha_identificacao.`avaliador2_id_professor` = professor.`id_professor`
      AND professor.`id_professor` = ficha_identificacao.`orientador_id_professor`
-     INNER JOIN `agendamento` agendamento ON ficha_identificacao.`id` = agendamento.`ficha_identificacao_id`
+     AND professor.`id_professor` = ficha_identificacao.`avaliador1_id_professor`
      INNER JOIN `aluno` aluno ON ficha_identificacao.`aluno_id_usuario` = aluno.`id_usuario`
-     INNER JOIN `usuario` usuario ON aluno.`id_usuario` = usuario.`id_usuario`
-WHERE
-     professor.`nome` = $P{Professor}]]>
+     INNER JOIN `usuario` usuario ON aluno.`id_usuario` = usuario.`id_usuario`]]>
 		</queryString>
+		<field name="agendamento_ano" class="java.lang.Integer"/>
+		<field name="ficha_identificacao_orientador_id_professor" class="java.lang.Long"/>
+		<field name="agendamento_data_defesa" class="java.sql.Date"/>
 		<field name="professor_nome" class="java.lang.String"/>
 		<field name="ficha_identificacao_titulo_trabalho" class="java.lang.String"/>
-		<field name="ficha_identificacao_avaliador1_id_professor" class="java.lang.Long"/>
-		<field name="ficha_identificacao_avaliador2_id_professor" class="java.lang.Long"/>
-		<field name="agendamento_data_defesa" class="java.sql.Date"/>
 		<field name="usuario_nome" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="NomeCurso" class="java.lang.String"/>
 	<parameter name="Professor" class="java.lang.String"/>
-	<parameter name="CoordenadorCurso" class="java.lang.String"/>
+	<parameter name="Ano" class="java.lang.String"/>
 	<parameter name="Data" class="java.lang.String"/>
+	<parameter name="CoordenadorCurso" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT
-     professor.`nome` AS professor_nome,
-     ficha_identificacao.`titulo_trabalho` AS ficha_identificacao_titulo_trabalho,
-     ficha_identificacao.`avaliador1_id_professor` AS ficha_identificacao_avaliador1_id_professor,
-     ficha_identificacao.`avaliador2_id_professor` AS ficha_identificacao_avaliador2_id_professor,
-     agendamento.`data_defesa` AS agendamento_data_defesa,
-     usuario.`nome` AS usuario_nome,
-     ficha_identificacao.`area_concentracao` AS ficha_identificacao_area_concentracao
-FROM
-     `professor` professor INNER JOIN `ficha_identificacao` ficha_identificacao ON professor.`id_professor` = ficha_identificacao.`avaliador2_id_professor`
-     AND professor.`id_professor` = ficha_identificacao.`orientador_id_professor`
-     AND professor.`id_professor` = ficha_identificacao.`avaliador1_id_professor`
-     INNER JOIN `agendamento` agendamento ON ficha_identificacao.`id` = agendamento.`ficha_identificacao_id`
-     INNER JOIN `aluno` aluno ON ficha_identificacao.`aluno_id_usuario` = aluno.`id_usuario`
-     INNER JOIN `usuario` usuario ON aluno.`id_usuario` = usuario.`id_usuario`
-WHERE
-     professor.`nome` = $P{Professor}
- AND agendamento.`data_defesa` < $P{Data}
- AND ficha_identificacao.`area_concentracao` = $P{NomeCurso}]]>
+		<![CDATA[]]>
 	</queryString>
+	<field name="agendamento_ano" class="java.lang.Integer"/>
+	<field name="ficha_identificacao_orientador_id_professor" class="java.lang.Long"/>
+	<field name="agendamento_data_defesa" class="java.sql.Date"/>
 	<field name="professor_nome" class="java.lang.String"/>
 	<field name="ficha_identificacao_titulo_trabalho" class="java.lang.String"/>
-	<field name="ficha_identificacao_avaliador1_id_professor" class="java.lang.Long"/>
-	<field name="ficha_identificacao_avaliador2_id_professor" class="java.lang.Long"/>
-	<field name="agendamento_data_defesa" class="java.sql.Date"/>
 	<field name="usuario_nome" class="java.lang.String"/>
 	<field name="ficha_identificacao_area_concentracao" class="java.lang.String"/>
 	<background>
@@ -146,68 +128,46 @@ WHERE
 				<textElement textAlignment="Justified">
 					<font size="13" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["	Declaro que o(a) Profesor(a) " + $P{Professor} + " participou da banca examinadora de Trabalho de Conclusão de Curso de " + $P{NomeCurso} + " do aluno abaixo relacionado."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["	Declaro que o(a) Professor(a) " + $P{Professor} + " orientou o Trabalho de Conclusão de Curso de " + $P{NomeCurso} + " dos alunos abaixo relacionados no ano letivo de " + $P{Ano} + "."]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table" style="table" mode="Transparent" x="13" y="112" width="531" height="82" uuid="51e4a850-53f3-47b4-8d6f-b84cd6f04ac0"/>
+				<reportElement key="table" style="table" x="13" y="112" width="531" height="82" uuid="51e4a850-53f3-47b4-8d6f-b84cd6f04ac0"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="8213c2ef-511c-4883-82dc-78ef4a3a3624">
+					<datasetRun subDataset="Table Dataset 1" uuid="c996c9b7-2367-4439-9d5e-479a65d1d710">
 						<datasetParameter name="Professor">
 							<datasetParameterExpression><![CDATA[$P{Professor}]]></datasetParameterExpression>
 						</datasetParameter>
-						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(1)]]></dataSourceExpression>
+						<datasetParameter name="Ano">
+							<datasetParameterExpression><![CDATA[$P{Ano}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="107" uuid="5840836f-a29f-4926-9a7c-3f1c4ea02e75">
+					<jr:column width="239" uuid="5840836f-a29f-4926-9a7c-3f1c4ea02e75">
 						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="107" height="30" uuid="68629754-4bb2-4d34-ae2c-bc9f721a3f11"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Data]]></text>
-							</staticText>
-						</jr:tableHeader>
-						<jr:detailCell style="table_TD" height="30" rowSpan="1">
-							<textField>
-								<reportElement x="0" y="0" width="107" height="30" uuid="759149e5-3537-45f5-86ca-1a683eb60cdb"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{agendamento_data_defesa}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="184" uuid="651ebfdb-6fe7-4d80-abc9-1bdc9851c099">
-						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
-							<box>
-								<pen lineColor="#000000"/>
-								<topPen lineColor="#000000"/>
-								<leftPen lineColor="#000000"/>
-								<bottomPen lineColor="#000000"/>
-								<rightPen lineColor="#000000"/>
-							</box>
-							<staticText>
-								<reportElement x="0" y="0" width="184" height="30" uuid="584d4255-9f70-4a51-8fe6-37a0e48a7b35"/>
+								<reportElement x="0" y="0" width="239" height="30" uuid="97a1c1d2-d0b1-4250-a4fe-cd1bd26a4110"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Aluno(a)]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="184" height="30" uuid="aa97ddf7-05c9-4ad8-b7c1-b8eeb2e911af"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement x="0" y="0" width="239" height="20" uuid="8fe500b3-fd75-4b93-b917-45e928008d5e"/>
 								<textFieldExpression><![CDATA[$F{usuario_nome}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="239" uuid="6454532b-2cf0-4a73-b02b-d9797b1a61a7">
+					<jr:column width="289" uuid="6454532b-2cf0-4a73-b02b-d9797b1a61a7">
 						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="239" height="30" uuid="b2902bb9-f507-4a39-ba95-beb2739c085e"/>
+								<reportElement x="0" y="0" width="289" height="30" uuid="b2902bb9-f507-4a39-ba95-beb2739c085e"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<text><![CDATA[Título]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="239" height="30" uuid="fb573732-55d6-4421-b689-a03fdb6cda74"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement x="0" y="0" width="289" height="20" uuid="4fa3981a-c58d-43c4-84b4-2227ad7d3fc2"/>
 								<textFieldExpression><![CDATA[$F{ficha_identificacao_titulo_trabalho}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
