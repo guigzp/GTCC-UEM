@@ -71,10 +71,22 @@ public class AgendamentoController {
     public ModelAndView findAll() {
         ModelAndView mv = new ModelAndView("agendamentodefesa/index");
 
-        //mv.addObject("agendamentoFilter", agendamentoFilter);
+        List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
+        List<Agendamento> proximosAgendamentos = new ArrayList<>();
+        List<Agendamento> subListaProximosAgendamentos = new ArrayList<>();
+        for(Agendamento agendamento : agendamentos) {
+        	if(agendamento.getDataDefesa().isAfter(LocalDate.now())) {
+        		proximosAgendamentos.add(agendamento);
+        	}
+        }
+        
+        if(proximosAgendamentos.size() > 8) {
+        	subListaProximosAgendamentos = proximosAgendamentos.subList(0, 7);
+        }else {
+        	subListaProximosAgendamentos = proximosAgendamentos;
+        }
 
-
-        mv.addObject("agendamentos", agendamentoService.listarTodosAtivos());
+        mv.addObject("agendamentos", subListaProximosAgendamentos);
         return mv;
     }
 
@@ -116,7 +128,7 @@ public class AgendamentoController {
         }
         
         agendamento.setAtivo(1);
-        agendamento.setAno(LocalDate.now().getYear());
+        agendamento.setAno(agendamento.getFichaIdentificacao().getAno());
         agendamentoService.adicionar(agendamento);
 
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
@@ -183,8 +195,10 @@ public class AgendamentoController {
 			return mv;
 		}
     	
+    	Integer op = 1;
     	
     	if (Integer.parseInt(options) == 1) {
+    		op = 1; 
     		try {
     			gerarEditalDefesas("edital_defesa.pdf");
     		} catch (JRException e) {
@@ -195,6 +209,7 @@ public class AgendamentoController {
 		}
     	else if (Integer.parseInt(options) == 2) {
     		if (Long.parseLong(agendamentoid) == 0) {
+    			op = 3; 
 				List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
 				List<JasperPrint> prints = new ArrayList<JasperPrint>();
 				String caminho = new File("./").getAbsolutePath();
@@ -225,6 +240,7 @@ public class AgendamentoController {
 				}
 			} 
     		else {
+    			op = 2; 
     			Agendamento agendamento = agendamentoService.buscarPorId(Long.parseLong(agendamentoid));
     			HashMap<String, Object> parametros = getParametros(agendamento);
     			
@@ -241,9 +257,15 @@ public class AgendamentoController {
     			}
 			}
 		}
+    	
 		
-    	ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
-		mv.addObject("tipo", "1");
+		return new ModelAndView("redirect:/gtcc/agendamentodefesa/gerados/" + op);
+	}
+    
+    @GetMapping("/gerados/{opcao}")
+	public ModelAndView pdfs(@PathVariable Integer opcao) {
+		ModelAndView mv = new ModelAndView("agendamentodefesa/agendamentoPDFs");
+		mv.addObject("opcao", opcao);
 		return mv;
 	}
 
