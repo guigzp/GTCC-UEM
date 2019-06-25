@@ -23,5 +23,7 @@ public interface FichaIdentificacaoRepository extends JpaRepository<FichaIdentif
 	
 	public List<FichaIdentificacao> findByAlunoIdUsuario(Long id);
 	
+	public List<FichaIdentificacao> findByOrientador(Long id);
+	
 	public List<FichaIdentificacao> findByAno(Integer ano);
 }

@@ -96,7 +96,7 @@
 											<td th:text=${declaracao.nome}></td>
 											<td class="text-center" id="professor">
 												<form method="POST"
-												th:action="@{/gtcc/declaracoes/gerar/P/{id}(id=${declaracao.idProfessor})}">
+												th:action="@{/gtcc/declaracoes/gerar/P/{nome}/{anoS} ((nome=${declaracao.nome}), (anoS=2019) )}">
 													<input type="hidden" name="_method" value="POST" />
 
 													<button type="submit" class="btn btn-info btn-xs">
@@ -118,7 +118,7 @@
 											<td th:text=${declaracao.nomeParticipante}></td>
 											<td class="text-center">
 												<form method="POST"
-												th:action="@{/gtcc/declaracoes/gerar/PP/{id}(id=${declaracao.id})}">
+												th:action="@{/gtcc/declaracoes/gerar/PP/{nome}/{anoS} ((nome=${declaracao.nomeParticipante}), (anoS=${declaracao.ano}))}">
 													<input type="hidden" name="_method" value="POST" />
 													<button type="submit" class="btn btn-info btn-xs">
 														<span class="fa fa-file-pdf-o"></span>
