@@ -44,11 +44,11 @@ public class AgendamentoService {
 	    return agendamentoRepository.saveAndFlush(agendamento);
 	}
 	
-	public Agendamento buscarPorData(LocalDate data)
+	public List<Agendamento> buscarPorData(LocalDate data)
 	{
 		List<Agendamento> agendamentos = agendamentoRepository.findBydataDefesa(data);
 		if(!agendamentos.isEmpty())
-			return agendamentos.get(0);
+			return agendamentos;
 		else
 			return null;
 	}

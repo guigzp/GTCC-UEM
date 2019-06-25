@@ -87,6 +87,7 @@ public class AgendamentoController {
         }
 
         mv.addObject("agendamentos", subListaProximosAgendamentos);
+        //mv.addObject("dataPesquisa", null);
         return mv;
     }
 
@@ -133,6 +134,16 @@ public class AgendamentoController {
 
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
     }
+    
+    @GetMapping("/pesquisar/{data}")
+    public ModelAndView pesquisar(@PathVariable("data") String data) {
+    	LocalDate data2Date = LocalDate.parse(data);
+    	List<Agendamento> agendamentos = agendamentoService.buscarPorData(data2Date);
+    	ModelAndView mv = new ModelAndView("agendamentodefesa/index");
+    	mv.addObject("agendamentos", agendamentos);
+    	mv.addObject("dataPesquisa", data);
+    	return mv;
+    }
 
     @GetMapping("/editar/{id}")
     public ModelAndView edit(@PathVariable("id") Long id) {
@@ -171,6 +182,7 @@ public class AgendamentoController {
         agendamento.getFichaIdentificacao().setTituloTrabalho(agendamento.getFichaIdentificacao().getTituloTrabalho());
         fichaIdentificacaoService.adicionar(agendamento.getFichaIdentificacao());
         agendamento.setAtivo(1);
+        agendamento.setAno(agendamento.getFichaIdentificacao().getAno());
         agendamentoService.atualizar(agendamento);
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("atualizado", true);
     }
@@ -198,9 +210,12 @@ public class AgendamentoController {
     	Integer op = 1;
     	
     	if (Integer.parseInt(options) == 1) {
-    		op = 1; 
+    		op = 1;
+    		HashMap<String, Object> parametros = new HashMap<String, Object>();
+    		List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
+    		parametros.put("ano", agendamentos.get(0).getAno());
     		try {
-    			gerarEditalDefesas("edital_defesa.pdf");
+    			gerarEditalDefesas(parametros, "edital_defesa.pdf");
     		} catch (JRException e) {
     			ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
     			mv.addObject("tipo", "2");
@@ -285,9 +300,8 @@ public class AgendamentoController {
     	exporter.exportReport();
     }
     
-    public void gerarEditalDefesas(String nome) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
+    public void gerarEditalDefesas(HashMap<String, Object> parametros, String nome) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
     	String caminho = new File("./").getAbsolutePath();
-    	HashMap<String, Object> parametros = new HashMap<String, Object>();
     	caminho = caminho.substring(0, caminho.length() - 1);
     	caminho = caminho + "src/main/resources/static/report/";
     	JasperPrint print;
