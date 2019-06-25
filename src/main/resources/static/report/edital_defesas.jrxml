@@ -111,11 +111,11 @@
 					<datasetRun subDataset="tableDataset" uuid="15851115-a741-42fc-8577-83016816ca24">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="110" uuid="2bc3be00-8879-4c53-a867-ae6df23f9e1f">
+					<jr:column width="60" uuid="2bc3be00-8879-4c53-a867-ae6df23f9e1f">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="110" height="30" uuid="1ed9964e-e43b-43ec-9a78-e0e57993f3c1"/>
+								<reportElement x="0" y="0" width="60" height="30" uuid="1ed9964e-e43b-43ec-9a78-e0e57993f3c1"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="SansSerif" size="12" isBold="true"/>
@@ -125,23 +125,23 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="110" height="30" uuid="7e41e20d-8581-4f1a-b965-c3e51be40a9d">
+								<reportElement x="0" y="0" width="60" height="30" uuid="7e41e20d-8581-4f1a-b965-c3e51be40a9d">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="SansSerif" size="12"/>
+									<font fontName="SansSerif" size="10"/>
 									<paragraph leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{data_defesa}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="80" uuid="c825ee02-7b92-4b5e-b927-50504a681b2a">
+					<jr:column width="50" uuid="c825ee02-7b92-4b5e-b927-50504a681b2a">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="80" height="30" uuid="8666abbc-f0d3-4f0e-933f-292ab1e287af"/>
+								<reportElement x="0" y="0" width="50" height="30" uuid="8666abbc-f0d3-4f0e-933f-292ab1e287af"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="SansSerif" size="12" isBold="true"/>
@@ -151,23 +151,23 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
-								<reportElement x="0" y="0" width="80" height="30" uuid="2cfe9410-7fbc-4424-b226-6cad4096d058">
+								<reportElement x="0" y="0" width="50" height="30" uuid="2cfe9410-7fbc-4424-b226-6cad4096d058">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="SansSerif" size="12"/>
+									<font fontName="SansSerif" size="10"/>
 									<paragraph leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{horario}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="110" uuid="67baeaa9-5a40-4d7c-ae62-0f212fa6f353">
+					<jr:column width="90" uuid="67baeaa9-5a40-4d7c-ae62-0f212fa6f353">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="110" height="30" uuid="fa309ac7-db7a-41e4-b9a6-d29f90bf1a40"/>
+								<reportElement x="0" y="0" width="90" height="30" uuid="fa309ac7-db7a-41e4-b9a6-d29f90bf1a40"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="SansSerif" size="12" isBold="true"/>
@@ -177,23 +177,23 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField isStretchWithOverflow="true">
-								<reportElement x="0" y="0" width="110" height="30" uuid="913ce6c0-9ded-4a8f-837b-bcc232e92a83">
+								<reportElement x="0" y="0" width="90" height="30" uuid="913ce6c0-9ded-4a8f-837b-bcc232e92a83">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="SansSerif" size="12"/>
+									<font fontName="SansSerif" size="10"/>
 									<paragraph leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{local}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="200" uuid="c0f76244-f15c-41d2-991e-fd7f90de03e0">
+					<jr:column width="180" uuid="c0f76244-f15c-41d2-991e-fd7f90de03e0">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="200" height="30" uuid="458099a2-47a4-4f54-8308-acead70d30ee"/>
+								<reportElement x="0" y="0" width="180" height="30" uuid="458099a2-47a4-4f54-8308-acead70d30ee"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="SansSerif" size="12" isBold="true"/>
@@ -203,23 +203,23 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField isStretchWithOverflow="true">
-								<reportElement x="0" y="0" width="200" height="30" uuid="67d200b2-990e-4d8a-82c2-39f93aaf8df8">
+								<reportElement x="0" y="0" width="180" height="30" uuid="67d200b2-990e-4d8a-82c2-39f93aaf8df8">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font fontName="SansSerif" size="12"/>
+									<font fontName="SansSerif" size="10"/>
 									<paragraph leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{nome_aluno}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="302" uuid="12564f33-5e45-4bb0-98c5-7c09add2e65c">
+					<jr:column width="422" uuid="12564f33-5e45-4bb0-98c5-7c09add2e65c">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
 						<jr:columnHeader style="Table_CH" height="30">
 							<staticText>
-								<reportElement x="0" y="0" width="302" height="30" uuid="383a6893-5545-45b4-9440-5d2fc9dcede3"/>
+								<reportElement x="0" y="0" width="422" height="30" uuid="383a6893-5545-45b4-9440-5d2fc9dcede3"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="SansSerif" size="12" isBold="true"/>
@@ -229,12 +229,12 @@
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
 							<textField isStretchWithOverflow="true">
-								<reportElement x="0" y="0" width="302" height="30" uuid="9d17d188-9568-4cf4-a236-c6d0059ffce9">
+								<reportElement x="0" y="0" width="422" height="30" uuid="9d17d188-9568-4cf4-a236-c6d0059ffce9">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font fontName="SansSerif" size="12"/>
+									<font fontName="SansSerif" size="10"/>
 									<paragraph leftIndent="5"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{titulo_trabalho}]]></textFieldExpression>
