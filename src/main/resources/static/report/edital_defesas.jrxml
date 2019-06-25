@@ -42,6 +42,7 @@
 	</style>
 	<subDataset name="tableDataset" uuid="57acb966-3e82-4650-a787-58f210525d80">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 		<queryString language="SQL">
 			<![CDATA[select 
     DATE_FORMAT(a.data_defesa, '%d/%m/%Y') as data_defesa,
@@ -57,7 +58,7 @@
      al.id_usuario = us.id_usuario
      where a.ativo = '1'
      GROUP BY us.nome
-     order by data_defesa, a.horario asc]]>
+     order by a.data_defesa, a.horario asc]]>
 		</queryString>
 		<field name="data_defesa" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="data_defesa"/>
