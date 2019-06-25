@@ -154,6 +154,7 @@ public class AgendamentoController {
         ModelAndView mv = new ModelAndView("agendamentodefesa/defesaUpdate");
         mv.addObject("professores", professorService.buscarTodos());
         mv.addObject("agendamento", agendamentoService.buscarPorId(id));
+        mv.addObject("agendamentoLista", agendamentoService.listarTodosAtivos());
 
         return mv;
     }
