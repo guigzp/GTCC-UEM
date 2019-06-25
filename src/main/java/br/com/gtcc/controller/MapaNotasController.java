@@ -84,6 +84,28 @@ public class MapaNotasController {
         return new ModelAndView("redirect:/gtcc/mapanotas/lancarNotas").addObject("sucesso", true);
     }
     
+    @GetMapping("/editar/{id}")
+    public ModelAndView editar(@PathVariable("id") Long id) {
+        
+		ModelAndView mv = new ModelAndView("mapanotas/editar_notas");
+		MapaNotas mapaNotas = this.mapaNotasService.findById(id);
+		mv.addObject("mapaNotas", mapaNotas);
+		mv.addObject("criterioAvaliacao", mapaNotas.getCriterioAvaliacao());
+		return mv;
+    }
+    
+    @PostMapping("/editar")
+    public ModelAndView edit(@Valid MapaNotas mapaNotas, BindingResult result) {
+        
+        if (result.hasErrors()) {
+            return editar(mapaNotas.getId());
+        }
+
+        mapaNotasService.adicionar(mapaNotas);
+
+        return new ModelAndView("redirect:/gtcc/mapanotas/editar/"+mapaNotas.getId()).addObject("sucesso", true);
+    }
+    
 
     @RequestMapping(value="/lancarNotas/ano/{ano}", method=RequestMethod.GET,
     		produces=MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -35,6 +35,10 @@ public class MapaNotasService {
 		return mapaNotasRepository.findByAno(ano);
 	}
 	
+	public MapaNotas findById(Long id) {
+		return mapaNotasRepository.findById(id).orElse(null);
+	}
+	
 	public MapaNotas adicionar(@Valid MapaNotas mapaNotas)
 	{
 		return this.mapaNotasRepository.save(mapaNotas);

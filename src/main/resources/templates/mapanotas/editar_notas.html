@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta th:name="${_csrf.parameterName}" th:content="${_csrf.token}"/>
+</head>
+<body>
+<section class="main-content" layout:fragment="content">
+    <div id="wrap" class="container">
+        <div id="main">
+            <div class="jumbotron">
+            	<div th:if="${param.sucesso}">
+						<script th:inline="javascript">
+							/*<![CDATA[*/
+								var flag = [[${param.sucesso}]]; 
+							    window.onload = function() {
+							        if(flag){
+							  			alertify.success('Nota Editada com sucesso!');
+							        }
+								};
+							/*]]>*/
+						</script>
+						
+					</div>
+            
+            
+                <div class="row justify-content-center">
+                    <h3>Edição de notas</h3>
+                </div>
+                <hr/>
+                
+                <!-- MESSAGES -->
+                <form id="submitMapaNotas" th:object="${mapaNotas}" th:action="@{/gtcc/mapanotas/editar}" method="POST" autocomplete="off"
+                      class="form-default form-horizontal" name="form">
+                      
+                    <!-- Atualizado de acordo com os valores inseridos -->
+                    <input type="hidden" name="id" id="id" 
+								th:field="*{id}">
+					<input type="hidden" name="notas" id="notas" 
+								th:field="*{notas}">
+					<input type="hidden" name="criterioAvaliacao" id="criterioAvaliacao" 
+								th:field="*{criterioAvaliacao}">		
+
+					<div class="form-group  row justify-content-center">
+							<div class="input-group col-8">
+								<label>* Esses campos são obrigatórios</label>
+							</div>
+					</div>
+		
+					<div class="row justify-content-center">
+						<div class="col-8">
+							<div class="form-group" >
+		                                <label for="ano" class="col-form-label text-right">Ano</label>
+		                                <div class="controls">
+		                                    <input type="number" name="ano"
+		                                           id="ano" class="form-control"
+		                                           autofocus="autofocus"
+		                                           th:field="*{ano}"
+		                                           readonly="readonly"
+		                                    />
+		                                    <div style="color: red;" th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}" ></div>
+		                                </div>
+		                     </div>
+	                     </div>
+                    </div>
+					<div class="row justify-content-center">
+						<div class="col-8">
+							<div class="form-group" >
+		                                <label for="aluno" class="col-form-label text-right">Aluno</label>
+		                                <div class="controls">
+		                                    <select id="select_fichas" th:field="*{fichaIdentificacao}" class="form-control" style="height: 60px;"  readonly="readonly">
+												<option th:value="${mapaNotas.fichaIdentificacao.id}" th:text="${mapaNotas.fichaIdentificacao.aluno.nome}"></option>
+												
+											</select>
+		                                    <div style="color: red;" th:if="${#fields.hasErrors('fichaIdentificacao')}" th:errors="*{fichaIdentificacao}" ></div>
+		                                </div>
+		                     </div>
+	                     </div>
+                    </div>
+                    <hr id="end-input"/>
+                    <div class="form-group row justify-content-center ">
+                        <div class=" col-sm-2">
+                            <a id="alert" class="btn btn-lg btn-danger" th:href="@{/gtcc/login}">
+                                Voltar </a>
+                        </div>
+                        <div class="col-sm-2 text-right">
+                            <button id="btn_salvar" type="submit" class="btn btn-lg btn-success">
+                                Confirmar
+                            </button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+    <script th:inline="javascript">
+		/*<![CDATA[*/
+			/*
+				CONSTRUÇÃO DOS CAMPOS DE NOTAS PARA O LANÇAMENTO DE NOTAS
+			*/
+				var mapaNotas = [[${mapaNotas}]]; 
+				var criterioAvaliacaoID = mapaNotas.criterioAvaliacao.id; 
+				var quantidade_avaliacoes = mapaNotas.criterioAvaliacao.quantidadeAvaliacao; 
+				var quantidade_notas = mapaNotas.criterioAvaliacao.quantidadeNotas.split(",");
+				
+				for (let i = 0; i<quantidade_avaliacoes;i++){	
+					let count = i+1;
+					let inputs = "";
+					
+					for(let j = 0; j< quantidade_notas[i]; j++){
+						let count_nota = j + 1;
+						inputs += "<input type='number' name='nota-"+count+"-"+count_nota+
+	                    			"' id='nota-"+count+"-"+count_nota+"' class='form-control'"+
+	                    			"placeholder='Nota "+count_nota+"'"+
+	             					"/>"
+	                    			
+					}
+					   	$("#end-input").before(
+					   		  "<div class='row justify-content-center'>"+
+									"<div class='col-8'>"+
+										"<div class='form-group' >"+
+					                                "<label for='bim-"+count+ "' class='col-form-label text-right'> "+count+" Bimestre</label>"+
+					                                "<div class='controls'>"+
+					                                	inputs+
+					                                "</div>"+
+					                     "</div>"+
+				                     "</div>"+
+			                    "</div>"
+					   			);	
+				}
+				
+				
+				/*
+					ATUALIZAÇÃO DOS CAMPOS DE NOTAS
+				*/
+				
+					let notas_ano = mapaNotas.notas.split("|")
+					notas_ano.pop();
+					let count = 0;
+					let count_nota = 0;
+					for(nota_bim of notas_ano){
+						count++;
+						let notas_bim = nota_bim.split("#");
+						for(nota of notas_bim ){
+							count_nota++;
+							document.getElementById("nota-"+count+"-"+count_nota).value = nota;
+						}
+						count_nota = 0;
+					}
+					
+
+				
+				/*
+					CAPTAÇÃO DOS VALORES
+				*/
+				$('#submitMapaNotas').submit(function(e) {
+					var notas = "";
+					//captura os valores atribuidos as notas
+					for (let i = 0; i<quantidade_avaliacoes;i++){	
+						let count = i+1;				
+						for(let j = 0; j< quantidade_notas[i]; j++){
+							let count_nota = j + 1;
+							let nota = document.getElementById("nota-"+count+"-"+count_nota).value;
+							nota = (nota == "") ? "0" : nota;
+							notas += nota;
+							if(count_nota != quantidade_notas[i])
+							notas +="#";
+						}
+						notas += "|";
+						//atualiza os valores das variaveis
+						$("#notas").val(notas);
+						$("#criterioAvaliacao").val(criterioAvaliacaoID);
+					}
+					
+				});
+
+		/*]]>*/
+	</script>
+</section>				
+</body>
+</html>
