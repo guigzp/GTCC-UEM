@@ -113,7 +113,7 @@
 					
 					for(let j = 0; j< quantidade_notas[i]; j++){
 						let count_nota = j + 1;
-						inputs += "<input type='number' name='nota-"+count+"-"+count_nota+
+						inputs += "<input type='number' min='0' step='any' name='nota-"+count+"-"+count_nota+
 	                    			"' id='nota-"+count+"-"+count_nota+"' class='form-control'"+
 	                    			"placeholder='Nota "+count_nota+"'"+
 	             					"/>"
