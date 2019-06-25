@@ -9,7 +9,7 @@
 </head>
 <body>
 <section class="main-content" layout:fragment="content">
-    <div id="wrap" class="container">
+    <div id="wrap" style="width: 98%">
         <div id="main">
             <div class="jumbotron">
                 <div class="row justify-content-center">
@@ -46,17 +46,23 @@
 					      <th scope="col">Orientador</th>
 					      <th scope="col">Banca 1</th>
 					      <th scope="col">Banca 2</th>
-					      
 					    </tr>
 					  </thead>
 					  <tbody>
 					  <tr  id="informations_mapaNotas" th:if="${not #lists.isEmpty(mapaNotas)}" th:each="mapaNota : ${mapaNotas}">
-						<td th:text="${mapaNota.fichaIdentificacao.aluno.ra}"></td>
-						<td th:text="${mapaNota.fichaIdentificacao.aluno.nome}"></td>
-						<td th:text="${mapaNota.fichaIdentificacao.tituloTrabalho}"></td>
-						<td th:text="${mapaNota.fichaIdentificacao.orientador.nome}"></td>
-						<td th:text="${mapaNota.fichaIdentificacao.avaliador1.nome}"></td>
-						<td th:text="${mapaNota.fichaIdentificacao.avaliador2.nome}"></td>
+					    	<td th:text="${mapaNota.fichaIdentificacao.aluno.ra}"></td>
+							<td th:text="${mapaNota.fichaIdentificacao.aluno.nome}"></td>
+							<td th:text="${mapaNota.fichaIdentificacao.tituloTrabalho}"></td>
+							<td th:text="${mapaNota.fichaIdentificacao.orientador.nome}"></td>
+							<td th:text="${mapaNota.fichaIdentificacao.avaliador1.nome}"></td>
+							<td th:text="${mapaNota.fichaIdentificacao.avaliador2.nome}"></td>
+							<td >
+								<form th:action="@{/gtcc/mapanotas/editar/{id}(id=${mapaNota.id})}" method="GET">
+					                <button class="btn btn-warning"  type="submit">
+					                    Editar
+					                </button>
+					            </form>
+				            </td>
 					</tr> 
                     <tr th:if="${#lists.isEmpty(mapaNotas)}">
                     	<td colspan="6">
@@ -69,6 +75,7 @@
 				</tbody>
 				  </table>
 				</div>
+				
                    
             </div>
         </div>
@@ -93,7 +100,7 @@
 		  			"</th>";
 				}
 				
-				theadNotas += "<th colspan='1'>"+
+				theadNotas += "<th colspan='2'>"+
 	  			"</th>";
 				$("#basic-informations").before("" +
 				   		"<tr>"+
@@ -120,7 +127,8 @@
 					   		
 				}
 				$("#basic-informations th:last").after(
-						"<th scope='col'>Média Final</th>"
+						"<th scope='col'>Média Final</th>"+
+						"<th scope='col'>Ação</th>"
 				   		)	
 				   		
 				//ALTERANDO O ID DAS ROWS DA TABLE
@@ -155,7 +163,8 @@
 					
 					//ADICIONANDO MÉDIA FINAL
 					tds += "<td>"+(sum_total/count_total).toFixed(2)+"</td>";
-					$("#informations_mapaNotas"+count_id+" td:last").after(
+					
+					$("#informations_mapaNotas"+count_id+" td:last").before(
 							tds
 					   		)
 					count_id++;

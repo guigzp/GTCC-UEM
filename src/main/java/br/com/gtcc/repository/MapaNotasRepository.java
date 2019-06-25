@@ -10,4 +10,5 @@ public interface MapaNotasRepository extends JpaRepository<MapaNotas, Long>{
 	
 
 	public List<MapaNotas> findByAno(Integer ano);
+	
 }
