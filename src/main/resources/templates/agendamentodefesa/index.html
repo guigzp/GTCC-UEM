@@ -26,46 +26,219 @@
 <script src="webjars/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
-<script>
-
+<script type="text/javascript">
 		document.addEventListener('DOMContentLoaded', function () {
 			(function () {
 				var just_stop;
-
+				var mes, ano, dia;
 				$('#datepicker').datepicker();
-
+								
 				window.clone_out = function (subject) {
 					var $subject;
 					$subject = $(subject);
 					$($subject.html()).appendTo('body');
 					$subject.remove();
+					console.log('hey', this);
+					$(this).toggleClass('ui-state-active');
+					$(this).attr('data-target', '.bd-example-modal-lg');
+					$(this).attr('data-toggle', 'modal');
+					$('.bd-example-modal-lg').modal('toggle');
+					
+					mes = $(this).parent('td').attr('data-month');
+					ano = $(this).parent('td').attr('data-year');
+					dia = $(this).text();
+					
+					mes = parseInt(mes) + 1;
+					
+					console.log(dia + "-" + mes + "-" + ano);
+					if(dia < 10){
+						dia = "0" + dia;
+					}
+					if(mes < 10){
+						mes = "0" + mes;
+					}
+					var datadefesa = ano+'-0'+mes+'-'+dia;
+					var path0= window.location.href;
+					var path = path0;
+					var n = path0.search("/pesquisar/");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?atualizado=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?removido=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=true?tipo=1");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=false&tipo=1");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?atualizado=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?removido=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+				 	window.open(path + "/pesquisar/"+datadefesa, "_self" );
+					
 					return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
 				};
-
 				window.stop_it = function (e) {
 					console.log('hey', this);
 					$(this).toggleClass('ui-state-active');
+					$(this).attr('data-target', '.bd-example-modal-lg');
+					$(this).attr('data-toggle', 'modal');
+					$('.bd-example-modal-lg').modal('toggle');
+					
+					mes = $(this).parent('td').attr('data-month');
+					ano = $(this).parent('td').attr('data-year');
+					dia = $(this).text();
+					
+					mes = parseInt(mes) + 1;
+					
+					console.log(dia + "-" + mes + "-" + ano);
+					
+					if(dia < 10){
+						dia = "0" + dia;
+					}
+					if(mes < 10){
+						mes = "0" + mes;
+					}
+					
+					var datadefesa = ano+'-'+mes+'-'+dia;
+					var path0= window.location.href;
+					var path = path0;
+					var n = path0.search("/pesquisar/");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search(/atualizado=true/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/sucesso=true/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/removido=true/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/sucesso=true?tipo=1/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/sucesso=false&tipo=1/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/atualizado=false/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/sucesso=false/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/removido=false/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+				 	window.open(path + "/pesquisar/"+datadefesa, "_self" );
 					//e.preventDefault()
 					e.stopPropagation();
 					return false;
 				};
-
 				just_stop = function (e) {
-					e.stopPropagation();
-					return false;
+					console.log('hey', this);
+					$(this).toggleClass('ui-state-active');
+					$(this).attr('data-target', '.bd-example-modal-lg');
+					$(this).attr('data-toggle', 'modal');
+					$('.bd-example-modal-lg').modal('toggle');
+					
+					mes = $(this).parent('td').attr('data-month');
+					ano = $(this).parent('td').attr('data-year');
+					dia = $(this).text();
+					
+					mes = parseInt(mes) + 1;
+					
+					console.log(dia + "-" + mes + "-" + ano);
+					
+					if(dia < 10){
+						dia = "0" + dia;
+					}
+					if(mes < 10){
+						mes = "0" + mes;
+					}
+					
+					var datadefesa = ano+'-'+mes+'-'+dia;
+					var path0= window.location.href;
+					var path = path0;
+					var n = path0.search("/pesquisar/");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?atualizado=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?removido=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=true?tipo=1");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=false&tipo=1");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?atualizado=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?removido=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					
+				 	window.open(path + "/pesquisar/"+datadefesa, "_self" );
+					
 				};
-
 				$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
-
 				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-
 			}).call(this);
 		}, false);
 		
 </script>
 
 <script type="text/javascript">
-
 		$(document).on('change','[id=ataDefesa]',function(){
 			$('[name=select]').prop('disabled',!this.checked);
 		});
@@ -77,7 +250,6 @@
 </script>
 
 <script th:inline="javascript">
-
 		window.onload = function(){
 			if([[${param.sucesso}]]=="true"){
 				if([[${param.tipo}]]=="1"){
@@ -103,79 +275,64 @@
 	font-size: 2em !important;
 	margin: 1em auto 1em !important;
 }
-
 .defesas-detalhe {
 	background-color: #e5e5e5 !important;
 	padding: 2em 3em !important;
 	border-radius: 5px !important;
 	width: 100% !important;
 }
-
 .defesas-detalhe table {
 	display: flex !important;
 	align-items: center !important;
 	width: 100% !important;
 }
-
 .defesas-detalhe thead {
 	width: 100% !important;
 	background-color: #fff !important;
 	border-radius: 5px !important;
 	padding: 1em !important;
 }
-
 .defesas-detalhe h5 {
 	font-size: 1.5em !important;
 	padding-bottom: .5em !important;
 }
-
 .defesas-detalhe table th {
 	padding-left: 0.25em !important;
 }
-
 .defesas-detalhe table .infos {
 	text-align: left !important;
 	font-weight: 700 !important;
 	padding-left: 0.5em !important;
 }
-
 .defesas-detalhe table th {
 	text-transform: none !important;
 	font-weight: 100 !important;
 }
-
 .jumbotron {
 	background: #fff !important;
 }
-
 .fa {
 	font-size: 0.5em !important;
 }
-
 #about a {
 	text-decoration: none;
 }
-
 .pdf {
 	background-color: #e5e5e5 !important;
 	padding: 1em !important;
 	border-radius: 5px !important;
 	text-align: center !important;
 }
-
 .pdf form {
 	text-align: left !important;
 	padding: 0 .5em !important;
 }
-
 .pdf button {
 	margin-top: 1em !important;
 }
-
 .pdf h5 {
 	text-align: left !important;
 }
-
 .pdf button {
 	background-color: #343F4B !important;
 	border: none !important;
@@ -183,7 +340,6 @@
 	color: white !important;
 	text-transform: uppercase !important;
 }
-
 .cadastro-defesa form {
 	width: 100% !important;
 	display: flex !important;
@@ -191,18 +347,15 @@
 	justify-content: center !important;
 	padding: 0 1em !important;
 }
-
 .cadastro-defesa label {
 	width: 100% !important;
 	padding-top: .5em !important;
 }
-
 .cadastro-defesa .botoes {
 	padding-top: 1em !important;
 	display: flex !important;
 	justify-content: space-between !important;
 }
-
 .cadastro-defesa .botoes .cancelar {
 	background-color: #343F4B !important;
 	border: none !important;
@@ -212,7 +365,6 @@
 	border-radius: 5px !important;
 	width: 150px !important;
 }
-
 .cadastro-defesa .botoes .excluir {
 	background-color: #B60003 !important;
 	border: none !important;
@@ -222,7 +374,6 @@
 	border-radius: 5px !important;
 	width: 150px !important;
 }
-
 .cadastro-defesa .botoes .confirmar {
 	background-color: #77D353 !important;
 	border: none !important;
@@ -232,61 +383,49 @@
 	border-radius: 5px !important;
 	width: 150px !important;
 }
-
 .cadastro-defesa .banca h5 {
 	margin: .5em 0 0 0 !important;
 	font-size: 20px !important;
 	padding: 0 !important;
 }
-
 .cadastro-defesa input {
 	width: 100% !important;
 }
-
 .visu-defesa .banca .prof {
 	padding-top: 0.5em !important;
 }
-
 .visu-defesa .banca .titulo {
 	margin-left: 1.5em;
 }
-
 .cadastro-defesa .horalocal {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 }
-
 .cadastro-defesa form .nome, .cadastro-defesa form .titulo {
 	display: flex;
 	flex-direction: column;
 }
-
 #datepicker, .ui-datepicker {
 	width: 90% !important;
 	text-align: center;
 	margin: 0 auto;
 }
-
 .ui-datepicker td span, .ui-datepicker td a {
 	text-align: center;
 }
-
 .ui-datepicker th {
 	padding: .135em;
 }
-
 .ui-datepicker-month, .ui-datepicker-year {
 	font-size: 0.8em;
 	line-height: 1em;
 }
-
 .ui-widget-content .ui-state-default {
 	background: #b3b3b3
 		url('../../static/images/ui-bg_glass_75_e6e6e6_1x400.png') 50% 50%
 		repeat-x;
 }
-
 .ui-state-default.ui-state-active {
 	background: white
 		url('../..;/static/images/ui-bg_glass_75_e6e6e6_1x400.png') 50% 50%
@@ -299,8 +438,7 @@
 		<div id="wrap" class="container" style="max-width: 1600px !important">
 			<div class="defesa container"
 				style="max-width: 1600px !important; background-color: #e5e5e5; box-sizing: border-box !important; padding: 2em;">
-				<h3
-					style="text-align: center !important; font-size: 2em !important; margin: 1em auto 1em !important; box-sizing: border-box !important;">Agendamento
+				<h3 style="text-align: center !important; font-size: 2em !important; margin: 1em auto 1em !important; box-sizing: border-box !important;">Agendamento
 					de defesas</h3>
 				<div class="row">
 					<div class="col-lg-3">
@@ -426,6 +564,66 @@
 									th:href="@{/gtcc/agendamentodefesa/cadastrar}">Adicionar</a>
 							</div>
 						</div>
+					</div>
+					
+					<!-- Modal data defesa -->
+					<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					            <div class="modal-header">
+					                <h5 class="modal-title" id="defesaModalLabel">Defesa</h5>
+					            </div>
+					            <div class="modal-body">
+					                <table id="tabela_defesas" class="table table-hover table-striped table-bordered table-click"
+					                    style="display: flex !important;align-items: center !important;width: 100% !important;flex-direction:column;">
+					
+					                    <thead
+					                        style="width: 100% !important; display:flex; justify-content: space-between; background-color: #fff !important; border:none; border-radius: 5px !important;padding: 1em !important;">
+					                        <tr style="width: 100% !important; display:flex; justify-content: space-between;">
+					                            <th style="padding-left: 0.25em !important;border:none;  font-size:1.05em" class="">Data
+					                            </th>
+					                            <th style="padding-left: 0.25em !important;border:none;  font-size:1.05em" class="">
+					                                Orientando</th>
+					                            <th style="padding-left: 0.25em !important;border:none;  font-size:1.05em" class="">Horário
+					                            </th>
+					                            <th style="padding-left: 0.25em !important;border:none; font-size:1.05em" class="">Local
+					                            </th>
+					                            <th style="padding-left: 0.25em !important;border:none; font-size:1.05em" class="">Ações
+					                            </th>
+					                        </tr>
+					                    </thead>
+					
+					                    <tbody style="width:100%">
+					                        <tr th:if="${not #lists.isEmpty(agendamentos)}" th:each="agendamento : ${agendamentos}">
+					                            <td width="15%" th:text="${#temporals.format(agendamento.dataDefesa, 'dd/MM/yyyy')}"></td>
+					                            <td width="30%"th:text="${agendamento.fichaIdentificacao.aluno.nome}"></td>
+					                            <td width="20%" style="text-align:left !important; padding: 0.75rem 2.75em !important;" th:text="${agendamento.horario}"></td>
+					                            <td width="20%" style="text-align:center !important;"th:text="${agendamento.local}"></td>
+					                            <td width="15%">
+					                                <div class="btn-group pull-right">
+					                                    <a class="btn btn-sm btn-warning"
+					                                        th:href="@{/gtcc/agendamentodefesa/detalhes/{id}(id=${agendamento.id})}">Detalhes</a>
+					                                    <a class="btn btn-sm btn-primary"
+					                                        th:href="@{/gtcc/agendamentodefesa/editar/{id}(id=${agendamento.id})}">Editar</a>
+					                                </div>
+					                            </td>
+					                        </tr>
+					                        <tr th:if="${#lists.isEmpty(agendamentos)}">
+					                            <td colspan="6">
+					                                <div class="alert alert-info" style="background-color: #f1f3f5;" role="alert">
+					                                    Nenhuma defesa cadastrada encontrada.
+					                                </div> 
+					                            </td>
+					                        </tr>
+					                    </tbody>
+					                    <tfoot> </tfoot>
+					                </table>
+					            </div>
+					            <div class="modal-footer">
+					                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+					            </div>
+					        </div>
+					    </div>
 					</div>
 				</div>
 			</div>

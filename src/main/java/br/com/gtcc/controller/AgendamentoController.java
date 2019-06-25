@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.ibm.icu.util.Calendar;
 
 import br.com.gtcc.model.Agendamento;
 import br.com.gtcc.model.Atividade;
@@ -87,6 +90,7 @@ public class AgendamentoController {
         }
 
         mv.addObject("agendamentos", subListaProximosAgendamentos);
+        //mv.addObject("dataPesquisa", null);
         return mv;
     }
 
@@ -133,6 +137,16 @@ public class AgendamentoController {
 
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
     }
+    
+    @GetMapping("/pesquisar/{data}")
+    public ModelAndView pesquisar(@PathVariable("data") String data) {
+    	LocalDate data2Date = LocalDate.parse(data);
+    	List<Agendamento> agendamentos = agendamentoService.buscarPorData(data2Date);
+    	ModelAndView mv = new ModelAndView("agendamentodefesa/index");
+    	mv.addObject("agendamentos", agendamentos);
+    	mv.addObject("dataPesquisa", data);
+    	return mv;
+    }
 
     @GetMapping("/editar/{id}")
     public ModelAndView edit(@PathVariable("id") Long id) {
@@ -140,6 +154,7 @@ public class AgendamentoController {
         ModelAndView mv = new ModelAndView("agendamentodefesa/defesaUpdate");
         mv.addObject("professores", professorService.buscarTodos());
         mv.addObject("agendamento", agendamentoService.buscarPorId(id));
+        mv.addObject("agendamentoLista", agendamentoService.listarTodosAtivos());
 
         return mv;
     }
@@ -171,6 +186,7 @@ public class AgendamentoController {
         agendamento.getFichaIdentificacao().setTituloTrabalho(agendamento.getFichaIdentificacao().getTituloTrabalho());
         fichaIdentificacaoService.adicionar(agendamento.getFichaIdentificacao());
         agendamento.setAtivo(1);
+        agendamento.setAno(agendamento.getFichaIdentificacao().getAno());
         agendamentoService.atualizar(agendamento);
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("atualizado", true);
     }
@@ -186,170 +202,190 @@ public class AgendamentoController {
     }
     
     @PostMapping("/gerar")
-	public ModelAndView gerar(@RequestParam(name = "options", required = false) String options,
-							  @RequestParam(name = "select", required = false) String agendamentoid) throws 
-							InterruptedException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
-    	if (options == null) {
-    		ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
-    		mv.addObject("tipo", "1");
-			return mv;
-		}
-    	
-    	Integer op = 1;
-    	
-    	if (Integer.parseInt(options) == 1) {
-    		op = 1; 
-    		try {
-    			gerarEditalDefesas("edital_defesa.pdf");
-    		} catch (JRException e) {
-    			ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
-    			mv.addObject("tipo", "2");
-    			return mv;
-    		}
-		}
-    	else if (Integer.parseInt(options) == 2) {
-    		if (Long.parseLong(agendamentoid) == 0) {
-    			op = 3; 
-				List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
-				List<JasperPrint> prints = new ArrayList<JasperPrint>();
-				String caminho = new File("./").getAbsolutePath();
-				caminho = caminho.substring(0, caminho.length() - 1);
-				caminho = caminho + "src/main/resources/static/report/";
-				for (Agendamento agendamento : agendamentos) {
-	    			HashMap<String, Object> parametros = getParametros(agendamento);
-	    			try {
-	    				prints.add(JasperFillManager.fillReport(caminho + "ata_defesa.jasper", parametros, Conexao.getConnection()));
-	    		    	
-	    			} catch (JRException e) {
-	    				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
-	    				mv.addObject("tipo", "2");
-	    				return mv;
-	    			}
-				}
-				JRPdfExporter exporter = new JRPdfExporter();
-				exporter.setExporterInput(SimpleExporterInput.getInstance(prints));
-				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(caminho + "atas_defesas.pdf"));
-				SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-				exporter.setConfiguration(configuration);
-				try {
-					exporter.exportReport();
-				} catch (JRException e) {
-					ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
-					mv.addObject("tipo", "2");
-    				return mv;
-				}
-			} 
-    		else {
-    			op = 2; 
-    			Agendamento agendamento = agendamentoService.buscarPorId(Long.parseLong(agendamentoid));
-    			HashMap<String, Object> parametros = getParametros(agendamento);
-    			
-    			String caminho = new File("./").getAbsolutePath();
-    			caminho = caminho.substring(0, caminho.length() - 1);
-    			caminho = caminho + "src/main/resources/static/report/";
-    			
-    			try {
-    				gerarAtaDefesa("ata_de_defesa.pdf", parametros);
-    			} catch (JRException e) {
-    				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
-    				mv.addObject("tipo", "2");
-    				return mv;
-    			}
-			}
-		}
-    	
-		
-		return new ModelAndView("redirect:/gtcc/agendamentodefesa/gerados/" + op);
-	}
-    
-    @GetMapping("/gerados/{opcao}")
-	public ModelAndView pdfs(@PathVariable Integer opcao) {
-		ModelAndView mv = new ModelAndView("agendamentodefesa/agendamentoPDFs");
-		mv.addObject("opcao", opcao);
-		return mv;
-	}
+   	public ModelAndView gerar(@RequestParam(name = "options", required = false) String options,
+   							  @RequestParam(name = "select", required = false) String agendamentoid) throws 
+   							InterruptedException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
+       	if (options == null) {
+       		ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+       		mv.addObject("tipo", "1");
+   			return mv;
+   		}
+       	
+       	Integer op = 1;
+       	
+       	if (Integer.parseInt(options) == 1) {
+       		op = 1; 
+       		try {
+       			gerarEditalDefesas("edital_defesa.pdf");
+       		} catch (JRException e) {
+       			ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+       			mv.addObject("tipo", "2");
+       			return mv;
+       		}
+   		}
+       	else if (Integer.parseInt(options) == 2) {
+       		if (Long.parseLong(agendamentoid) == 0) {
+       			op = 3; 
+   				List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
+   				List<JasperPrint> prints = new ArrayList<JasperPrint>();
+   				String caminho = new File("./").getAbsolutePath();
+   				caminho = caminho.substring(0, caminho.length() - 1);
+   				caminho = caminho + "src/main/resources/static/report/";
+   				for (Agendamento agendamento : agendamentos) {
+   	    			HashMap<String, Object> parametros = getParametros(agendamento);
+   	    			try {
+   	    				prints.add(JasperFillManager.fillReport(caminho + "ata_defesa.jasper", parametros, Conexao.getConnection()));
+   	    		    	
+   	    			} catch (JRException e) {
+   	    				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+   	    				mv.addObject("tipo", "2");
+   	    				return mv;
+   	    			}
+   				}
+   				JRPdfExporter exporter = new JRPdfExporter();
+   				exporter.setExporterInput(SimpleExporterInput.getInstance(prints));
+   				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(caminho + "atas_defesas.pdf"));
+   				SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+   				exporter.setConfiguration(configuration);
+   				try {
+   					exporter.exportReport();
+   				} catch (JRException e) {
+   					ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+   					mv.addObject("tipo", "2");
+       				return mv;
+   				}
+   			} 
+       		else {
+       			op = 2; 
+       			Agendamento agendamento = agendamentoService.buscarPorId(Long.parseLong(agendamentoid));
+       			HashMap<String, Object> parametros = getParametros(agendamento);
+       			
+       			String caminho = new File("./").getAbsolutePath();
+       			caminho = caminho.substring(0, caminho.length() - 1);
+       			caminho = caminho + "src/main/resources/static/report/";
+       			
+       			try {
+       				gerarAtaDefesa("ata_de_defesa.pdf", parametros);
+       			} catch (JRException e) {
+       				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+       				mv.addObject("tipo", "2");
+       				return mv;
+       			}
+   			}
+   		}
+       	
+   		
+   		return new ModelAndView("redirect:/gtcc/agendamentodefesa/gerados/" + op);
+   	}
+       
+       @GetMapping("/gerados/{opcao}")
+   	public ModelAndView pdfs(@PathVariable Integer opcao) {
+   		ModelAndView mv = new ModelAndView("agendamentodefesa/agendamentoPDFs");
+   		mv.addObject("opcao", opcao);
+   		return mv;
+   	}
 
-    public void gerarAtaDefesa(String nome, HashMap<String, Object> parametros) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
-    	String caminho = new File("./").getAbsolutePath();
-    	caminho = caminho.substring(0, caminho.length() - 1);
-    	caminho = caminho + "src/main/resources/static/report/";
-    	JasperPrint print;
-    	print = JasperFillManager.fillReport(caminho + "ata_defesa.jasper", parametros, Conexao.getConnection());
-    	JRPdfExporter exporter = new JRPdfExporter();
-    	ExporterInput exporterInput = new SimpleExporterInput(print);
-    	exporter.setExporterInput(exporterInput);
-    	OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(caminho + nome);
-    	exporter.setExporterOutput(exporterOutput);
-    	SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-    	exporter.setConfiguration(configuration);
-    	exporter.exportReport();
-    }
-    
-    public void gerarEditalDefesas(String nome) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
-    	String caminho = new File("./").getAbsolutePath();
-    	HashMap<String, Object> parametros = new HashMap<String, Object>();
-    	caminho = caminho.substring(0, caminho.length() - 1);
-    	caminho = caminho + "src/main/resources/static/report/";
-    	JasperPrint print;
-    	print = JasperFillManager.fillReport(caminho + "edital_defesas.jasper", parametros, Conexao.getConnection());
-    	JRPdfExporter exporter = new JRPdfExporter();
-    	ExporterInput exporterInput = new SimpleExporterInput(print);
-    	exporter.setExporterInput(exporterInput);
-    	OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(caminho + nome);
-    	exporter.setExporterOutput(exporterOutput);
-    	SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-    	exporter.setConfiguration(configuration);
-    	exporter.exportReport();
-    }
-    
-    @RequestMapping(value = "/show/{num}", produces =  "application/pdf")
-	public ResponseEntity<byte[]> mostrar(@PathVariable("num") String num) {
-		String caminho = new File("./").getAbsolutePath();
-		caminho = caminho.substring(0, caminho.length() - 1);
-		if (num.equals("1")) {
-			caminho = caminho + "src/main/resources/static/report/edital_defesa.pdf";
-		}
-		else if (num.equals("2")) {
-			caminho = caminho + "src/main/resources/static/report/ata_de_defesa.pdf";
-		}
-		else {
-			caminho = caminho + "src/main/resources/static/report/atas_defesas.pdf";
-		}
-		Path path = Paths.get(caminho);
-		byte[] pdfContents = null;
-		try {
-			pdfContents = Files.readAllBytes(path);
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-		
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("content-disposition", "inline;filename=" + caminho);
-        ResponseEntity<byte[]> response = new ResponseEntity<byte[]> (
-        	pdfContents, headers, HttpStatus.OK);
-		return response;
-	}
-	
-	private HashMap<String, Object> getParametros(Agendamento agendamento) {
-		FichaIdentificacao fichaAluno = agendamento.getFichaIdentificacao();
-		List<Atividade> atividade = atividadeRepository.findByAnoAndFase(agendamento.getAno(), 10);
-		
-		String dataDefesa = agendamento.getDataDefesa().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		String dataEntregaFinal = atividade.get(0).getDataFinalEntrega().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		
-		HashMap<String, Object> parametros = new HashMap<String, Object>();
-		parametros.put("ano", fichaAluno.getAno());
-		parametros.put("data_defesa", dataDefesa);
-		parametros.put("local", agendamento.getLocal());
-		parametros.put("horario", agendamento.getHorario());
-		parametros.put("titulo_trabalho", fichaAluno.getTituloTrabalho());
-		parametros.put("area_concentracao", fichaAluno.getAreaConcentracao());
-		parametros.put("nome_avaliador1", fichaAluno.getAvaliador1().getNome());
-		parametros.put("nome_avaliador2", fichaAluno.getAvaliador2().getNome());
-		parametros.put("nome_orientador", fichaAluno.getOrientador().getNome());
-		parametros.put("nome_aluno", fichaAluno.getAluno().getNome());
-		parametros.put("data_final_entrega", dataEntregaFinal);
-		
-		return parametros;
-	}
+       public void gerarAtaDefesa(String nome, HashMap<String, Object> parametros) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
+       	String caminho = new File("./").getAbsolutePath();
+       	caminho = caminho.substring(0, caminho.length() - 1);
+       	caminho = caminho + "src/main/resources/static/report/";
+       	JasperPrint print;
+       	print = JasperFillManager.fillReport(caminho + "ata_defesa.jasper", parametros, Conexao.getConnection());
+       	JRPdfExporter exporter = new JRPdfExporter();
+       	ExporterInput exporterInput = new SimpleExporterInput(print);
+       	exporter.setExporterInput(exporterInput);
+       	OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(caminho + nome);
+       	exporter.setExporterOutput(exporterOutput);
+       	SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+       	exporter.setConfiguration(configuration);
+       	exporter.exportReport();
+       }
+       
+       public void gerarEditalDefesas(String nome) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
+       	String caminho = new File("./").getAbsolutePath();
+       	HashMap<String, Object> parametros = new HashMap<String, Object>();
+       	int ano = Calendar.getInstance().get(Calendar.YEAR);
+       	List<Atividade> atividades = atividadeRepository.findByAno(ano);
+       	
+       	parametros.put("ano", atividades.get(atividades.size()-1).getAno());
+       	
+       	caminho = caminho.substring(0, caminho.length() - 1);
+       	caminho = caminho + "src/main/resources/static/report/";
+       	JasperPrint print;
+       	print = JasperFillManager.fillReport(caminho + "edital_defesas.jasper", parametros, Conexao.getConnection());
+       	JRPdfExporter exporter = new JRPdfExporter();
+       	ExporterInput exporterInput = new SimpleExporterInput(print);
+       	exporter.setExporterInput(exporterInput);
+       	OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(caminho + nome);
+       	exporter.setExporterOutput(exporterOutput);
+       	SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+       	exporter.setConfiguration(configuration);
+       	exporter.exportReport();
+       }
+       
+       @RequestMapping(value = "/show/{num}", produces =  "application/pdf")
+   	public ResponseEntity<byte[]> mostrar(@PathVariable("num") String num) {
+   		String caminho = new File("./").getAbsolutePath();
+   		caminho = caminho.substring(0, caminho.length() - 1);
+   		if (num.equals("1")) {
+   			caminho = caminho + "src/main/resources/static/report/edital_defesa.pdf";
+   		}
+   		else if (num.equals("2")) {
+   			caminho = caminho + "src/main/resources/static/report/ata_de_defesa.pdf";
+   		}
+   		else {
+   			caminho = caminho + "src/main/resources/static/report/atas_defesas.pdf";
+   		}
+   		Path path = Paths.get(caminho);
+   		byte[] pdfContents = null;
+   		try {
+   			pdfContents = Files.readAllBytes(path);
+   		} catch(IOException e) {
+   			e.printStackTrace();
+   		}
+   		
+           HttpHeaders headers = new HttpHeaders();
+           headers.add("content-disposition", "inline;filename=" + caminho);
+           ResponseEntity<byte[]> response = new ResponseEntity<byte[]> (
+           	pdfContents, headers, HttpStatus.OK);
+   		return response;
+   	}
+   	
+   	private HashMap<String, Object> getParametros(Agendamento agendamento) {
+   		FichaIdentificacao fichaAluno = agendamento.getFichaIdentificacao();
+   		List<Atividade> atividades = atividadeRepository.findByAno(agendamento.getAno());
+   		
+   		String dataDefesa = agendamento.getDataDefesa().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("pt", "BR")));
+   		String dataEntregaFinal = atividades.get(atividades.size()-1).getDataFinalEntrega().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("pt", "BR")));
+   		
+   		String[] data1 = dataDefesa.split("\\s");
+   		String[] data2 = dataEntregaFinal.split("\\s");
+   		
+   		dataDefesa = data1[0] + " de " + data1[1] + " de " + data1[2];
+   		dataEntregaFinal = data2[0] + " de " + data2[1] + " de " + data2[2];
+   		String local = "";
+   		
+   		String[] local1 = agendamento.getLocal().split("\\s");
+   		if (local1[local1.length-1].toUpperCase().contentEquals("DIN") || local1.length <= 2) {
+   			local = local1[0] + " " + local1[1] + " " + "do Departamento de Informática";
+   		}
+   		else {
+   			local = local1[0] + " " + local1[1] + " " + local1[2];
+   		}
+   		
+   		HashMap<String, Object> parametros = new HashMap<String, Object>();
+   		parametros.put("ano", fichaAluno.getAno());
+   		parametros.put("data_defesa", dataDefesa);
+   		parametros.put("local", local);
+   		parametros.put("horario", agendamento.getHorario());
+   		parametros.put("titulo_trabalho", fichaAluno.getTituloTrabalho());
+   		parametros.put("area_concentracao", fichaAluno.getAreaConcentracao().toUpperCase());
+   		parametros.put("nome_avaliador1", fichaAluno.getAvaliador1().getNome());
+   		parametros.put("nome_avaliador2", fichaAluno.getAvaliador2().getNome());
+   		parametros.put("nome_orientador", fichaAluno.getOrientador().getNome());
+   		parametros.put("nome_aluno", fichaAluno.getAluno().getNome());
+   		parametros.put("data_final_entrega", dataEntregaFinal);
+   		
+   		return parametros;
+   	}
 }
