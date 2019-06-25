@@ -87,6 +87,7 @@ public class AgendamentoController {
         }
 
         mv.addObject("agendamentos", subListaProximosAgendamentos);
+        //mv.addObject("dataPesquisa", null);
         return mv;
     }
 
@@ -133,6 +134,16 @@ public class AgendamentoController {
 
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
     }
+    
+    @GetMapping("/pesquisar/{data}")
+    public ModelAndView pesquisar(@PathVariable("data") String data) {
+    	LocalDate data2Date = LocalDate.parse(data);
+    	List<Agendamento> agendamentos = agendamentoService.buscarPorData(data2Date);
+    	ModelAndView mv = new ModelAndView("agendamentodefesa/index");
+    	mv.addObject("agendamentos", agendamentos);
+    	mv.addObject("dataPesquisa", data);
+    	return mv;
+    }
 
     @GetMapping("/editar/{id}")
     public ModelAndView edit(@PathVariable("id") Long id) {
@@ -171,6 +182,7 @@ public class AgendamentoController {
         agendamento.getFichaIdentificacao().setTituloTrabalho(agendamento.getFichaIdentificacao().getTituloTrabalho());
         fichaIdentificacaoService.adicionar(agendamento.getFichaIdentificacao());
         agendamento.setAtivo(1);
+        agendamento.setAno(agendamento.getFichaIdentificacao().getAno());
         agendamentoService.atualizar(agendamento);
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("atualizado", true);
     }
