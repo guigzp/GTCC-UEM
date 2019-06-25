@@ -71,10 +71,22 @@ public class AgendamentoController {
     public ModelAndView findAll() {
         ModelAndView mv = new ModelAndView("agendamentodefesa/index");
 
-        //mv.addObject("agendamentoFilter", agendamentoFilter);
+        List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
+        List<Agendamento> proximosAgendamentos = new ArrayList<>();
+        List<Agendamento> subListaProximosAgendamentos = new ArrayList<>();
+        for(Agendamento agendamento : agendamentos) {
+        	if(agendamento.getDataDefesa().isAfter(LocalDate.now())) {
+        		proximosAgendamentos.add(agendamento);
+        	}
+        }
+        
+        if(proximosAgendamentos.size() > 8) {
+        	subListaProximosAgendamentos = proximosAgendamentos.subList(0, 7);
+        }else {
+        	subListaProximosAgendamentos = proximosAgendamentos;
+        }
 
-
-        mv.addObject("agendamentos", agendamentoService.listarTodosAtivos());
+        mv.addObject("agendamentos", subListaProximosAgendamentos);
         return mv;
     }
 
@@ -116,7 +128,7 @@ public class AgendamentoController {
         }
         
         agendamento.setAtivo(1);
-        agendamento.setAno(LocalDate.now().getYear());
+        agendamento.setAno(agendamento.getFichaIdentificacao().getAno());
         agendamentoService.adicionar(agendamento);
 
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", true);
