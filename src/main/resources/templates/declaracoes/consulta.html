@@ -20,7 +20,7 @@
 					<form class="form-default form-horizontal">
 						<div class="form-group row justify-content-center">
 							<div class="field-wrapper col-xl-6">
-								<input type="text" name="tituloTrabalho" id="tituloTrabalho"
+								<input type="text" name="nomePesquisa" id="nomePesquisa"
 									class="form-control"
 									aria-label="Título do Trabalho" aria-describedby="basic-addon1">
 								<div class="field-placeholder">
@@ -157,7 +157,6 @@
 			document.getElementById("anoTrabalho").value = new Date().getFullYear();
 			for(var i=1;i<=declaracoesPP.length;i++){
 				if(declaracoesPP[i-1].ano != document.getElementById("anoTrabalho").value){
-					console.log("PP"+i)
 					$("#PP"+i).hide();
 				}else{
 					$("#PP"+i).show();
@@ -173,30 +172,86 @@
 			$("[name=declaracaoPP]").hide();
 			$("[name=declaracaoProf]").show();
 		});
+		
+		function filtra(){
+			var ano = $("#anoTrabalho").val();
+			var nome = $("#nomePesquisa").val().toLowerCase();
+			if($(".aluno").prop("checked")){
+				for(var i=1;i<=declaracoesPP.length;i++){
+					if(nome == '' && ano != ''){
+						if(declaracoesPP[i-1].ano != ano){
+							$("#PP"+i).hide();
+						}else{
+							$("#PP"+i).show();
+						}
+					}else if (nome != '' && ano == ''){
+						if(declaracoesPP[i-1].nomeParticipante.toLowerCase().startsWith(nome)){
+							$("#PP"+i).show();
+						}else{
+							$("#PP"+i).hide();
+						}
+					}else if(ano == '' && nome == ''){
+						$("#PP"+i).show();
+					}else {
+						if(declaracoesPP[i-1].ano == ano && declaracoesPP[i-1].nomeParticipante.toLowerCase().startsWith(nome)){
+							$("#PP"+i).show();
+						}else{
+							$("#PP"+i).hide();
+						}
+					}
+				}
+			}else{
+				if(nome != ''){
+					for(var i=1; i <= declaracoesProfessor.length; i++){
+						if(declaracoesProfessor[i-1].nome.toLowerCase().startsWith(nome)){
+							$('#P'+i).show();
+						}else{
+							$('#P'+i).hide();
+						}
+					}
+				}else{
+					for(var i=1; i <= declaracoesProfessor.length; i++){
+						$('#P'+i).show();
+					}
+				}
+			}
+		}
+		
+		
 		$(".search").click(function(){
-			if($(".aluno").prop("checked")){
-				for(var i=1;i<=declaracoesPP.length;i++){
-					if(declaracoesPP[i-1].ano != document.getElementById("anoTrabalho").value){
-						console.log("PP"+i)
-						$("#PP"+i).hide();
-					}else{
-						$("#PP"+i).show();
-					}
-				}
-			}
+			filtra();
+			
 		});
+		
+		$("#nomePesquisa").on("input", function(){
+			filtra();
+		});
+		
 		$("#anoTrabalho").on("input", function(){
-			if($(".aluno").prop("checked")){
-				for(var i=1;i<=declaracoesPP.length;i++){
-					if(declaracoesPP[i-1].ano != document.getElementById("anoTrabalho").value){
-						console.log("PP"+i)
-						$("#PP"+i).hide();
-					}else{
-						$("#PP"+i).show();
+			var ano = $('#anoTrabalho').val();
+			if(ano.toString().length == 4){
+				if($(".aluno").prop("checked")){
+					for(var i=1;i<=declaracoesPP.length;i++){
+						if(declaracoesPP[i-1].ano != document.getElementById("anoTrabalho").value){
+							$("#PP"+i).hide();
+						}else{
+							$("#PP"+i).show();
+						}
+						if($("#anoTrabalho").val() == ''){
+							$("#PP"+i).show();
+						}
 					}
 				}
+			}else{
+				for(var i=1;i<=declaracoesPP.length;i++){
+					$("#PP"+i).show();
+				}
 			}
+			
 		});
+		
+		
+		
         </script>
 	</section>
 
