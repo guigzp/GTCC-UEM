@@ -12,15 +12,14 @@ $(function() {
 							let html = "";
 							for (let i = 1; i <= valor; i++) {
 								html += '<div class="form-group row justify-content-center" style="padding-left: 20px">';
-								html += '<div class="input-group col-xl-4">';
+								html += '<div class="form-group col-xl-4">';
+								html += '<label class="col-form-label text-right">Qtd. Notas da ' + i + '° Avaliação</label> <br />';
 								html += '<input type="number" required="true" name="qtd_notas_'
 										+ i
 										+ '" id="qtd_notas_'
 										+ i
 										+ '" class="field-peso-nota form-control"';
-								html += 'placeholder="Qtd. Notas da '
-										+ i
-										+ '° Avaliação" aria-describedby="basic-addon1">';
+								html += 'placeholder="Informe a quantidade" aria-describedby="basic-addon1">';
 								html += '</div>';
 								html += '<div class="input-group col-xl-6"></div>';
 								html += '</div>';
@@ -47,7 +46,8 @@ $(function() {
 													let html = "";
 													for (let i = 1; i <= valor; i++) {
 														html += '<div class="form-group row justify-content-center" style="padding-left: 40px">';
-														html += '<div class="input-group col-xl-4">';
+														html += '<div class="form-group col-xl-4">';
+														html += '<label class="col-form-label text-right">Peso da ' + i + '° Nota</label> <br />';
 														html += '<input type="number" required="true" name="'
 																+ 'pesos_'
 																+ i
@@ -59,9 +59,7 @@ $(function() {
 																+'_'
 																+ target
 																+ '" class="form-control"';
-														html += 'placeholder="Peso da '
-																+ i
-																+ '° Nota" aria-describedby="basic-addon1">';
+														html += 'placeholder="Informe o peso" aria-describedby="basic-addon1">';
 														html += '</div>';
 														html += '<div class="input-group col-xl-6"></div>';
 														html += '</div>';

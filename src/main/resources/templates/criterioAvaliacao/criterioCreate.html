@@ -11,6 +11,17 @@
 		<div id="wrap" class="container">
 			<div id="main">
 				<div class="jumbotron">
+				<div th:if="${param.sucesso}">
+						<script th:inline="javascript">
+								var flag = [[${param.sucesso}]]; 
+							    window.onload = function() {
+							        if(flag){
+							  			alertify.success('Critério de avaliação cadastrado com sucesso!');
+							        }
+								};
+						</script>
+					</div>
+				
 					<div class="row justify-content-center">
 						<h3>Cadastro do Critério de Avaliação</h3>
 					</div>
@@ -33,16 +44,16 @@
 
 						<div class="form-group row justify-content-center">
 
-							<div class="field-wrapper col-4">
+							<div class="form-group col-xl-2">
+								<label for="ano" class="col-form-label text-right">Ano *</label>
 								<input type="number" name="ano" id="ano" class="form-control"
 									th:field="*{ano}" aria-label="Ano"
+									placeholder="Informe o ano"
 									aria-describedby="basic-addon1">
-								<div class="field-placeholder">
-									<span>Ano *</span>
-								</div>
+								
 							</div>
 
-							<div class="input-group col-xl-6"></div>
+							<div class="input-group col-xl-8"></div>
 
 						</div>
 
@@ -55,16 +66,15 @@
 
 						<div class="form-group row justify-content-center">
 
-							<div class="field-wrapper col-xl-4">
+							<div class="form-group col-xl-4">
+								<label for="quantidadeAvaliacao" class="col-form-label text-right">Quantidade de Avaliações *</label>
 								<input type="number" name="quantidadeAvaliacao"
 									id="quantidadeAvaliacao"
 									class="form-control field-quantidade-avaliacoes"
 									th:field="*{quantidadeAvaliacao}"
+									placeholder="Informe a quantidade de avaliações"
 									aria-label="Quantidade de Avaliações"
 									aria-describedby="basic-addon1">
-								<div class="field-placeholder">
-									<span>Quantidade de Avaliações *</span>
-								</div>
 							</div>
 
 							<div class="input-group col-xl-6"></div>

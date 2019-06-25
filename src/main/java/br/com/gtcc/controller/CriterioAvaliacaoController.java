@@ -70,9 +70,10 @@ public class CriterioAvaliacaoController {
 			return add(criterioAvaliacao);
 		}
 
+		criterioAvaliacao.setAtivo(false);
 		criteiroService.adicionar(criterioAvaliacao);
 
-		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", true);
+		return new ModelAndView("redirect:/gtcc/criterioavaliacao/cadastrar").addObject("sucesso", true);
 	}
 
 }

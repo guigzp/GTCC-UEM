@@ -68,13 +68,19 @@ public class FichaIdentificacaoController {
 	@PostMapping("/cadastrar")
 	public ModelAndView save(@Valid @ModelAttribute("ficha") FichaIdentificacao ficha, BindingResult result) {
 
+		Long id = ficha.getId();
 		if (result.hasErrors()) {			
 			return add(ficha);
 		}
 
 		fichaService.adicionar(ficha);
-
-		return new ModelAndView("redirect:/gtcc/home").addObject("sucesso", true);
+		
+		if(id != null)
+		{
+			return new ModelAndView("redirect:/gtcc/fichaidentificacao/editar/" + ficha.getId()).addObject("edicao", true);
+		}
+		
+		return new ModelAndView("redirect:/gtcc/fichaidentificacao/cadastrar").addObject("sucesso", true);
 	}
 	
 	@GetMapping("/editar/{id}")
