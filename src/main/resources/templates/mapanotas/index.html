@@ -89,14 +89,14 @@
 			if(mapaNotas.length > 0 ){
 				
 				var criterio = mapaNotas[0].criterioAvaliacao;
-				var notas = criterio.quantidadeNotas.split(",");
+				var notas = criterio.quantidadeNotas.split("|");
 				let theadNotas = "";
 				for(let i = 0; i< notas.length; i++){
 					let bim = i + 1;
 					let colspan = 1;
 					if(criterio.quantidadeNotas[i] > 1) colspan += parseInt(criterio.quantidadeNotas[i]);
 					theadNotas += "<th colspan='"+colspan+"'>"+
-		  			 bim+" Bim"+
+		  			 bim+" Av"+
 		  			"</th>";
 				}
 				

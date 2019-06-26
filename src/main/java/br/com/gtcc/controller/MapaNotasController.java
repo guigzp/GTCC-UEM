@@ -76,6 +76,7 @@ public class MapaNotasController {
             return add(mapaNotas);
         }
 
+        
         mapaNotasService.adicionar(mapaNotas);
 
         return new ModelAndView("redirect:/gtcc/mapanotas/lancarNotas").addObject("sucesso", true);
