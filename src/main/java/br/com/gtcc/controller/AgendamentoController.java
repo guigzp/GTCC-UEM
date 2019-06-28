@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,8 +78,10 @@ public class AgendamentoController {
         List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
         List<Agendamento> proximosAgendamentos = new ArrayList<>();
         List<Agendamento> subListaProximosAgendamentos = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
         for(Agendamento agendamento : agendamentos) {
-        	if(agendamento.getDataDefesa().isAfter(LocalDate.now())) {
+        	if(agendamento.getDataDefesa().isAfter(cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
         		proximosAgendamentos.add(agendamento);
         	}
         }
@@ -144,7 +147,18 @@ public class AgendamentoController {
     	List<Agendamento> agendamentos = agendamentoService.buscarPorData(data2Date);
     	ModelAndView mv = new ModelAndView("agendamentodefesa/index");
     	mv.addObject("agendamentos", agendamentos);
-    	mv.addObject("dataPesquisa", data);
+    	int day = data2Date.getDayOfMonth();
+    	int month = data2Date.getMonthValue();
+    	String dia = String.valueOf(day);
+    	String mes = String.valueOf(month);
+    	if (day < 10) {
+    		dia = "0" + day;
+    	}
+    	if (month < 10) {
+    		mes = "0" + month;
+    	}
+    	String data2 = dia + "/" + mes + "/" + data2Date.getYear();
+    	mv.addObject("dataPesquisa", data2);
     	return mv;
     }
 
