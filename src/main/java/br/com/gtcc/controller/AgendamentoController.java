@@ -35,9 +35,9 @@ import com.ibm.icu.util.Calendar;
 import br.com.gtcc.model.Agendamento;
 import br.com.gtcc.model.Atividade;
 import br.com.gtcc.model.FichaIdentificacao;
-import br.com.gtcc.repository.AtividadeRepository;
 import br.com.gtcc.security.Conexao;
 import br.com.gtcc.service.AgendamentoService;
+import br.com.gtcc.service.AtividadeService;
 import br.com.gtcc.service.FichaIdentificacaoService;
 import br.com.gtcc.service.ProfessorService;
 import groovy.util.ScriptException;
@@ -69,7 +69,7 @@ public class AgendamentoController {
 	private ProfessorService professorService;
 
     @Autowired
-    private AtividadeRepository atividadeRepository;
+    private AtividadeService atividadeService;
     
     @GetMapping
     public ModelAndView findAll() {
@@ -81,6 +81,11 @@ public class AgendamentoController {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         for(Agendamento agendamento : agendamentos) {
+        	if (!agendamento.getDataDefesa().isAfter(LocalDate.now()) && agendamento.getApresentado() != 0) {
+        		agendamento.setApresentado(1);
+        		agendamentoService.atualizar(agendamento);
+        	}
+        	
         	if(agendamento.getDataDefesa().isAfter(cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
         		proximosAgendamentos.add(agendamento);
         	}
@@ -93,7 +98,6 @@ public class AgendamentoController {
         }
 
         mv.addObject("agendamentos", subListaProximosAgendamentos);
-        //mv.addObject("dataPesquisa", null);
         return mv;
     }
 
@@ -132,6 +136,13 @@ public class AgendamentoController {
     	
         if (result.hasErrors()) {
             return add(agendamento);
+        }
+        
+        if (agendamento.getDataDefesa().isAfter(LocalDate.now())) {
+        	agendamento.setApresentado(0);
+        }
+        else {
+        	agendamento.setApresentado(1);
         }
         
         agendamento.setAtivo(1);
@@ -200,6 +211,14 @@ public class AgendamentoController {
         agendamento.getFichaIdentificacao().setTituloTrabalho(agendamento.getFichaIdentificacao().getTituloTrabalho());
         fichaIdentificacaoService.adicionar(agendamento.getFichaIdentificacao());
         agendamento.setAtivo(1);
+        
+        if (agendamento.getDataDefesa().isAfter(LocalDate.now())) {
+        	agendamento.setApresentado(0);
+        }
+        else {
+        	agendamento.setApresentado(1);
+        }
+        
         agendamento.setAno(agendamento.getFichaIdentificacao().getAno());
         agendamentoService.atualizar(agendamento);
         return new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("atualizado", true);
@@ -216,10 +235,11 @@ public class AgendamentoController {
     }
     
     @PostMapping("/gerar")
-   	public ModelAndView gerar(@RequestParam(name = "options", required = false) String options,
+   	public ModelAndView gerar(@RequestParam(name = "cursos", required = false) String cursos,
+   							  @RequestParam(name = "options", required = false) String options,
    							  @RequestParam(name = "select", required = false) String agendamentoid) throws 
    							InterruptedException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
-       	if (options == null) {
+       	if (cursos == null || options == null) {
        		ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
        		mv.addObject("tipo", "1");
    			return mv;
@@ -228,24 +248,46 @@ public class AgendamentoController {
        	Integer op = 1;
        	
        	if (Integer.parseInt(options) == 1) {
-       		op = 1; 
-       		try {
-       			gerarEditalDefesas("edital_defesa.pdf");
-       		} catch (JRException e) {
-       			ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
-       			mv.addObject("tipo", "2");
-       			return mv;
+       		op = 1;
+       		if (Integer.parseInt(cursos) == 1) {
+       			try {
+       				gerarEditalDefesas("edital_defesa.pdf", "info");
+       			} catch (JRException e) {
+       				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+       				mv.addObject("tipo", "2");
+       				return mv;
+       			}
+			}
+       		else if (Integer.parseInt(cursos) == 2) {
+       			try {
+       				gerarEditalDefesas("edital_defesa.pdf", "cc");
+       			} catch (JRException e) {
+       				ModelAndView mv = new ModelAndView("redirect:/gtcc/agendamentodefesa").addObject("sucesso", false);
+       				mv.addObject("tipo", "2");
+       				return mv;
+       			}
        		}
    		}
        	else if (Integer.parseInt(options) == 2) {
        		if (Long.parseLong(agendamentoid) == 0) {
        			op = 3; 
    				List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
+   				List<Agendamento> agendamentosNaoApresentados = new ArrayList<>();
+   				
+   				for (Agendamento agendamento : agendamentos) {
+   					if (agendamento.getApresentado() == 0 && Integer.parseInt(cursos) == 1 && agendamento.getFichaIdentificacao().getAreaConcentracao().equals("Informática")) {
+   						agendamentosNaoApresentados.add(agendamento);
+					}
+   					else if (agendamento.getApresentado() == 0 && Integer.parseInt(cursos) == 2 && agendamento.getFichaIdentificacao().getAreaConcentracao().equals("Ciência da Computação")) {
+   						agendamentosNaoApresentados.add(agendamento);
+					}
+				}
+   				
    				List<JasperPrint> prints = new ArrayList<JasperPrint>();
    				String caminho = new File("./").getAbsolutePath();
    				caminho = caminho.substring(0, caminho.length() - 1);
    				caminho = caminho + "src/main/resources/static/report/";
-   				for (Agendamento agendamento : agendamentos) {
+   				for (Agendamento agendamento : agendamentosNaoApresentados) {
    	    			HashMap<String, Object> parametros = getParametros(agendamento);
    	    			try {
    	    				prints.add(JasperFillManager.fillReport(caminho + "ata_defesa.jasper", parametros, Conexao.getConnection()));
@@ -315,18 +357,14 @@ public class AgendamentoController {
        	exporter.exportReport();
        }
        
-       public void gerarEditalDefesas(String nome) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
+       public void gerarEditalDefesas(String nome, String curso) throws JRException, ScriptException, NoSuchMethodException, MalformedURLException, IOException {
        	String caminho = new File("./").getAbsolutePath();
        	HashMap<String, Object> parametros = new HashMap<String, Object>();
-       	int ano = Calendar.getInstance().get(Calendar.YEAR);
-       	List<Atividade> atividades = atividadeRepository.findByAno(ano);
-       	
-       	parametros.put("ano", atividades.get(atividades.size()-1).getAno());
        	
        	caminho = caminho.substring(0, caminho.length() - 1);
        	caminho = caminho + "src/main/resources/static/report/";
        	JasperPrint print;
-       	print = JasperFillManager.fillReport(caminho + "edital_defesas.jasper", parametros, Conexao.getConnection());
+       	print = JasperFillManager.fillReport(caminho + "edital_defesas_" + curso + ".jasper", parametros, Conexao.getConnection());
        	JRPdfExporter exporter = new JRPdfExporter();
        	ExporterInput exporterInput = new SimpleExporterInput(print);
        	exporter.setExporterInput(exporterInput);
@@ -367,7 +405,7 @@ public class AgendamentoController {
    	
    	private HashMap<String, Object> getParametros(Agendamento agendamento) {
    		FichaIdentificacao fichaAluno = agendamento.getFichaIdentificacao();
-   		List<Atividade> atividades = atividadeRepository.findByAno(agendamento.getAno());
+   		List<Atividade> atividades = atividadeService.buscarPorAno(agendamento.getAno());
    		
    		String dataDefesa = agendamento.getDataDefesa().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("pt", "BR")));
    		String dataEntregaFinal = atividades.get(atividades.size()-1).getDataFinalEntrega().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("pt", "BR")));

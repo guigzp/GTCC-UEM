@@ -56,8 +56,9 @@
      fi.aluno_id_usuario = al.id_usuario
      join usuario us on
      al.id_usuario = us.id_usuario
-     where a.ativo = '1'
-     GROUP BY us.nome
+     where a.ativo = '1' 
+     	and fi.area_concentracao = "Ciência da Computação"
+     	and a.apresentado = '0'
      order by a.data_defesa, a.horario asc]]>
 		</queryString>
 		<field name="data_defesa" class="java.lang.String">
@@ -80,7 +81,6 @@
 			<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
 		</field>
 	</subDataset>
-	<parameter name="ano" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -91,7 +91,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["EDITAL DE DEFESAS DE TCC " + $P{ano}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["EDITAL DE DEFESAS DE TCC - CIÊNCIA DA COMPUTAÇÃO"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
