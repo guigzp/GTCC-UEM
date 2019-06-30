@@ -81,7 +81,7 @@ public class AgendamentoController {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         for(Agendamento agendamento : agendamentos) {
-        	if (!agendamento.getDataDefesa().isAfter(LocalDate.now()) && agendamento.getApresentado() != 0) {
+        	if (agendamento.getDataDefesa().isBefore(LocalDate.now()) && agendamento.getApresentado() == 0) {
         		agendamento.setApresentado(1);
         		agendamentoService.atualizar(agendamento);
         	}
