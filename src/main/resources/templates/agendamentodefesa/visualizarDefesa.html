@@ -201,13 +201,14 @@
 								</tfoot>
 							</table>
 							<hr />
-							<div class="form-group row justify-content-center ">
+							<div class="form-group row"
+								style="display: flex; justify-content: space-between;">
 								<div class=" col-sm-2">
 									<a id="alert" class="btn btn-lg btn-danger"
 										th:href="@{/gtcc/agendamentodefesa}"> Voltar </a>
 								</div>
 								<div class=" col-sm-2 text-right">
-									<a class="btn btn-lg btn-warning"
+									<a class="btn btn-lg btn-primary"
 										th:href="@{/gtcc/agendamentodefesa/editar/{id}(id=${agendamento.id})}">Editar</a>
 								</div>
 							</div>
