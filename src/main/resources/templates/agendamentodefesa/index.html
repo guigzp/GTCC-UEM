@@ -27,7 +27,6 @@
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
 <script type="text/javascript">
-
 		document.addEventListener('DOMContentLoaded', function () {
 			(function () {
 				var just_stop;
@@ -39,9 +38,68 @@
 					$subject = $(subject);
 					$($subject.html()).appendTo('body');
 					$subject.remove();
+					console.log('hey', this);
+					$(this).toggleClass('ui-state-active');
+					$(this).attr('data-target', '.bd-example-modal-lg');
+					$(this).attr('data-toggle', 'modal');
+					$('.bd-example-modal-lg').modal('toggle');
+					
+					mes = $(this).parent('td').attr('data-month');
+					ano = $(this).parent('td').attr('data-year');
+					dia = $(this).text();
+					
+					mes = parseInt(mes) + 1;
+					
+					console.log(dia + "-" + mes + "-" + ano);
+					if(dia < 10){
+						dia = "0" + dia;
+					}
+					if(mes < 10){
+						mes = "0" + mes;
+					}
+					var datadefesa = ano+'-0'+mes+'-'+dia;
+					var path0= window.location.href;
+					var path = path0;
+					var n = path0.search("/pesquisar/");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?atualizado=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?removido=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=true?tipo=1");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=false&tipo=1");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?atualizado=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?removido=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+				 	window.open(path + "/pesquisar/"+datadefesa, "_self" );
+					
 					return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
 				};
-
 				window.stop_it = function (e) {
 					console.log('hey', this);
 					$(this).toggleClass('ui-state-active');
@@ -53,29 +111,134 @@
 					ano = $(this).parent('td').attr('data-year');
 					dia = $(this).text();
 					
-					console.log(dia + "/" + mes + "/" + ano);
+					mes = parseInt(mes) + 1;
 					
+					console.log(dia + "-" + mes + "-" + ano);
+					
+					if(dia < 10){
+						dia = "0" + dia;
+					}
+					if(mes < 10){
+						mes = "0" + mes;
+					}
+					
+					var datadefesa = ano+'-'+mes+'-'+dia;
+					var path0= window.location.href;
+					var path = path0;
+					var n = path0.search("/pesquisar/");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search(/atualizado=true/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/sucesso=true/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/removido=true/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/sucesso=true?tipo=1/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/sucesso=false&tipo=1/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/atualizado=false/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/sucesso=false/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+					n = path0.search(/removido=false/);
+					if(n != -1){
+						path = path.substring(0, n-1);
+					}
+				 	window.open(path + "/pesquisar/"+datadefesa, "_self" );
 					//e.preventDefault()
 					e.stopPropagation();
 					return false;
 				};
-
 				just_stop = function (e) {
-					e.stopPropagation();
-					return false;
+					console.log('hey', this);
+					$(this).toggleClass('ui-state-active');
+					$(this).attr('data-target', '.bd-example-modal-lg');
+					$(this).attr('data-toggle', 'modal');
+					$('.bd-example-modal-lg').modal('toggle');
+					
+					mes = $(this).parent('td').attr('data-month');
+					ano = $(this).parent('td').attr('data-year');
+					dia = $(this).text();
+					
+					mes = parseInt(mes) + 1;
+					
+					console.log(dia + "-" + mes + "-" + ano);
+					
+					if(dia < 10){
+						dia = "0" + dia;
+					}
+					if(mes < 10){
+						mes = "0" + mes;
+					}
+					
+					var datadefesa = ano+'-'+mes+'-'+dia;
+					var path0= window.location.href;
+					var path = path0;
+					var n = path0.search("/pesquisar/");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?atualizado=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?removido=true");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=true?tipo=1");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=false&tipo=1");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?atualizado=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?sucesso=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					n = path0.search("?removido=false");
+					if(n != -1){
+						path = path.substring(0, n);
+					}
+					
+				 	window.open(path + "/pesquisar/"+datadefesa, "_self" );
+					
 				};
-
 				$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
-
 				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-
 			}).call(this);
 		}, false);
 		
 </script>
 
 <script type="text/javascript">
-
 		$(document).on('change','[id=ataDefesa]',function(){
 			$('[name=select]').prop('disabled',!this.checked);
 		});
@@ -87,7 +250,6 @@
 </script>
 
 <script th:inline="javascript">
-
 		window.onload = function(){
 			if([[${param.sucesso}]]=="true"){
 				if([[${param.tipo}]]=="1"){
@@ -95,7 +257,7 @@
 		  			}
 		        }else{
 		        	if([[${param.tipo}]]=="1"){
-		        		alertify.error('Nenhuma opção selecionada!');
+		        		alertify.error('Opção não selecionada!');
 		        	}else if([[${param.tipo}]]=="2"){
 		        		alertify.error('Erro ao gerar PDF!');
 		        	}
@@ -113,79 +275,64 @@
 	font-size: 2em !important;
 	margin: 1em auto 1em !important;
 }
-
 .defesas-detalhe {
 	background-color: #e5e5e5 !important;
 	padding: 2em 3em !important;
 	border-radius: 5px !important;
 	width: 100% !important;
 }
-
 .defesas-detalhe table {
 	display: flex !important;
 	align-items: center !important;
 	width: 100% !important;
 }
-
 .defesas-detalhe thead {
 	width: 100% !important;
 	background-color: #fff !important;
 	border-radius: 5px !important;
 	padding: 1em !important;
 }
-
 .defesas-detalhe h5 {
 	font-size: 1.5em !important;
 	padding-bottom: .5em !important;
 }
-
 .defesas-detalhe table th {
 	padding-left: 0.25em !important;
 }
-
 .defesas-detalhe table .infos {
 	text-align: left !important;
 	font-weight: 700 !important;
 	padding-left: 0.5em !important;
 }
-
 .defesas-detalhe table th {
 	text-transform: none !important;
 	font-weight: 100 !important;
 }
-
 .jumbotron {
 	background: #fff !important;
 }
-
 .fa {
 	font-size: 0.5em !important;
 }
-
 #about a {
 	text-decoration: none;
 }
-
 .pdf {
 	background-color: #e5e5e5 !important;
 	padding: 1em !important;
 	border-radius: 5px !important;
 	text-align: center !important;
 }
-
 .pdf form {
 	text-align: left !important;
 	padding: 0 .5em !important;
 }
-
 .pdf button {
 	margin-top: 1em !important;
 }
-
 .pdf h5 {
 	text-align: left !important;
 }
-
 .pdf button {
 	background-color: #343F4B !important;
 	border: none !important;
@@ -193,7 +340,6 @@
 	color: white !important;
 	text-transform: uppercase !important;
 }
-
 .cadastro-defesa form {
 	width: 100% !important;
 	display: flex !important;
@@ -201,18 +347,15 @@
 	justify-content: center !important;
 	padding: 0 1em !important;
 }
-
 .cadastro-defesa label {
 	width: 100% !important;
 	padding-top: .5em !important;
 }
-
 .cadastro-defesa .botoes {
 	padding-top: 1em !important;
 	display: flex !important;
 	justify-content: space-between !important;
 }
-
 .cadastro-defesa .botoes .cancelar {
 	background-color: #343F4B !important;
 	border: none !important;
@@ -222,7 +365,6 @@
 	border-radius: 5px !important;
 	width: 150px !important;
 }
-
 .cadastro-defesa .botoes .excluir {
 	background-color: #B60003 !important;
 	border: none !important;
@@ -232,7 +374,6 @@
 	border-radius: 5px !important;
 	width: 150px !important;
 }
-
 .cadastro-defesa .botoes .confirmar {
 	background-color: #77D353 !important;
 	border: none !important;
@@ -242,61 +383,49 @@
 	border-radius: 5px !important;
 	width: 150px !important;
 }
-
 .cadastro-defesa .banca h5 {
 	margin: .5em 0 0 0 !important;
 	font-size: 20px !important;
 	padding: 0 !important;
 }
-
 .cadastro-defesa input {
 	width: 100% !important;
 }
-
 .visu-defesa .banca .prof {
 	padding-top: 0.5em !important;
 }
-
 .visu-defesa .banca .titulo {
 	margin-left: 1.5em;
 }
-
 .cadastro-defesa .horalocal {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 }
-
 .cadastro-defesa form .nome, .cadastro-defesa form .titulo {
 	display: flex;
 	flex-direction: column;
 }
-
 #datepicker, .ui-datepicker {
 	width: 90% !important;
 	text-align: center;
 	margin: 0 auto;
 }
-
 .ui-datepicker td span, .ui-datepicker td a {
 	text-align: center;
 }
-
 .ui-datepicker th {
 	padding: .135em;
 }
-
 .ui-datepicker-month, .ui-datepicker-year {
 	font-size: 0.8em;
 	line-height: 1em;
 }
-
 .ui-widget-content .ui-state-default {
 	background: #b3b3b3
 		url('../../static/images/ui-bg_glass_75_e6e6e6_1x400.png') 50% 50%
 		repeat-x;
 }
-
 .ui-state-default.ui-state-active {
 	background: white
 		url('../..;/static/images/ui-bg_glass_75_e6e6e6_1x400.png') 50% 50%
@@ -306,7 +435,7 @@
 
 <body>
 	<section class="main-content" layout:fragment="content">
-		<div id="wrap" class="container" style="max-width: 1200px !important">
+		<div id="wrap" class="container" style="max-width: 1600px !important">
 			<div class="defesa container"
 				style="max-width: 1600px !important; background-color: #e5e5e5; box-sizing: border-box !important; padding: 2em;">
 				<h3 style="text-align: center !important; font-size: 2em !important; margin: 1em auto 1em !important; box-sizing: border-box !important;">Agendamento
@@ -333,18 +462,32 @@
 								style="text-align: left !important; padding: 0 .5em !important;">
 
 								<div class="form-group offset-md-2 offset-sm-1">
+									<h6 style="text-align: left !important;">Curso</h6>
+									<div class="form-check row">
+										<input class="form-check-input" type="radio" name="cursos"
+											id="edital" value="1"> <label
+											class="form-check-label" for="avaliacao1"> Informática</label>
+									</div>
+									<div class="form-check row">
+										<input class="form-check-input" type="radio" name="cursos"
+											id="edital" value="2"> <label
+											class="form-check-label" for="avaliacao1"> Ciência da Computação</label>
+									</div>
+								</div>
+								<div class="form-group offset-md-2 offset-sm-1">
+									
+									<h6 style="text-align: left !important;">Documento</h6>
 									<div class="form-check row">
 										<input class="form-check-input" type="radio" name="options"
 											id="edital" value="1"> <label
 											class="form-check-label" for="avaliacao1"> Edital de
-											defesa</label>
+											defesas</label>
 									</div>
 									<div class="form-check row">
 										<input class="form-check-input" type="radio" name="options"
 											id="ataDefesa" value="2"> <label
 											class="form-check-label" for="avaliacao2"> Ata de
 											defesa</label>
-
 									</div>
 								</div>
 								<select style="margin: 0 1em !important; width: 85%;"
@@ -366,9 +509,11 @@
 					</div>
 					<div class="jumbotron col-lg-9 defesas-detalhe"
 						style="box-sizing: border-box !important; background-color: #eceff5 !important; padding: 2em 1em !important; border-radius: 5px !important; width: 100% !important;">
-						<h5
+						<h5 th:if="${#lists.isEmpty(dataPesquisa)}"
 							style="font-size: 1.5em !important; padding-bottom: .5em !important;">Próximas
 							defesas</h5>
+						<h5 th:if="${not #lists.isEmpty(dataPesquisa)}" th:text="${dataPesquisa}"
+							style="font-size: 1.5em !important; padding-bottom: .5em !important;"></h5>
 						<table id="tabela_defesas"
 							class="table table-hover table-striped table-bordered table-click"
 							style="display: flex !important; align-items: center !important; width: 100% !important; flex-direction: column;">
