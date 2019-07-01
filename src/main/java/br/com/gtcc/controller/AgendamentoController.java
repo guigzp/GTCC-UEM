@@ -413,8 +413,8 @@ public class AgendamentoController {
    		String[] data1 = dataDefesa.split("\\s");
    		String[] data2 = dataEntregaFinal.split("\\s");
    		
-   		dataDefesa = data1[0] + " de " + data1[1] + " de " + data1[2];
-   		dataEntregaFinal = data2[0] + " de " + data2[1] + " de " + data2[2];
+   		dataDefesa = data1[0] + " de " + data1[1].toLowerCase() + " de " + data1[2];
+   		dataEntregaFinal = data2[0] + " de " + data2[1].toLowerCase() + " de " + data2[2];
    		String local = "";
    		
    		String[] local1 = agendamento.getLocal().split("\\s");
