@@ -257,7 +257,7 @@
 		  			}
 		        }else{
 		        	if([[${param.tipo}]]=="1"){
-		        		alertify.error('Nenhuma opção selecionada!');
+		        		alertify.error('Opção não selecionada!');
 		        	}else if([[${param.tipo}]]=="2"){
 		        		alertify.error('Erro ao gerar PDF!');
 		        	}
@@ -462,18 +462,32 @@
 								style="text-align: left !important; padding: 0 .5em !important;">
 
 								<div class="form-group offset-md-2 offset-sm-1">
+									<h6 style="text-align: left !important;">Curso</h6>
+									<div class="form-check row">
+										<input class="form-check-input" type="radio" name="cursos"
+											id="edital" value="1"> <label
+											class="form-check-label" for="avaliacao1"> Informática</label>
+									</div>
+									<div class="form-check row">
+										<input class="form-check-input" type="radio" name="cursos"
+											id="edital" value="2"> <label
+											class="form-check-label" for="avaliacao1"> Ciência da Computação</label>
+									</div>
+								</div>
+								<div class="form-group offset-md-2 offset-sm-1">
+									
+									<h6 style="text-align: left !important;">Documento</h6>
 									<div class="form-check row">
 										<input class="form-check-input" type="radio" name="options"
 											id="edital" value="1"> <label
 											class="form-check-label" for="avaliacao1"> Edital de
-											defesa</label>
+											defesas</label>
 									</div>
 									<div class="form-check row">
 										<input class="form-check-input" type="radio" name="options"
 											id="ataDefesa" value="2"> <label
 											class="form-check-label" for="avaliacao2"> Ata de
 											defesa</label>
-
 									</div>
 								</div>
 								<select style="margin: 0 1em !important; width: 85%;"
@@ -495,9 +509,11 @@
 					</div>
 					<div class="jumbotron col-lg-9 defesas-detalhe"
 						style="box-sizing: border-box !important; background-color: #eceff5 !important; padding: 2em 1em !important; border-radius: 5px !important; width: 100% !important;">
-						<h5
+						<h5 th:if="${#lists.isEmpty(dataPesquisa)}"
 							style="font-size: 1.5em !important; padding-bottom: .5em !important;">Próximas
 							defesas</h5>
+						<h5 th:if="${not #lists.isEmpty(dataPesquisa)}" th:text="${dataPesquisa}"
+							style="font-size: 1.5em !important; padding-bottom: .5em !important;"></h5>
 						<table id="tabela_defesas"
 							class="table table-hover table-striped table-bordered table-click"
 							style="display: flex !important; align-items: center !important; width: 100% !important; flex-direction: column;">
