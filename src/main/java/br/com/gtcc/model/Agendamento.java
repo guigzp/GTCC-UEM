@@ -48,7 +48,10 @@ public class Agendamento {
     @Column(nullable = false, columnDefinition = "int(1) default 1")
 	private int ativo;
     
-    @Column(nullable = true)
+    @Column(nullable = false, columnDefinition = "int(1) default 0")
+	private int apresentado;
+    
+	@Column(nullable = true)
     @NotNull(message = "Ano é uma informação obrigatória")
     private int ano;
     
@@ -102,7 +105,14 @@ public class Agendamento {
 	public void setAtivo(int ativo) {
 		this.ativo = ativo;
 	}
-    
+	
+	 public int getApresentado() {
+			return apresentado;
+	}
+
+	public void setApresentado(int apresentado) {
+		this.apresentado = apresentado;
+	}
     
 	public int getAno() {
 		return ano;

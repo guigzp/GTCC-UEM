@@ -11,14 +11,45 @@
 		<div id="wrap" class="container">
 			<div id="main">
 				<div class="jumbotron">
-					<div class="row justify-content-center">
-						<h3>Cadastro da Ficha de Identificação</h3>
+				<div th:if="${param.sucesso}">
+						<script th:inline="javascript">
+								var flagSucesso = [[${param.sucesso}]]; 
+								var flagEdicao = [[${param.edicao}]]; 
+							    window.onload = function() {
+							        if(flagSucesso){
+							  			alertify.success('Ficha de identificação cadastrada com sucesso!');
+							        }
+							        if(flagEdicao)
+							        {
+							        	alertify.success('Ficha de identificação editada com sucesso!');
+							        }
+								};
+						</script>
 					</div>
-					<hr />
+					
+					<div th:if="${param.edicao}">
+						<script th:inline="javascript"> 
+								var flagEdicao = [[${param.edicao}]]; 
+							    window.onload = function() {
+							        if(flagEdicao)
+							        {
+							        	alertify.success('Ficha de identificação editada com sucesso!');
+							        }
+								};
+						</script>
+					</div>
+					
+					
 					<form th:object="${ficha}"
 						th:action="@{/gtcc/fichaidentificacao/cadastrar}" method="POST"
 						class="form-default form-horizontal" name="form">
 
+						<div class="row justify-content-center">
+								<h3 th:if="${ficha.id == null}">Cadastro da Ficha de Identificação</h3>
+								<h3 th:if="${ficha.id != null}">Edição da Ficha de Identificação</h3>
+						</div>
+						<hr />
+						
 						<div class="form-group row justify-content-center">
 							<div class="input-group col-xl-10">
 								<label>* Esses campos são obrigatórios</label>
@@ -44,14 +75,13 @@
 
 						<input id="id" type="hidden" th:field="*{id}" value="${id}" />
 						<div class="form-group row justify-content-center">
-							<div class="field-wrapper col-xl-10">
+							<div class="form-group col-xl-10">
+								<label for="tituloTrabalho" class="col-form-label text-right">Título do Trabalho *</label>
 								<input type="text" name="tituloTrabalho" id="tituloTrabalho"
 									class="form-control" th:field="*{tituloTrabalho}"
 									autofocus="autofocus" aria-label="Título do Trabalho"
 									aria-describedby="basic-addon1">
-								<div class="field-placeholder">
-									<span>Título do Trabalho *</span>
-								</div>
+								
 							</div>
 						</div>
 
@@ -64,7 +94,7 @@
 						</div>
 
 						<div class="form-group row justify-content-center">
-							<div class="field-wrapper col-xl-10">
+							<div class="form-group col-xl-10">
 <!-- 								<input type="text" name="areaConcentracao" id="areaConcentracao" -->
 <!-- 									class="form-control" th:field="*{areaConcentracao}" -->
 <!-- 									aria-label="Area de concentração" -->
@@ -72,8 +102,9 @@
 <!-- 								<div class="field-placeholder"> -->
 <!-- 									<span>Area de concentração *</span> -->
 <!-- 								</div> -->
+							<label class="col-form-label text-right">Area de concentração *</label>
 							<select class="form-control" autofocus="autofocus" id="areaConcentracao"
-                                   aria-describedby="basic-addon1" th:field="*{areaConcentracao}" style="height: 60px;">
+                                   aria-describedby="basic-addon1" th:field="*{areaConcentracao}" >
                         		<option selected value=""> Selecione a area de concentração </option>
                         		<option value="Ciência da Computação"> Ciência da Computação </option>
                         		<option value="Informática"> Informática </option>
@@ -91,13 +122,11 @@
 
 						<div class="form-group row justify-content-center">
 
-							<div class="field-wrapper col-xl-4">
+							<div class="form-group col-xl-4">
+								<label class="col-form-label text-right">Ano *</label>
 								<input type="number" name="ano" id="ano" class="form-control"
 									th:field="*{ano}" aria-label="Ano"
 									aria-describedby="basic-addon1">
-								<div class="field-placeholder">
-									<span>Ano *</span>
-								</div>
 							</div>
 
 							<div class="input-group col-xl-6"></div>
@@ -112,8 +141,9 @@
 						</div>
 
 						<div class="form-group row justify-content-center">
-							<div class="input-group col-xl-10">
-								<select th:field="*{aluno}" class="form-control" style="height: 60px;">
+							<div class="form-group col-xl-10">
+								<label class="col-form-label text-right">Aluno *</label>
+								<select th:field="*{aluno}" class="form-control">
 									<option value="">Selecione o Aluno</option>
 									<option th:each="aluno : ${alunos}"
 										th:value="${aluno.idUsuario}" th:text="${aluno.nome}"></option>
@@ -129,8 +159,9 @@
 						</div>
 
 						<div class="form-group row justify-content-center">
-							<div class="input-group col-xl-10">
-								<select th:field="*{orientador}" class="form-control" style="height: 60px;">
+							<div class="form-group col-xl-10">
+							<label class="col-form-label text-right">Orientador *</label>
+								<select th:field="*{orientador}" class="form-control" >
 									<option value="">Selecione o Orientador</option>
 									<option th:each="orientador : ${professores}"
 										th:value="${orientador.idProfessor}"
@@ -148,8 +179,9 @@
 						</div>
 
 						<div class="form-group row justify-content-center">
-							<div class="input-group col-xl-10">
-								<select th:field="*{avaliador1}" class="form-control" style="height: 60px;">
+							<div class="form-group col-xl-10">
+								<label class="col-form-label text-right">1° Avaliador *</label>
+								<select th:field="*{avaliador1}" class="form-control" >
 									<option value="">Selecione o 1° Avaliador</option>
 									<option th:each="avaliador : ${professores}"
 										th:value="${avaliador.idProfessor}"
@@ -167,8 +199,9 @@
 						</div>
 
 						<div class="form-group row justify-content-center">
-							<div class="input-group col-xl-10">
-								<select th:field="*{avaliador2}" class="form-control" style="height: 60px;">
+							<div class="form-group col-xl-10">
+								<label class="col-form-label text-right">2° Avaliador *</label>
+								<select th:field="*{avaliador2}" class="form-control">
 									<option value="">Selecione o 2° Avaliador</option>
 									<option th:each="avaliador : ${professores}"
 										th:value="${avaliador.idProfessor}"
