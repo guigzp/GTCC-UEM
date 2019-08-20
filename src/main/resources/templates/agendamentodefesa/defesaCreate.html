@@ -28,41 +28,33 @@
 <title>GTCC</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-
-		document.addEventListener('DOMContentLoaded', function () {
-			(function () {
-				var just_stop;
-
-				$('#datepicker').datepicker();
-
-				window.clone_out = function (subject) {
-					var $subject;
-					$subject = $(subject);
-					$($subject.html()).appendTo('body');
-					$subject.remove();
-					return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-				};
-
-				window.stop_it = function (e) {
-					console.log('hey', this);
-					$(this).toggleClass('ui-state-active');
-					//e.preventDefault()
-					e.stopPropagation();
-					return false;
-				};
-
-				just_stop = function (e) {
-					e.stopPropagation();
-					return false;
-				};
-
-				$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
-
-				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-
-			}).call(this);
-		}, false);
-		
+$(function() {
+    var mes, ano, dia;
+    $("#datepicker").datepicker({
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    })
+    $(this).each(function() {
+    	 $("td").click(function(){
+    		 $(this).each(function() {
+    			console.log('hey', this);
+    			$(this).toggleClass('ui-state-active');
+    			$(this).attr('data-target', '.bd-example-modal-lg');
+    			$(this).attr('data-toggle', 'modal');
+    			$('.bd-example-modal-lg').modal('toggle');
+    			
+    			mes = $(this).parent('td').attr('data-month');
+    			ano = $(this).parent('td').attr('data-year');
+    			dia = $(this).text();
+    		 });
+    	  });
+    });
+   
+});
 </script>
 
 <script  th:inline="javascript">
@@ -133,7 +125,7 @@
 								</div>
 							</div>
 							<div class="input-group">
-								<div class="form-row">
+								<div class="form-row" style="width: 100%;">
 									<div class="field-wrapper col">
 										<input type="text" name="dataDefesa" id="dataDefesa"
 											class="form-control" th:field="*{dataDefesa}"

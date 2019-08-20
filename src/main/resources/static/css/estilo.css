@@ -136,8 +136,7 @@ html, body{
         .field-wrapper input:not([disabled]):focus~.field-placeholder,
         .field-wrapper.hasValue input:not([disabled])~.field-placeholder
         {
-            -webkit-transform: scale(.75) translateY(-39px) translateX(-60px);
-            transform: scale(.75) translateY(-39px) translateX(-60px);
+            transform: scale(.75) translateY(-39px) translateX(-20%);
             
         } 
         

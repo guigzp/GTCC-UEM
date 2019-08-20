@@ -31,109 +31,33 @@
 			var agendamentoLista= [[${agendamentoLista}]];
 		</script>
 <script>
-
-	document.addEventListener('DOMContentLoaded', function() {
-		(function () {
-			var just_stop;
-			var mes, ano, dia;
-			$('#datepicker').datepicker();
-							
-			window.clone_out = function (subject) {
-				var $subject;
-				$subject = $(subject);
-				$($subject.html()).appendTo('body');
-				$subject.remove();
-				console.log('hey', this);
-				$(this).toggleClass('ui-state-active');
-				$(this).attr('data-target', '.bd-example-modal-lg');
-				$(this).attr('data-toggle', 'modal');
-				$('.bd-example-modal-lg').modal('toggle');
-				
-				mes = $(this).parent('td').attr('data-month');
-				ano = $(this).parent('td').attr('data-year');
-				dia = $(this).text();
-				
-				mes = parseInt(mes) + 1;
-				
-				console.log(dia + "-" + mes + "-" + ano);
-				if(dia < 10){
-					dia = "0" + dia;
-				}
-				if(mes < 10){
-					mes = "0" + mes;
-				}
-				var datadefesa = ano+'-0'+mes+'-'+dia;
-				
-				
-				
-				return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-			};
-			window.stop_it = function (e) {
-				console.log('hey', this);
-				$(this).toggleClass('ui-state-active');
-				$(this).attr('data-target', '.bd-example-modal-lg');
-				$(this).attr('data-toggle', 'modal');
-				$('.bd-example-modal-lg').modal('toggle');
-				
-				mes = $(this).parent('td').attr('data-month');
-				ano = $(this).parent('td').attr('data-year');
-				dia = $(this).text();
-				
-				mes = parseInt(mes) + 1;
-				
-				console.log(dia + "-" + mes + "-" + ano);
-				
-				if(dia < 10){
-					dia = "0" + dia;
-				}
-				if(mes < 10){
-					mes = "0" + mes;
-				}
-				
-				var datadefesa = ano+'-'+mes+'-'+dia;
-				
-				console.log(agendamentoLista);
-				var i;
-				var agendamentosLista = [];
-				for(i of agendamentoLista){
-					if(i.dataDefesa == datadefesa){
-						agendamentosLista.push(i);
-					}
-				}
-				//e.preventDefault()
-				e.stopPropagation();
-				return false;
-			};
-			just_stop = function (e) {
-				console.log('hey', this);
-				$(this).toggleClass('ui-state-active');
-				$(this).attr('data-target', '.bd-example-modal-lg');
-				$(this).attr('data-toggle', 'modal');
-				$('.bd-example-modal-lg').modal('toggle');
-				
-				mes = $(this).parent('td').attr('data-month');
-				ano = $(this).parent('td').attr('data-year');
-				dia = $(this).text();
-				
-				mes = parseInt(mes) + 1;
-				
-				console.log(dia + "-" + mes + "-" + ano);
-				
-				if(dia < 10){
-					dia = "0" + dia;
-				}
-				if(mes < 10){
-					mes = "0" + mes;
-				}
-				
-				var datadefesa = ano+'-'+mes+'-'+dia;
-				
-			};
-			$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
-			$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-		}).call(this);
-	}, false);
-	
+$(function() {
+    var mes, ano, dia;
+    $("#datepicker").datepicker({
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    })
+    $(this).each(function() {
+    	 $("td").click(function(){
+    		 $(this).each(function() {
+    			console.log('hey', this);
+    			$(this).toggleClass('ui-state-active');
+    			$(this).attr('data-target', '.bd-example-modal-lg');
+    			$(this).attr('data-toggle', 'modal');
+    			$('.bd-example-modal-lg').modal('toggle');
+    			
+    			mes = $(this).parent('td').attr('data-month');
+    			ano = $(this).parent('td').attr('data-year');
+    			dia = $(this).text();
+    		 });
+    	  });
+    });
+   
+});
 </script>
 
 <script th:inline="javascript">
@@ -206,7 +130,7 @@
 								</div>
 							</div>
 							<div class="input-group">
-								<div class="form-row">
+								<div class="form-row" style="width: 100%;">
 									<div class="field-wrapper col">
 										<input type="text" name="dataDefesa" id="dataDefesa"
 											class="form-control" th:field="*{dataDefesa}"
