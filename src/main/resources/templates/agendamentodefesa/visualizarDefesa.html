@@ -207,6 +207,66 @@ $(function() {
 							</div>
 						</div>
 					</div>
+					
+					<!-- Modal data defesa -->
+					<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-lg">
+					    <div class="modal-content">
+					            <div class="modal-header">
+					                <h5 class="modal-title" id="defesaModalLabel">Defesa</h5>
+					            </div>
+					            <div class="modal-body">
+					                <table id="tabela_defesas" class="table table-hover table-striped table-bordered table-click"
+					                    style="display: flex !important;align-items: center !important;width: 100% !important;flex-direction:column;">
+					
+					                    <thead
+					                        style="width: 100% !important; display:flex; justify-content: space-between; background-color: #fff !important; border:none; border-radius: 5px !important;padding: 1em !important;">
+					                        <tr style="width: 100% !important; display:flex; justify-content: space-between;">
+					                            <th style="padding-left: 0.25em !important;border:none;  font-size:1.05em" class="">Data
+					                            </th>
+					                            <th style="padding-left: 0.25em !important;border:none;  font-size:1.05em" class="">
+					                                Orientando</th>
+					                            <th style="padding-left: 0.25em !important;border:none;  font-size:1.05em" class="">Horário
+					                            </th>
+					                            <th style="padding-left: 0.25em !important;border:none; font-size:1.05em" class="">Local
+					                            </th>
+					                            <th style="padding-left: 0.25em !important;border:none; font-size:1.05em" class="">Ações
+					                            </th>
+					                        </tr>
+					                    </thead>
+					
+					                    <tbody style="width:100%">
+					                        <tr th:if="${not #lists.isEmpty(agendamentos)}" th:each="agendamento : ${agendamentos}">
+					                            <td width="15%" th:text="${#temporals.format(agendamento.dataDefesa, 'dd/MM/yyyy')}"></td>
+					                            <td width="30%"th:text="${agendamento.fichaIdentificacao.aluno.nome}"></td>
+					                            <td width="20%" style="text-align:left !important; padding: 0.75rem 2.75em !important;" th:text="${agendamento.horario}"></td>
+					                            <td width="20%" style="text-align:center !important;"th:text="${agendamento.local}"></td>
+					                            <td width="15%">
+					                                <div class="btn-group pull-right">
+					                                    <a class="btn btn-sm btn-warning"
+					                                        th:href="@{/gtcc/agendamentodefesa/detalhes/{id}(id=${agendamento.id})}">Detalhes</a>
+					                                    <a class="btn btn-sm btn-primary"
+					                                        th:href="@{/gtcc/agendamentodefesa/editar/{id}(id=${agendamento.id})}">Editar</a>
+					                                </div>
+					                            </td>
+					                        </tr>
+					                        <tr th:if="${#lists.isEmpty(agendamentos)}">
+					                            <td colspan="6">
+					                                <div class="alert alert-info" style="background-color: #f1f3f5;" role="alert">
+					                                    Nenhuma defesa cadastrada encontrada.
+					                                </div> 
+					                            </td>
+					                        </tr>
+					                    </tbody>
+					                    <tfoot> </tfoot>
+					                </table>
+					            </div>
+					            <div class="modal-footer">
+					                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sair</button>
+					            </div>
+					        </div>
+					    </div>
+					</div>
 				</div>
 			</div>
 		</div>
