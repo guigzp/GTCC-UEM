@@ -28,112 +28,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script th:inline="javascript">
-			var agendamentoLista= [[${agendamentoLista}]];
+			var agendamentosLista= [[${agendamentoLista}]];
 		</script>
 <script>
-
-	document.addEventListener('DOMContentLoaded', function() {
-		(function () {
-			var just_stop;
-			var mes, ano, dia;
-			$('#datepicker').datepicker();
-							
-			window.clone_out = function (subject) {
-				var $subject;
-				$subject = $(subject);
-				$($subject.html()).appendTo('body');
-				$subject.remove();
-				console.log('hey', this);
-				$(this).toggleClass('ui-state-active');
-				$(this).attr('data-target', '.bd-example-modal-lg');
-				$(this).attr('data-toggle', 'modal');
-				$('.bd-example-modal-lg').modal('toggle');
-				
-				mes = $(this).parent('td').attr('data-month');
-				ano = $(this).parent('td').attr('data-year');
-				dia = $(this).text();
-				
-				mes = parseInt(mes) + 1;
-				
-				console.log(dia + "-" + mes + "-" + ano);
-				if(dia < 10){
-					dia = "0" + dia;
-				}
-				if(mes < 10){
-					mes = "0" + mes;
-				}
-				var datadefesa = ano+'-0'+mes+'-'+dia;
-				
-				
-				
-				return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-			};
-			window.stop_it = function (e) {
-				console.log('hey', this);
-				$(this).toggleClass('ui-state-active');
-				$(this).attr('data-target', '.bd-example-modal-lg');
-				$(this).attr('data-toggle', 'modal');
-				$('.bd-example-modal-lg').modal('toggle');
-				
-				mes = $(this).parent('td').attr('data-month');
-				ano = $(this).parent('td').attr('data-year');
-				dia = $(this).text();
-				
-				mes = parseInt(mes) + 1;
-				
-				console.log(dia + "-" + mes + "-" + ano);
-				
-				if(dia < 10){
-					dia = "0" + dia;
-				}
-				if(mes < 10){
-					mes = "0" + mes;
-				}
-				
-				var datadefesa = ano+'-'+mes+'-'+dia;
-				
-				console.log(agendamentoLista);
-				var i;
-				var agendamentosLista = [];
-				for(i of agendamentoLista){
-					if(i.dataDefesa == datadefesa){
-						agendamentosLista.push(i);
-					}
-				}
-				//e.preventDefault()
-				e.stopPropagation();
-				return false;
-			};
-			just_stop = function (e) {
-				console.log('hey', this);
-				$(this).toggleClass('ui-state-active');
-				$(this).attr('data-target', '.bd-example-modal-lg');
-				$(this).attr('data-toggle', 'modal');
-				$('.bd-example-modal-lg').modal('toggle');
-				
-				mes = $(this).parent('td').attr('data-month');
-				ano = $(this).parent('td').attr('data-year');
-				dia = $(this).text();
-				
-				mes = parseInt(mes) + 1;
-				
-				console.log(dia + "-" + mes + "-" + ano);
-				
-				if(dia < 10){
-					dia = "0" + dia;
-				}
-				if(mes < 10){
-					mes = "0" + mes;
-				}
-				
-				var datadefesa = ano+'-'+mes+'-'+dia;
-				
-			};
-			$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
-			$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-		}).call(this);
-	}, false);
-	
+$(function() {
+    var mes, ano, dia;
+    $("#datepicker").datepicker({
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    })
+    $(this).each(function() {
+    	 $("td").click(function(){
+    		 $(this).each(function() {
+    			console.log('hey', this);
+    			$(this).toggleClass('ui-state-active');
+    			$(this).attr('data-target', '.bd-example-modal-lg');
+    			$(this).attr('data-toggle', 'modal');
+    			$('.bd-example-modal-lg').modal('toggle');
+    			
+    			mes = $(this).parent('td').attr('data-month');
+    			ano = $(this).parent('td').attr('data-year');
+    			dia = $(this).text();
+    		 });
+    	  });
+    });
+   
+});
 </script>
 
 <script th:inline="javascript">
@@ -195,8 +119,9 @@
 							<div class="form-group row justify-content-center">
 								<div class="field-wrapper controls col-sm-12 col-sm-12">
 									<input type="text" name="titulo" id="titulo"
-										class="form-control"
-										th:field="*{fichaIdentificacao.tituloTrabalho}">
+										class="form-control" th:field="*{fichaIdentificacao.tituloTrabalho}"
+										autofocus="autofocus" aria-label="Título do Trabalho"
+										aria-describedby="basic-addon1" >
 									<div class="field-placeholder">
 										<span>Título do trabalho*</span>
 									</div>
@@ -206,7 +131,7 @@
 								</div>
 							</div>
 							<div class="input-group">
-								<div class="form-row">
+								<div class="form-row" style="width: 100%;">
 									<div class="field-wrapper col">
 										<input type="text" name="dataDefesa" id="dataDefesa"
 											class="form-control" th:field="*{dataDefesa}"
@@ -362,7 +287,7 @@
 						                    </thead>
 						
 						                    <tbody style="width:100%">
-						                        <tr id="bodyModalTabela" th:if="${not #lists.isEmpty(agendamentosLista)}" th:each="agendamento : ${agendamentosLista}">
+						                        <tr id="bodyModalTabela" th:if="${not #lists.isEmpty(agendamentoLista)}" th:each="agendamento : ${agendamentoLista}">
 						                            <td width="15%" th:text="${#temporals.format(agendamento.dataDefesa, 'dd/MM/yyyy')}"></td>
 						                            <td width="30%"th:text="${agendamento.fichaIdentificacao.aluno.nome}"></td>
 						                            <td width="20%" style="text-align:left !important; padding: 0.75rem 2.75em !important;" th:text="${agendamento.horario}"></td>
@@ -376,7 +301,7 @@
 						                                </div>
 						                            </td>
 						                        </tr>
-						                        <tr th:if="${#lists.isEmpty(agendamentosLista)}">
+						                        <tr th:if="${#lists.isEmpty(agendamentoLista)}">
 						                            <td colspan="6">
 						                                <div class="alert alert-info" style="background-color: #f1f3f5;" role="alert">
 						                                    Nenhuma defesa cadastrada encontrada.
