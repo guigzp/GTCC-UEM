@@ -29,34 +29,57 @@
 	<subDataset name="Table Dataset 1" uuid="5a8661c4-f89c-461f-8df4-1a1045dac2ff">
 		<parameter name="Professor" class="java.lang.String"/>
 		<parameter name="Ano" class="java.lang.String"/>
+		<parameter name="IdProfessor" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[SELECT
-     agendamento.`ano` AS agendamento_ano,
-     ficha_identificacao.`orientador_id_professor` AS ficha_identificacao_orientador_id_professor,
-     agendamento.`data_defesa` AS agendamento_data_defesa,
-     professor.`nome` AS professor_nome,
+     usuario.`id_usuario` AS usuario_id_usuario,
+     usuario.`ativo` AS usuario_ativo,
+     usuario.`email` AS usuario_email,
+     usuario.`nome` AS usuario_nome,
+     usuario.`nome_usuario` AS usuario_nome_usuario,
+     usuario.`senha` AS usuario_senha,
+     usuario.`telefone` AS usuario_telefone,
+     ficha_identificacao.`id` AS ficha_identificacao_id,
+     ficha_identificacao.`ano` AS ficha_identificacao_ano,
+     ficha_identificacao.`area_concentracao` AS ficha_identificacao_area_concentracao,
      ficha_identificacao.`titulo_trabalho` AS ficha_identificacao_titulo_trabalho,
-     usuario.`nome` AS usuario_nome
+     ficha_identificacao.`aluno_id_usuario` AS ficha_identificacao_aluno_id_usuario,
+     ficha_identificacao.`avaliador1_id_professor` AS ficha_identificacao_avaliador1_id_professor,
+     ficha_identificacao.`avaliador2_id_professor` AS ficha_identificacao_avaliador2_id_professor,
+     ficha_identificacao.`orientador_id_professor` AS ficha_identificacao_orientador_id_professor,
+     aluno.`curso` AS aluno_curso,
+     aluno.`ra` AS aluno_ra,
+     aluno.`id_usuario` AS aluno_id_usuario
 FROM
-     `ficha_identificacao` ficha_identificacao INNER JOIN `agendamento` agendamento ON ficha_identificacao.`id` = agendamento.`ficha_identificacao_id`
-     INNER JOIN `professor` professor ON ficha_identificacao.`avaliador2_id_professor` = professor.`id_professor`
-     AND professor.`id_professor` = ficha_identificacao.`orientador_id_professor`
-     AND professor.`id_professor` = ficha_identificacao.`avaliador1_id_professor`
-     INNER JOIN `aluno` aluno ON ficha_identificacao.`aluno_id_usuario` = aluno.`id_usuario`
-     INNER JOIN `usuario` usuario ON aluno.`id_usuario` = usuario.`id_usuario`]]>
+     `usuario` usuario INNER JOIN `aluno` aluno ON usuario.`id_usuario` = aluno.`id_usuario`
+     INNER JOIN `ficha_identificacao` ficha_identificacao ON aluno.`id_usuario` = ficha_identificacao.`aluno_id_usuario`
+WHERE $P{IdProfessor} = ficha_identificacao.`orientador_id_professor`]]>
 		</queryString>
-		<field name="agendamento_ano" class="java.lang.Integer"/>
-		<field name="ficha_identificacao_orientador_id_professor" class="java.lang.Long"/>
-		<field name="agendamento_data_defesa" class="java.sql.Date"/>
-		<field name="professor_nome" class="java.lang.String"/>
-		<field name="ficha_identificacao_titulo_trabalho" class="java.lang.String"/>
+		<field name="usuario_id_usuario" class="java.lang.Long"/>
+		<field name="usuario_ativo" class="java.lang.Integer"/>
+		<field name="usuario_email" class="java.lang.String"/>
 		<field name="usuario_nome" class="java.lang.String"/>
+		<field name="usuario_nome_usuario" class="java.lang.String"/>
+		<field name="usuario_senha" class="java.lang.String"/>
+		<field name="usuario_telefone" class="java.lang.String"/>
+		<field name="ficha_identificacao_id" class="java.lang.Long"/>
+		<field name="ficha_identificacao_ano" class="java.lang.Integer"/>
+		<field name="ficha_identificacao_area_concentracao" class="java.lang.String"/>
+		<field name="ficha_identificacao_titulo_trabalho" class="java.lang.String"/>
+		<field name="ficha_identificacao_aluno_id_usuario" class="java.lang.Long"/>
+		<field name="ficha_identificacao_avaliador1_id_professor" class="java.lang.Long"/>
+		<field name="ficha_identificacao_avaliador2_id_professor" class="java.lang.Long"/>
+		<field name="ficha_identificacao_orientador_id_professor" class="java.lang.Long"/>
+		<field name="aluno_curso" class="java.lang.String"/>
+		<field name="aluno_ra" class="java.lang.Integer"/>
+		<field name="aluno_id_usuario" class="java.lang.Long"/>
 	</subDataset>
 	<parameter name="NomeCurso" class="java.lang.String"/>
 	<parameter name="Professor" class="java.lang.String"/>
 	<parameter name="Ano" class="java.lang.String"/>
 	<parameter name="Data" class="java.lang.String"/>
 	<parameter name="CoordenadorCurso" class="java.lang.String"/>
+	<parameter name="IdProfessor" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -77,7 +100,7 @@ FROM
 				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA["UNIVERSIDADE ESTADUAL DE MARINGÁ"]]></text>
+				<text><![CDATA[UNIVERSIDADE ESTADUAL DE MARINGÁ]]></text>
 			</staticText>
 			<image>
 				<reportElement x="481" y="15" width="74" height="43" uuid="9894aa69-acc8-416f-b135-a46e199938a2"/>
@@ -133,12 +156,15 @@ FROM
 			<componentElement>
 				<reportElement key="table" style="table" x="13" y="112" width="531" height="82" uuid="51e4a850-53f3-47b4-8d6f-b84cd6f04ac0"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 1" uuid="c996c9b7-2367-4439-9d5e-479a65d1d710">
+					<datasetRun subDataset="Table Dataset 1" uuid="47f4aa54-1f9e-4662-a3d8-cf48c84d265d">
 						<datasetParameter name="Professor">
 							<datasetParameterExpression><![CDATA[$P{Professor}]]></datasetParameterExpression>
 						</datasetParameter>
 						<datasetParameter name="Ano">
 							<datasetParameterExpression><![CDATA[$P{Ano}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="IdProfessor">
+							<datasetParameterExpression><![CDATA[$P{IdProfessor}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
