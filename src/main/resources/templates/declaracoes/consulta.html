@@ -19,30 +19,41 @@
 
 					<form class="form-default form-horizontal">
 						<div class="form-group row justify-content-center">
-							<div class="field-wrapper col-xl-6">
-								<input type="text" name="nomePesquisa" id="nomePesquisa"
-									class="form-control"
-									aria-label="Título do Trabalho" aria-describedby="basic-addon1">
-								<div class="field-placeholder">
-									<span>Nome</span>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="nomePesquisa" class="col-form-label text-right">Nome</label>
+									<div class="controls">
+										<input type="text" name="nomePesquisa" id="nomePesquisa"
+											class="form-control"
+											aria-label="Título do Trabalho" aria-describedby="basic-addon1">
+									</div>
+								</div>
+							</div>
+							<div class="col-2">
+								<div class="form-group">
+									<label for="anoTrabalho" class="col-form-label text-right">Ano</label>
+									<div class="controls">
+										<input type="number" name="anoTrabalho" id="anoTrabalho"
+										class="form-control"
+										aria-label="Título do Trabalho" aria-describedby="basic-addon1">
+									</div>
+								</div>
+							</div>
+							<div class="col-2">
+								<div class="form-group">
+									<label for="anoTrabalho" class="col-form-label text-right"></label>
+									<div class="controls">
+										<div class="btn btn-outline-secondary"
+										style="height: 50px;">
+										<span class="fa fa-search"></span> Pesquisar
+									</div>
+								</div>
 								</div>
 							</div>
 							
-							<div class="field-wrapper col-xl-2">
-								<input type="number" name="anoTrabalho" id="anoTrabalho"
-									class="form-control"
-									aria-label="Título do Trabalho" aria-describedby="basic-addon1">
-								<div class="field-placeholder">
-									<span>Ano</span>
-								</div>
-							</div>
 							
-							<div class="input-group search col-xl-2">
-								<div class="btn btn-outline-secondary"
-									style="height: 60px;">
-									<span class="fa fa-search"></span> Pesquisar
-								</div>
-							</div>
+							
+							
 							
 							
 							<div id="nome" class="form-group offset-md-8" style="margin-left: 0; margin-right: 70%">

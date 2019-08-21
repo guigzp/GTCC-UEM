@@ -22,60 +22,59 @@
                 <form th:object="${professor}" th:action="@{/gtcc/professor/cadastrar}" method="POST" autocomplete="off"
                       class="form-default form-horizontal" name="form">
 
+					<div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<label for="nome" class="col-form-label text-right">Nome Completo*</label>
+									<div class="controls">
+										<input type="text" name="nome" id="nome" class="form-control"
+											autofocus="autofocus" th:field="*{nome}" />
+										<div style="color: red;" th:if="${#fields.hasErrors('nome')}"
+											th:errors="*{nome}"></div>
+									</div>
+								</div>
+							</div>
+					</div>
+                    <div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<label for="email" class="col-form-label text-right">Email*</label>
+									<div class="controls">
+										<input type="text" name="email" id="email" class="form-control"
+											autofocus="autofocus" th:field="*{email}" />
+										<div style="color: red;" th:if="${#fields.hasErrors('email')}"
+											th:errors="*{email}"></div>
+									</div>
+								</div>
+							</div>
+					</div>
+ 
+ 					 <div class="row justify-content-center">
+							<div class="col-8">
+								<div class="form-group">
+									<div class="controls">
+										<select class="form-control" onchange="showMe()" autofocus="autofocus" id="cursoI"
+			                                   aria-describedby="basic-addon1" disabled th:field="*{curso}">
+			                        		<option selected value=""> Curso* </option>
+			                        		<option value="Ciência da Computação"> Ciência da Computação </option>
+			                        		<option value="Informática"> Informática </option>
+			                        	</select>
+										<div style="color: red;" th:if="${#fields.hasErrors('curso')}"
+											th:errors="*{curso}"></div>
+									</div>
+								</div>
+							</div>
+					</div>
+                   
 
                     <div class="form-group row justify-content-center">
-                        <div class="field-wrapper col-xl-5">
-                            <input type="text" name="nome"
-                                   id="nome" class="form-control"
-                                   th:field="*{nome}" autofocus="autofocus"aria-label="Professor"
-                                   aria-describedby="basic-addon1">
-                            <div class="field-placeholder"><span>Nome Completo*</span></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
-                        <div style="color: red" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
-                        </div>
-                    </div>
-                    
-                    
-                    <div class="form-group row justify-content-center">
-                        <div class="field-wrapper col-xl-5">
-                            <input type="text" name="email"
-                                   id="email" class="form-control"
-                                   th:field="*{email}" autofocus="autofocus" aria-label="E-mail"
-                                   aria-describedby="basic-addon1">
-                            <div class="field-placeholder"><span>E-mail*</span></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
-                            <div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group row justify-content-center" id="curso" name="curso">
-                        <div class="field-wrapper col-xl-5">
-                        	<select class="form-control" onchange="showMe()" autofocus="autofocus" id="cursoI"
-                                   aria-describedby="basic-addon1" disabled th:field="*{curso}">
-                        		<option selected value=""> Curso* </option>
-                        		<option value="Ciência da Computação"> Ciência da Computação </option>
-                        		<option value="Informática"> Informática </option>
-                        	</select>
-                                                                                   
-                        </div>
-                    </div>
-
-                    <div class="form-group row justify-content-center">
-                        <div class="input-group col-xl-5">
+                        <div class="input-group col-8">
                             <label style="margin-bottom: 0px;">Tipo de Professor *</label>
                         </div>
                     </div>
 
 
-                    <div class="form-group offset-md-4 offset-sm-1">
+                    <div class="form-group offset-md-3 offset-sm-1">
                         <div class="form-check row">
                             <input class="form-check-input" th:field="*{coordenador}" onclick="showMe()" type="checkbox" name="coordenador" id="coordenador" value="1">
                             <label class="form-check-label" for="coordenador">

@@ -126,41 +126,45 @@ $(function() {
 							</div>
 							<div class="input-group">
 								<div class="form-row" style="width: 100%;">
-									<div class="field-wrapper col">
-										<input type="text" name="dataDefesa" id="dataDefesa"
-											class="form-control" th:field="*{dataDefesa}"
-											autofocus="autofocus" placeholder="01/01/2010"
-											aria-label="Data de defesa" aria-describedby="basic-addon1"
-											data-mask="00/00/0000" />
-										<div class="field-placeholder">
-											<span>Data de defesa*</span>
+									<div class="col">
+										<div class="form-group">
+											<label for="dataDefesa" class="col-form-label text-right">Data</label>
+											<div class="controls">
+												<input type="text" name="dataDefesa" id="dataDefesa"
+													class="form-control" th:field="*{dataDefesa}"
+													autofocus="autofocus" placeholder="01/01/2010"
+													aria-label="Data de defesa" aria-describedby="basic-addon1"
+													data-mask="00/00/0000" />
+												<div style="color: red;" th:if="${#fields.hasErrors('dataDefesa')}"
+													th:errors="*{dataDefesa}"></div>
+											</div>
 										</div>
-										<div style="color: red;"
-											th:if="${#fields.hasErrors('dataDefesa')}"
-											th:errors="*{dataDefesa}"></div>
 									</div>
-									<div class="field-wrapper col">
-										<input type="text" name="horario" id="horario"
-											class="form-control" th:field="*{horario}"
-											autofocus="autofocus" placeholder="12h00m"
-											aria-label="Horario" aria-describedby="basic-addon1" />
-										<div class="field-placeholder">
-											<span>Horário*</span>
+									<div class="col">
+										<div class="form-group">
+											<label for="horario" class="col-form-label text-right">Horário</label>
+											<div class="controls">
+												<input type="text" name="horario" id="horario"
+													class="form-control" th:field="*{horario}"
+													autofocus="autofocus" placeholder="12h00m"
+													aria-label="Horario" aria-describedby="basic-addon1" />
+												<div style="color: red;" th:if="${#fields.hasErrors('horario')}"
+													th:errors="*{horario}"></div>
+											</div>
 										</div>
-										<div style="color: red;"
-											th:if="${#fields.hasErrors('horario')}"
-											th:errors="*{horario}"></div>
 									</div>
-									<div class="field-wrapper col">
-										<input type="text" name="local" th:field="*{local}" id="local"
-											class="form-control" autofocus="autofocus"
-											placeholder="Local*" aria-label="Local"
-											aria-describedby="basic-addon1" />
-										<div class="field-placeholder">
-											<span>Local*</span>
+									<div class="col">
+										<div class="form-group">
+											<label for="local" class="col-form-label text-right">Horário</label>
+											<div class="controls">
+												<input type="text" name="local" th:field="*{local}" id="local"
+													class="form-control" autofocus="autofocus"
+													placeholder="Local*" aria-label="Local"
+													aria-describedby="basic-addon1" />
+												<div style="color: red;" th:if="${#fields.hasErrors('local')}"
+													th:errors="*{local}"></div>
+											</div>
 										</div>
-										<div style="color: red;" th:if="${#fields.hasErrors('local')}"
-											th:errors="*{local}"></div>
 									</div>
 								</div>
 							</div>
