@@ -191,6 +191,7 @@ public class DeclaracaoParticipanteController {
 		
 		
 		if(dec.getOrientador()) {
+			System.out.println(dec.getOrientador());
 			parametros.put("IdProfessor", dec.getIdProfessor().toString());
 			if(!professorRepository.findByCurso("Informática").isEmpty()) {
 				parametros.put("CoordenadorCurso", professorRepository.findByCurso("Informática").get(0).getNome());
