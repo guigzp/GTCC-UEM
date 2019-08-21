@@ -14,7 +14,7 @@
 	href="https://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
 	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" type="text/css" media="screen" href="main.css">
+
 <link href="webjars/bootstrap/4.0.0/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="../../static/js/jquery_mask/jquery.mask.js"></script>
@@ -27,215 +27,34 @@
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
 <script type="text/javascript">
-		document.addEventListener('DOMContentLoaded', function () {
-			(function () {
-				var just_stop;
-				var mes, ano, dia;
-				$('#datepicker').datepicker();
-								
-				window.clone_out = function (subject) {
-					var $subject;
-					$subject = $(subject);
-					$($subject.html()).appendTo('body');
-					$subject.remove();
-					console.log('hey', this);
-					$(this).toggleClass('ui-state-active');
-					$(this).attr('data-target', '.bd-example-modal-lg');
-					$(this).attr('data-toggle', 'modal');
-					$('.bd-example-modal-lg').modal('toggle');
-					
-					mes = $(this).parent('td').attr('data-month');
-					ano = $(this).parent('td').attr('data-year');
-					dia = $(this).text();
-					
-					mes = parseInt(mes) + 1;
-					
-					console.log(dia + "-" + mes + "-" + ano);
-					if(dia < 10){
-						dia = "0" + dia;
-					}
-					if(mes < 10){
-						mes = "0" + mes;
-					}
-					var datadefesa = ano+'-0'+mes+'-'+dia;
-					var path0= window.location.href;
-					var path = path0;
-					var n = path0.search("/pesquisar/");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?atualizado=true");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?sucesso=true");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?removido=true");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?sucesso=true?tipo=1");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?sucesso=false&tipo=1");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?atualizado=false");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?sucesso=false");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?removido=false");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-				 	window.open(path + "/pesquisar/"+datadefesa, "_self" );
-					
-					return $('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-				};
-				window.stop_it = function (e) {
-					console.log('hey', this);
-					$(this).toggleClass('ui-state-active');
-					$(this).attr('data-target', '.bd-example-modal-lg');
-					$(this).attr('data-toggle', 'modal');
-					$('.bd-example-modal-lg').modal('toggle');
-					
-					mes = $(this).parent('td').attr('data-month');
-					ano = $(this).parent('td').attr('data-year');
-					dia = $(this).text();
-					
-					mes = parseInt(mes) + 1;
-					
-					console.log(dia + "-" + mes + "-" + ano);
-					
-					if(dia < 10){
-						dia = "0" + dia;
-					}
-					if(mes < 10){
-						mes = "0" + mes;
-					}
-					
-					var datadefesa = ano+'-'+mes+'-'+dia;
-					var path0= window.location.href;
-					var path = path0;
-					var n = path0.search("/pesquisar/");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search(/atualizado=true/);
-					if(n != -1){
-						path = path.substring(0, n-1);
-					}
-					n = path0.search(/sucesso=true/);
-					if(n != -1){
-						path = path.substring(0, n-1);
-					}
-					n = path0.search(/removido=true/);
-					if(n != -1){
-						path = path.substring(0, n-1);
-					}
-					n = path0.search(/sucesso=true?tipo=1/);
-					if(n != -1){
-						path = path.substring(0, n-1);
-					}
-					n = path0.search(/sucesso=false&tipo=1/);
-					if(n != -1){
-						path = path.substring(0, n-1);
-					}
-					n = path0.search(/atualizado=false/);
-					if(n != -1){
-						path = path.substring(0, n-1);
-					}
-					n = path0.search(/sucesso=false/);
-					if(n != -1){
-						path = path.substring(0, n-1);
-					}
-					n = path0.search(/removido=false/);
-					if(n != -1){
-						path = path.substring(0, n-1);
-					}
-				 	window.open(path + "/pesquisar/"+datadefesa, "_self" );
-					//e.preventDefault()
-					e.stopPropagation();
-					return false;
-				};
-				just_stop = function (e) {
-					console.log('hey', this);
-					$(this).toggleClass('ui-state-active');
-					$(this).attr('data-target', '.bd-example-modal-lg');
-					$(this).attr('data-toggle', 'modal');
-					$('.bd-example-modal-lg').modal('toggle');
-					
-					mes = $(this).parent('td').attr('data-month');
-					ano = $(this).parent('td').attr('data-year');
-					dia = $(this).text();
-					
-					mes = parseInt(mes) + 1;
-					
-					console.log(dia + "-" + mes + "-" + ano);
-					
-					if(dia < 10){
-						dia = "0" + dia;
-					}
-					if(mes < 10){
-						mes = "0" + mes;
-					}
-					
-					var datadefesa = ano+'-'+mes+'-'+dia;
-					var path0= window.location.href;
-					var path = path0;
-					var n = path0.search("/pesquisar/");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?atualizado=true");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?sucesso=true");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?removido=true");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?sucesso=true?tipo=1");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?sucesso=false&tipo=1");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?atualizado=false");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?sucesso=false");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					n = path0.search("?removido=false");
-					if(n != -1){
-						path = path.substring(0, n);
-					}
-					
-				 	window.open(path + "/pesquisar/"+datadefesa, "_self" );
-					
-				};
-				$('body').on('click', '.ui-datepicker-calendar > tbody > tr > td a.ui-state-default', stop_it);
-				$('.ui-datepicker-calendar > tbody > tr > td a.ui-state-default').click(stop_it);
-			}).call(this);
-		}, false);
-		
+
+$(function() {
+    var mes, ano, dia;
+    $("#datepicker").datepicker({
+        dateFormat: 'dd/mm/yy',
+        dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
+        dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+        dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+        monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+        monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    })
+    $(this).each(function() {
+    	 $("td").click(function(){
+    		 $(this).each(function() {
+    			console.log('hey', this);
+    			$(this).toggleClass('ui-state-active');
+    			$(this).attr('data-target', '.bd-example-modal-lg');
+    			$(this).attr('data-toggle', 'modal');
+    			$('.bd-example-modal-lg').modal('toggle');
+    			
+    			mes = $(this).parent('td').attr('data-month');
+    			ano = $(this).parent('td').attr('data-year');
+    			dia = $(this).text();
+    		 });
+    	  });
+    });
+   
+});
 </script>
 
 <script type="text/javascript">

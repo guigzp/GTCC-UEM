@@ -106,10 +106,12 @@ public class AgendamentoController {
     public ModelAndView add(Agendamento agendamento) {
     	
     	List<FichaIdentificacao> fichas = fichaIdentificacaoService.listarTodos();
+    	List<Agendamento> agendamentos = agendamentoService.listarTodosAtivos();
     	
         ModelAndView mv = new ModelAndView("agendamentodefesa/defesaCreate");
         mv.addObject("fichas", fichas);
         mv.addObject("agendamento", agendamento);
+        mv.addObject("agendamentos", agendamentos);
         return mv;
     }
     
