@@ -184,20 +184,41 @@ public class DeclaracaoParticipanteController {
 		parametros.put("Ano", String.valueOf(ano));
 		parametros.put("Data", dataAtual);
 		
+		
 		String caminho = new File("./").getAbsolutePath();
 		caminho = caminho.substring(0, caminho.length() - 1);
 		caminho = caminho + "src/main/resources/static/report/";
 		
-		if(!professorRepository.findByCurso("Informática").isEmpty()) {
-			parametros.put("CoordenadorCurso", professorRepository.findByCurso("Informática").get(0).getNome());
-			parametros.put("NomeCurso", "Informática");
-			gerarPropostaOri("DeclaracaoInfoOrientador.pdf", parametros);
+		
+		if(dec.getOrientador()) {
+			parametros.put("IdProfessor", dec.getIdProfessor().toString());
+			if(!professorRepository.findByCurso("Informática").isEmpty()) {
+				parametros.put("CoordenadorCurso", professorRepository.findByCurso("Informática").get(0).getNome());
+				parametros.put("NomeCurso", "Informática");
+				gerarPropostaOri("DeclaracaoInfoOrientador.pdf", parametros);
+			}
+			if(!professorRepository.findByCurso("Ciência da Computação").isEmpty()) {
+				parametros.put("CoordenadorCurso", professorRepository.findByCurso("Ciência da Computação").get(0).getNome());
+				parametros.put("NomeCurso", "Ciência da Computação");
+				gerarPropostaOri("DeclaracaoCCOrientador.pdf", parametros);
+			}
 		}
-		if(!professorRepository.findByCurso("Ciência da Computação").isEmpty()) {
-			parametros.put("CoordenadorCurso", professorRepository.findByCurso("Ciência da Computação").get(0).getNome());
-			parametros.put("NomeCurso", "Ciência da Computação");
-			gerarPropostaOri("DeclaracaoCCOrientador.pdf", parametros);
+		if(dec.getAvaliador()) {
+			parametros.put("IdProfessor", dec.getIdProfessor().toString());
+			if(!professorRepository.findByCurso("Informática").isEmpty()) {
+				parametros.put("CoordenadorCurso", professorRepository.findByCurso("Informática").get(0).getNome());
+				parametros.put("NomeCurso", "Informática");
+				gerarPropostaAvali("DeclaracaoInfoAvaliador.pdf", parametros);
+			}
+			if(!professorRepository.findByCurso("Ciência da Computação").isEmpty()) {
+				parametros.put("CoordenadorCurso", professorRepository.findByCurso("Ciência da Computação").get(0).getNome());
+				parametros.put("NomeCurso", "Ciência da Computação");
+				gerarPropostaAvali("DeclaracaoCCAvaliador.pdf", parametros);
+			}
+			
+			
 		}
+		
 		ModelAndView mv = new ModelAndView("redirect:/gtcc/declaracoes/consultar").addObject("sucesso", true);
 		return mv;
 	}
