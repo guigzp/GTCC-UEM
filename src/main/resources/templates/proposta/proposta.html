@@ -99,7 +99,7 @@
 		<script th:inline="javascript">
 			window.onload = function(){
 		        if([[${param.sucesso}]]=="true"){
-		  			alertify.success('Proposta gerada com sucesso!');
+		  			alertify.success('Proposta gerada com sucesso na pasta Report!');
 		        }else if([[${param.sucesso}]]=="false"){
 		        	if([[${param.tipo}]]=="1"){
 		        		alertify.error('Coordenador não cadastrado!');

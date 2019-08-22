@@ -264,6 +264,22 @@
 		
 		
         </script>
+        
+        <script th:inline="javascript">
+			window.onload = function(){
+		        if([[${param.sucesso}]]=="true"){
+		  			alertify.success('Declaração gerada com sucesso na pasta Report!');
+		        }else if([[${param.sucesso}]]=="false"){
+		        	if([[${param.tipo}]]=="1"){
+		        		alertify.error('Coordenador não cadastrado!');
+		        	}else if([[${param.tipo}]]=="2"){
+		        		alertify.error('Atividade não cadastrada!');
+		        	}else{
+		        		alertify.error('Erro JRException!');
+		        	}
+		        }
+			}
+		</script>
 	</section>
 
 </body>

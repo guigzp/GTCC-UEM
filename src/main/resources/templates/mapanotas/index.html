@@ -54,7 +54,7 @@
 							<td th:text="${mapaNota.fichaIdentificacao.orientador.nome}"></td>
 							<td th:text="${mapaNota.fichaIdentificacao.avaliador1.nome}"></td>
 							<td th:text="${mapaNota.fichaIdentificacao.avaliador2.nome}"></td>
-							<td >
+							<td style="display: none;">
 								<form th:action="@{/gtcc/mapanotas/editar/{id}(id=${mapaNota.id})}" method="GET">
 					                <button class="btn btn-warning"  type="submit">
 					                    Editar
@@ -126,7 +126,7 @@
 				}
 				$("#basic-informations th:last").after(
 						"<th scope='col'>Média Final</th>"+
-						"<th scope='col'>Ação</th>"
+						"<th style='display: none;' scope='col'>Ação</th>"
 				   		)	
 				   		
 				//ALTERANDO O ID DAS ROWS DA TABLE
