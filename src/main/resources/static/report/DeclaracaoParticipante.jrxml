@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Proposta" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3abbd2c5-53cd-45fa-bfd8-9cff8eb4bc4c">
 	<property name="ireport.zoom" value="1.7684607682500024"/>
-	<property name="ireport.x" value="71"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading" fontSize="14"/>
@@ -53,7 +53,7 @@
 				<textElement textAlignment="Center">
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA["Universidade Estadual de Maringá"]]></text>
+				<text><![CDATA[Universidade Estadual de Maringá]]></text>
 			</staticText>
 			<image>
 				<reportElement x="481" y="15" width="74" height="43" uuid="9894aa69-acc8-416f-b135-a46e199938a2"/>
