@@ -120,7 +120,7 @@ $(function() {
 							<div class="form-group row justify-content-center">
 								<div class="controls col-sm-12 col-sm-12">
 									<input id="tituloTrabalho" type="text"
-										placeholder="Título do trabalho*" disabled
+										placeholder="Título do trabalho" disabled
 										style="height: 55px; border-radius: 5px; border: 1px solid #bebebe; width: 100%; padding: 0 1em;">
 								</div>
 							</div>
@@ -128,7 +128,7 @@ $(function() {
 								<div class="form-row" style="width: 100%;">
 									<div class="col">
 										<div class="form-group">
-											<label for="dataDefesa" class="col-form-label text-right">Data</label>
+											<label for="dataDefesa" class="col-form-label text-right">Data de defesa*</label>
 											<div class="controls">
 												<input type="text" name="dataDefesa" id="dataDefesa"
 													class="form-control" th:field="*{dataDefesa}"
@@ -142,7 +142,7 @@ $(function() {
 									</div>
 									<div class="col">
 										<div class="form-group">
-											<label for="horario" class="col-form-label text-right">Horário</label>
+											<label for="horario" class="col-form-label text-right">Horário*</label>
 											<div class="controls">
 												<input type="text" name="horario" id="horario"
 													class="form-control" th:field="*{horario}"
@@ -155,11 +155,11 @@ $(function() {
 									</div>
 									<div class="col">
 										<div class="form-group">
-											<label for="local" class="col-form-label text-right">Horário</label>
+											<label for="local" class="col-form-label text-right">Local*</label>
 											<div class="controls">
 												<input type="text" name="local" th:field="*{local}" id="local"
 													class="form-control" autofocus="autofocus"
-													placeholder="Local*" aria-label="Local"
+													placeholder="Local" aria-label="Local"
 													aria-describedby="basic-addon1" />
 												<div style="color: red;" th:if="${#fields.hasErrors('local')}"
 													th:errors="*{local}"></div>
